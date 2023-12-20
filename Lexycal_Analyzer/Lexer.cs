@@ -1,4 +1,6 @@
-﻿namespace ClassLibrary;
+﻿namespace GeoEngine;
+
+// namespace GeoEngine;
 // A Lexer walks through the code and splits it into Tokens
 // So, Lexer:
 // Recieves <code> ------- returns Tokens
@@ -9,11 +11,14 @@ public class Lexer
     public readonly string sourceCode;
     private int currentPosition;
 
+    public List<Token> tokens;
+
     public Lexer(string sourceCode)
     {
         this.sourceCode = sourceCode;
         currentPosition = 0;
     }
+        
 
     #endregion
 
@@ -25,7 +30,6 @@ public class Lexer
     public List<Token> Tokenize()
     {
         // Initialize List
-        List<Token> tokens = new();
 
         while (currentPosition < sourceCode.Length)
         {
@@ -121,7 +125,10 @@ public class Lexer
             idkind += sourceCode[currentPosition];
             currentPosition++;
         }
-
+        
+        if(tokens.Last().Kind is TokenKind.Color)
+           return IsColour(idkind);
+        
         if (IsKeyWord(idkind))
         {
             return KeyWord(idkind);
@@ -275,18 +282,101 @@ public class Lexer
         {
             case "let":
                 return new Keyword(TokenKind.Let);
-
             case "in":
                 return new Keyword(TokenKind.In);
-
             case "if":
                 return new Keyword(TokenKind.If);
-
+            case "then":
+                return new Keyword(TokenKind.Then);
+            case "point":
+                return new Keyword(TokenKind.Point);
+            case "line":
+                return new Keyword(TokenKind.Line);
+            case "segment":
+                return new Keyword(TokenKind.Segment);
+            case "ray":
+                return new Keyword(TokenKind.Ray);
+            case "circle":
+                return new Keyword(TokenKind.Circle);
+            case "sequence":
+                return new Keyword(TokenKind.Sequence);
+            case "color":
+                return new Keyword(TokenKind.Color);
+            case "restore":
+                return new Keyword(TokenKind.Restore);
+            case "import":
+                return new Keyword(TokenKind.Import);
+            case "draw":
+                return new Keyword(TokenKind.Draw);
+            case "arc":
+                return new Keyword(TokenKind.Arc);
+            case "measure":
+                return new Keyword(TokenKind.Measure);
+            case "intersect":
+                return new Keyword(TokenKind.Intersect);
+            case "count":
+                return new Keyword(TokenKind.Count);
+            case "randoms":
+                return new Keyword(TokenKind.Randoms);
+            case "points":
+                return new Keyword(TokenKind.Points);
+            case "samples":
+                return new Keyword(TokenKind.Samples);
+            case "rest":
+                return new Keyword(TokenKind.Rest);
+            case "underScore":
+                return new Keyword(TokenKind.UnderScore);
+            case "and":
+                return new Keyword(TokenKind.And);
+            case "or":
+                return new Keyword(TokenKind.Or);
+            case "not":
+                return new Keyword(TokenKind.Not);
+            case "undefined":
+                return new Data(TokenKind.Undefined, null!);
             default:
                 return new Keyword(TokenKind.Else);
+        }
+    }
+
+    private Token IsColour(string keyWord)
+    {
+        switch(keyWord)
+        {
+            case "red":
+                return new Data(TokenKind.Color, "red");
+            case "blue":
+                return new Data(TokenKind.Color, "blue");
+            case "yellow":
+                return new Data(TokenKind.Color, "yellow");
+            case "green":
+                return new Data(TokenKind.Color, "green");
+            case "cyan":
+                return new Data(TokenKind.Color, "cyan");
+            case "magenta":
+                return new Data(TokenKind.Color, "magenta");
+            case "white":
+                return new Data(TokenKind.Color, "white");
+            case "gray":
+                return new Data(TokenKind.Color, "gray");
+            case "black":
+                return new Data(TokenKind.Color, "black");
+            default:
+                System.Console.WriteLine("!syntax error: color not found.");
+                throw new Exception();
 
         }
     }
+
+    // Blue,
+    // Red,
+    // Yellow,
+    // Green,
+    // Cyan,
+    // Magenta,
+    // White,
+    // Gray,
+    // Black
 
     #endregion
 
@@ -331,7 +421,7 @@ public class Lexer
     {
         List<char> Punctuators = new()
             {
-                '(', ')', ';', ',','.','"','{','}'
+                '(', ')', ';', ',', '.', '"', '{' ,'}'
             };
 
         return Punctuators.Contains(currentChar);

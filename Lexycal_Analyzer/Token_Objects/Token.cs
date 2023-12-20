@@ -8,7 +8,7 @@ public abstract class Token
     }
 
     public TokenKind GetKind() => Kind;
-    
+
     public void SetKind(TokenKind kind) => Kind = kind;
 
     public abstract string GetName();

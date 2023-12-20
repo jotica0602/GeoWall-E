@@ -54,6 +54,8 @@ public enum TokenKind
 
     Number,
 
+    Colour,
+
     Undefined,
 
     // Arithmetic Operators
@@ -103,7 +105,6 @@ public enum TokenKind
     RightCurlyBracket,
 
     TriplePoint,
-
 
     Comma,
 
