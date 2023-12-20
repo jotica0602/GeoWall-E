@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wgwaZ/1NROvfl6hV44I4UvmNdi4hU9htyrha/jYzhtBLzwG3Dshvfsed1yvbbx0ZnzmT3bWCBXuHJaAfddJtTA==",
+  "success": true,
+  "projectFilePath": "/home/alex/Desktop/GeoWall-E/GeoGo/GeoGo.csproj",
+  "expectedPackageFiles": [
+    "/home/alex/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

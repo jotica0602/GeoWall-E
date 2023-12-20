@@ -1,0 +1,12 @@
+/home/alex/Desktop/GeoWall-E/GeoEngine/bin/Debug/net7.0/GeoEngine.deps.json
+/home/alex/Desktop/GeoWall-E/GeoEngine/bin/Debug/net7.0/GeoEngine.dll
+/home/alex/Desktop/GeoWall-E/GeoEngine/bin/Debug/net7.0/GeoEngine.pdb
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/GeoEngine.csproj.AssemblyReference.cache
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/GeoEngine.GeneratedMSBuildEditorConfig.editorconfig
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/GeoEngine.AssemblyInfoInputs.cache
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/GeoEngine.AssemblyInfo.cs
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/GeoEngine.csproj.CoreCompileInputs.cache
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/GeoEngine.dll
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/refint/GeoEngine.dll
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/GeoEngine.pdb
+/home/alex/Desktop/GeoWall-E/GeoEngine/obj/Debug/net7.0/ref/GeoEngine.dll

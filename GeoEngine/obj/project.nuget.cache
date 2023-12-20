@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "e5yccL5UtrEWZJlASwjNXJFp4ZXfESger7IToTBLPSIcTDVl+zpXh/yrMGQskD+E+Gj7R3iyimpbTnZu91ZRtQ==",
+  "success": true,
+  "projectFilePath": "/home/alex/Desktop/GeoWall-E/GeoEngine/GeoEngine.csproj",
+  "expectedPackageFiles": [
+    "/home/alex/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
