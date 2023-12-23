@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "e5yccL5UtrEWZJlASwjNXJFp4ZXfESger7IToTBLPSIcTDVl+zpXh/yrMGQskD+E+Gj7R3iyimpbTnZu91ZRtQ==",
+  "dgSpecHash": "pBjZrN0K1FmaPeXvenPTP1RAa834xBgCiA7krxk/zgsfr1YXP0YM/dWlyZpTwuIAkl3R6Unnb9htfoR5bDc0BA==",
   "success": true,
-  "projectFilePath": "/home/alex/Desktop/GeoWall-E/GeoEngine/GeoEngine.csproj",
-  "expectedPackageFiles": [
-    "/home/alex/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
-  ],
+  "projectFilePath": "E:\\University\\Wall-E\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

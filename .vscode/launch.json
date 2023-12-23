@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/GeoGo/bin/Debug/net7.0/GeoGo.dll",
+            "program": "${workspaceFolder}/GeoGo/bin/Debug/net8.0/GeoGo.dll",
             "args": [],
             "cwd": "${workspaceFolder}/GeoGo",
             "console": "internalConsole",

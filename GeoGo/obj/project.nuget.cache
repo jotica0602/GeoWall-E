@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wgwaZ/1NROvfl6hV44I4UvmNdi4hU9htyrha/jYzhtBLzwG3Dshvfsed1yvbbx0ZnzmT3bWCBXuHJaAfddJtTA==",
+  "dgSpecHash": "pj2tXxvvB2iDnr+x5T5AJWjzEVSjlQm9swa6YRRL8+DTjq1eZY0yQRiI8ewUdZZAt6eJtOQvqUJomBSqg4styw==",
   "success": true,
-  "projectFilePath": "/home/alex/Desktop/GeoWall-E/GeoGo/GeoGo.csproj",
-  "expectedPackageFiles": [
-    "/home/alex/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
-  ],
+  "projectFilePath": "E:\\University\\Wall-E\\GeoWall-E\\geogo\\GeoGo.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
