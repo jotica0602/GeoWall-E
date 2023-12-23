@@ -1,3 +1,4 @@
+namespace GeoEngine;
 public enum NodeType{
     Number,
     String,

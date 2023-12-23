@@ -1,4 +1,5 @@
-public class GreaterOrEquals : BinaryExpression
+namespace GeoEngine;
+public class GreaterOrEquals : BooleanExpression
 {
     public GreaterOrEquals(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
@@ -6,11 +7,10 @@ public class GreaterOrEquals : BinaryExpression
         this.RightNode = rightNode;
     }
 
-
     public override void Evaluate()
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Value = (double)LeftNode.Value >= (double)RightNode.Value;
+        Value = (double)LeftNode.Value >= (double)RightNode.Value ? 1 : 0;
     }
 }

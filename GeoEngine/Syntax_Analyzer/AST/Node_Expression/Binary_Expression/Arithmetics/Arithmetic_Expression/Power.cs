@@ -1,10 +1,11 @@
-public class Power : BinaryExpression
+namespace GeoEngine;
+public class Power : ArithmeticExpression
 {
     public Power(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
         Type = NodeType.Number;
     }
-   
+
     public override void Evaluate()
     {
         LeftNode.Evaluate();

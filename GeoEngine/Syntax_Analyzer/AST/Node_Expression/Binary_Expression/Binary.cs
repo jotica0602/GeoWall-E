@@ -1,3 +1,4 @@
+namespace GeoEngine;
 public abstract class BinaryExpression : Node
 {
     public Node LeftNode;

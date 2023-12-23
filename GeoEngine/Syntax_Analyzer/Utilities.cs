@@ -1,4 +1,4 @@
-namespace ClassLibrary;
+namespace GeoEngine;
 public partial class ASTBuilder
 {
     Node BuildBinaryNode(Node leftNode, TokenType operation, Node rightNode)

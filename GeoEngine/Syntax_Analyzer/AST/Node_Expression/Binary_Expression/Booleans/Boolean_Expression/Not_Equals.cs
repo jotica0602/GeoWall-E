@@ -1,4 +1,5 @@
-public class NotEquals : BinaryExpression
+namespace GeoEngine;
+public class NotEquals : BooleanExpression
 {
     public NotEquals(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
@@ -6,11 +7,10 @@ public class NotEquals : BinaryExpression
         this.RightNode = rightNode;
     }
 
-
     public override void Evaluate()
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Value = LeftNode.Value != RightNode.Value;
+        Value = LeftNode.Value != RightNode.Value ? 1 : 0;
     }
 }

@@ -1,4 +1,5 @@
-public class And : BinaryExpression
+namespace GeoEngine;
+public class And : BooleanExpression
 {
     public And(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
@@ -6,11 +7,11 @@ public class And : BinaryExpression
         this.RightNode = rightNode;
     }
 
-
     public override void Evaluate()
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Value = (bool)LeftNode.Value && (bool)RightNode.Value;
+        if (LeftNode.BooleanValue && RightNode.BooleanValue) { Value = 0; }
+        else { Value = 1; }
     }
 }

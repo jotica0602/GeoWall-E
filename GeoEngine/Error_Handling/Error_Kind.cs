@@ -4,6 +4,7 @@ public enum ErrorKind
 {
     Lexycal,
     Syntax,
-    Semantic
+    Semantic,
+    RunTimeError,
 
 }

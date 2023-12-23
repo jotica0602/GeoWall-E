@@ -1,10 +1,11 @@
-public class Quotient : BinaryExpression
+namespace GeoEngine;
+public class Quotient : ArithmeticExpression
 {
     public Quotient(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
         Type = NodeType.Number;
     }
-   
+
     public override void Evaluate()
     {
         LeftNode.Evaluate();
