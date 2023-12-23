@@ -24,7 +24,7 @@ class Interpreter
         List<Token> tokens = lexer.Tokenize();
         System.Console.WriteLine(string.Join('\n', tokens));
 
-        if (Error.allErrors.Count > 0)
+        if (Error.diagnostics.Count > 0)
         {
             Error.ShowErrors();
         }

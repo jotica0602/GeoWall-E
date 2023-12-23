@@ -1,8 +1,5 @@
 public class Literal : Node
 {
-    public override NodeType Type { get; set; }
-    public override object Value { get; set; }
-
     public Literal(object Value)
     {
         this.Value = Value;
@@ -16,5 +13,4 @@ public class Literal : Node
     }
 
     public override void Evaluate(){ }
-    
 }

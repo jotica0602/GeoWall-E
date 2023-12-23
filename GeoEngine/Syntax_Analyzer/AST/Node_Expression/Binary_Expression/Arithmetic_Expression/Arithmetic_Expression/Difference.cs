@@ -1,8 +1,6 @@
 public class Difference : BinaryExpression
 {
-    public override NodeType Type { get; set; }
-    public override object Value { get; set; }
-    public Difference(Node LeftNode, Node RightNode) : base(LeftNode, RightNode)
+    public Difference(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
         Type = NodeType.Number;
     }

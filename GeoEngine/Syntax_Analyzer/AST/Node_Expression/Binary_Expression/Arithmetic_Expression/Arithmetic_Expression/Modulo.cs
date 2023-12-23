@@ -1,12 +1,10 @@
-public class Modulus : BinaryExpression
+public class Modulo : BinaryExpression
 {
-    public override NodeType Type { get; set; }
-    public override object Value { get; set; }
-    public Modulus(Node LeftNode, Node RightNode) : base(LeftNode, RightNode)
+    public Modulo(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
         Type = NodeType.Number;
     }
-    
+   
     public override void Evaluate()
     {
         LeftNode.Evaluate();

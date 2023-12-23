@@ -69,7 +69,7 @@ public enum TokenType
 
     Power,
 
-    Modulus,
+    Modulo,
 
     // Boolean Operators
 

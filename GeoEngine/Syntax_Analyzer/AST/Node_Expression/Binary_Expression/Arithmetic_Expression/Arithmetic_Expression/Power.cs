@@ -1,12 +1,10 @@
 public class Power : BinaryExpression
 {
-    public override NodeType Type { get; set; }
-    public override object Value { get; set; }
-    public Power(Node LeftNode, Node RightNode) : base(LeftNode, RightNode)
+    public Power(Node leftNode, Node rightNode) : base(leftNode, rightNode)
     {
         Type = NodeType.Number;
     }
-    
+   
     public override void Evaluate()
     {
         LeftNode.Evaluate();

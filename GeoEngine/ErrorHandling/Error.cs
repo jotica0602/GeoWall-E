@@ -5,7 +5,7 @@ namespace GeoEngine;
 
 public class Error
 {
-    public static List<Error> allErrors = new List<Error>();
+    public static List<Error> diagnostics = new List<Error>();
     private ErrorKind errorKind;
     private ErrorCode errorCode;
     private string argument = "";
@@ -17,12 +17,12 @@ public class Error
         errorCode = _errorCode;
         argument = _argument;
         location = _location;
-        allErrors.Add(this);
+        diagnostics.Add(this);
     }
 
     public static void ShowErrors()
     {
-        foreach (Error error in allErrors)
+        foreach (Error error in diagnostics)
         {
             Console.WriteLine($"! {error.errorKind} Error: {error.errorCode} {error.argument} in line number {error.location}");
         }

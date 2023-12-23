@@ -3,12 +3,14 @@ public partial class Lexer
 {
     private void MoveNext(int positions)
     {
-        currentPosition += positions;
+        if (currentPosition + positions < sourceCode.Length)
+            currentPosition += positions;
     }
 
     private void MoveNext()
     {
-        currentPosition++;
+        if (currentPosition + 1 < sourceCode.Length)
+            currentPosition++;
     }
 
     private char LookAhead(int positions)

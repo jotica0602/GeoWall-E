@@ -50,7 +50,7 @@ public partial class Lexer
             //if its a line jump we add a token
             if (currentChar is '\n')
             {
-                tokens.Add(new CommonToken(TokenType.LineBreak, "\\n"));
+                tokens.Add(new CommonToken(TokenType.LineBreak,line.ToString()));
                 line++;
                 MoveNext();
                 continue;
@@ -180,7 +180,7 @@ public partial class Lexer
 
             case '%':
                 MoveNext();
-                return new CommonToken(TokenType.Modulus, _operator.ToString());
+                return new CommonToken(TokenType.Modulo, _operator.ToString());
 
             case '=':
                 if (LookAhead(1) is '=')
