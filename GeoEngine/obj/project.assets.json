@@ -8,31 +8,24 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Josue\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Alex\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\University\\Wall-E\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
+      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
       "projectName": "GeoEngine",
-      "projectPath": "E:\\University\\Wall-E\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
-      "packagesPath": "C:\\Users\\Josue\\.nuget\\packages\\",
-      "outputPath": "E:\\University\\Wall-E\\GeoWall-E\\GeoEngine\\obj\\",
+      "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
+      "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Josue\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

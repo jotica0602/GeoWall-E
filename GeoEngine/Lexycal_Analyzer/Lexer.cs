@@ -50,7 +50,7 @@ public partial class Lexer
             //if its a line jump we add a token
             if (currentChar is '\n')
             {
-                tokens.Add(new CommonToken(TokenKind.LineBreak, "is \\n"));
+                tokens.Add(new CommonToken(TokenKind.LineBreak, "\\n"));
                 line++;
                 MoveNext();
                 continue;

@@ -27,39 +27,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Josue\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Alex\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\University\\Wall-E\\GeoWall-E\\geogo\\GeoGo.csproj",
+      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\GeoGo.csproj",
       "projectName": "GeoGo",
-      "projectPath": "E:\\University\\Wall-E\\GeoWall-E\\geogo\\GeoGo.csproj",
-      "packagesPath": "C:\\Users\\Josue\\.nuget\\packages\\",
-      "outputPath": "E:\\University\\Wall-E\\GeoWall-E\\geogo\\obj\\",
+      "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\GeoGo.csproj",
+      "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Josue\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\University\\Wall-E\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
-              "projectPath": "E:\\University\\Wall-E\\GeoWall-E\\GeoEngine\\GeoEngine.csproj"
+            "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
+              "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj"
             }
           }
         }
