@@ -84,7 +84,7 @@ public partial class Lexer
             else
             {
                 tokens.Add(new CommonToken(TokenKind.Unknown, currentChar.ToString()));
-                Console.WriteLine($"!lexical error: \"{tokens.Last()}\" is not a valid token in line {line}");
+                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Unknown, $"token: {currentChar}", line);
                 MoveNext();
             }
         }
@@ -106,8 +106,7 @@ public partial class Lexer
 
             if (IsLetter(LookAhead(1)))
             {
-                Console.WriteLine($"!lexical error: \"{number + LookAhead(1)}\" is not a valid token in line {line}");
-                throw new Exception();
+                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Invalid, $"token: {number + LookAhead(1)}", line);
             }
 
             currentPosition++;
