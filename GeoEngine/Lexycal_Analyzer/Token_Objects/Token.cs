@@ -1,15 +1,15 @@
 public abstract class Token
 {
-    public TokenKind Kind { get; set; }
+    public TokenType Type { get; set; }
 
-    public Token(TokenKind kind)
+    public Token(TokenType type)
     {
-        Kind = kind;
+        Type = type;
     }
 
-    public TokenKind GetKind() => Kind;
+    public TokenType Gettype() => Type;
 
-    public void SetKind(TokenKind kind) => Kind = kind;
+    public void Settype(TokenType type) => Type = type;
 
     public abstract string GetName();
 
@@ -20,17 +20,17 @@ public abstract class Token
     public abstract void SetValue(object value);
 
 
-    public override string ToString() => $"{Kind}";
+    public override string ToString() => $"{Type}";
 }
 
 public class Keyword : Token
 {
-    public Keyword(TokenKind kind) : base(kind)
+    public Keyword(TokenType type) : base(type)
     {
-        Kind = kind;
+        Type = type;
     }
 
-    public override string GetName() => Kind.ToString();
+    public override string GetName() => Type.ToString();
 
     public override object GetValue() => throw new NotImplementedException();
 
@@ -44,7 +44,7 @@ public class CommonToken : Token
 {
     public string Representation { get; set; }
 
-    public CommonToken(TokenKind kind, string representation) : base(kind)
+    public CommonToken(TokenType type, string representation) : base(type)
     {
         Representation = representation;
     }
@@ -56,14 +56,14 @@ public class CommonToken : Token
 
     public override void SetValue(object value) => throw new NotImplementedException();
 
-    public override string ToString() => $"{base.Kind}: {Representation}";
+    public override string ToString() => $"{base.Type}: {Representation}";
 }
 
 public class Data : Token
 {
     public object Value { get; set; }
 
-    public Data(TokenKind kind, object value) : base(kind)
+    public Data(TokenType type, object value) : base(type)
     {
         Value = value;
     }
@@ -76,5 +76,5 @@ public class Data : Token
 
     public override void SetValue(object value) => Value = value;
 
-    public override string ToString() => $"{base.Kind}: {Value}";
+    public override string ToString() => $"{base.Type}: {Value}";
 }

@@ -22,7 +22,7 @@ class Interpreter
 
         Lexer lexer = new Lexer(input);
         List<Token> tokens = lexer.Tokenize();
-        // System.Console.WriteLine(string.Join('\n', tokens));
+        System.Console.WriteLine(string.Join('\n', tokens));
 
         if (Error.allErrors.Count > 0)
         {

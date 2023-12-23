@@ -1,4 +1,4 @@
-public enum TokenKind
+public enum TokenType
 {
     Identifier,
 

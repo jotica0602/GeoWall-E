@@ -50,7 +50,7 @@ public partial class Lexer
             //if its a line jump we add a token
             if (currentChar is '\n')
             {
-                tokens.Add(new CommonToken(TokenKind.LineBreak, "\\n"));
+                tokens.Add(new CommonToken(TokenType.LineBreak, "\\n"));
                 line++;
                 MoveNext();
                 continue;
@@ -83,7 +83,7 @@ public partial class Lexer
             // Unknown token
             else
             {
-                tokens.Add(new CommonToken(TokenKind.Unknown, currentChar.ToString()));
+                tokens.Add(new CommonToken(TokenType.Unknown, currentChar.ToString()));
                 Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Unknown, $"token: {currentChar}", line);
                 MoveNext();
             }
@@ -112,7 +112,7 @@ public partial class Lexer
             currentPosition++;
         }
 
-        return new Data(TokenKind.Number, Double.Parse(number));
+        return new Data(TokenType.Number, Double.Parse(number));
     }
 
     private Token GetIdentifier()
@@ -129,13 +129,13 @@ public partial class Lexer
             return Color(identifier);
 
         else if (identifier is "_")
-            return new CommonToken(TokenKind.UnderScore, identifier);
+            return new CommonToken(TokenType.UnderScore, identifier);
 
         else if (IsKeyWord(identifier))
             return KeyWord(identifier);
 
         else
-            return new CommonToken(TokenKind.Identifier, identifier);
+            return new CommonToken(TokenType.Identifier, identifier);
     }
 
     private Token String()
@@ -150,7 +150,7 @@ public partial class Lexer
         }
 
         MoveNext();
-        return new Data(TokenKind.String, str);
+        return new Data(TokenType.String, str);
     }
 
     private Token Operator()
@@ -161,54 +161,54 @@ public partial class Lexer
         {
             case '+':
                 MoveNext();
-                return new CommonToken(TokenKind.Addition, _operator.ToString());
+                return new CommonToken(TokenType.Addition, _operator.ToString());
 
             case '-':
-                return new CommonToken(TokenKind.Addition, _operator.ToString());
+                return new CommonToken(TokenType.Addition, _operator.ToString());
 
             case '*':
                 MoveNext();
-                return new CommonToken(TokenKind.Product, _operator.ToString());
+                return new CommonToken(TokenType.Product, _operator.ToString());
 
             case '/':
                 MoveNext();
-                return new CommonToken(TokenKind.Division, _operator.ToString());
+                return new CommonToken(TokenType.Division, _operator.ToString());
 
             case '^':
                 MoveNext();
-                return new CommonToken(TokenKind.Power, _operator.ToString());
+                return new CommonToken(TokenType.Power, _operator.ToString());
 
             case '%':
                 MoveNext();
-                return new CommonToken(TokenKind.Modulus, _operator.ToString());
+                return new CommonToken(TokenType.Modulus, _operator.ToString());
 
             case '=':
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenKind.EqualsTo, _operator.ToString());
+                    return new CommonToken(TokenType.EqualsTo, _operator.ToString());
                 }
 
                 MoveNext();
-                return new CommonToken(TokenKind.Equals, _operator.ToString());
+                return new CommonToken(TokenType.Equals, _operator.ToString());
 
             case '>':
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenKind.GreaterOrEquals, _operator.ToString());
+                    return new CommonToken(TokenType.GreaterOrEquals, _operator.ToString());
                 }
 
                 MoveNext();
-                return new CommonToken(TokenKind.GreaterThan, _operator.ToString());
+                return new CommonToken(TokenType.GreaterThan, _operator.ToString());
             default:
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenKind.LessOrEquals, _operator.ToString());
+                    return new CommonToken(TokenType.LessOrEquals, _operator.ToString());
                 }
                 MoveNext();
-                return new CommonToken(TokenKind.LessThan, _operator.ToString());
+                return new CommonToken(TokenType.LessThan, _operator.ToString());
         }
     }
 
@@ -219,25 +219,25 @@ public partial class Lexer
         {
             case '(':
                 MoveNext();
-                return new CommonToken(TokenKind.LeftParenthesis, punctuator.ToString());
+                return new CommonToken(TokenType.LeftParenthesis, punctuator.ToString());
             case ')':
                 MoveNext();
-                return new CommonToken(TokenKind.RightParenthesis, punctuator.ToString());
+                return new CommonToken(TokenType.RightParenthesis, punctuator.ToString());
             case ',':
                 MoveNext();
-                return new CommonToken(TokenKind.Comma, punctuator.ToString());
+                return new CommonToken(TokenType.Comma, punctuator.ToString());
             case ';':
                 MoveNext();
-                return new CommonToken(TokenKind.Semicolon, punctuator.ToString());
+                return new CommonToken(TokenType.Semicolon, punctuator.ToString());
             case '{':
                 MoveNext();
-                return new CommonToken(TokenKind.LeftCurlyBracket, punctuator.ToString());
+                return new CommonToken(TokenType.LeftCurlyBracket, punctuator.ToString());
             case '}':
                 MoveNext();
-                return new CommonToken(TokenKind.RightCurlyBracket, punctuator.ToString());
+                return new CommonToken(TokenType.RightCurlyBracket, punctuator.ToString());
             default:
                 MoveNext();
-                return new CommonToken(TokenKind.Quote, punctuator.ToString());
+                return new CommonToken(TokenType.Quote, punctuator.ToString());
         }
     }
 
@@ -246,61 +246,61 @@ public partial class Lexer
         switch (identifier)
         {
             case "let":
-                return new Keyword(TokenKind.Let);
+                return new Keyword(TokenType.Let);
             case "in":
-                return new Keyword(TokenKind.In);
+                return new Keyword(TokenType.In);
             case "if":
-                return new Keyword(TokenKind.If);
+                return new Keyword(TokenType.If);
             case "then":
-                return new Keyword(TokenKind.Then);
+                return new Keyword(TokenType.Then);
             case "point":
-                return new Keyword(TokenKind.Point);
+                return new Keyword(TokenType.Point);
             case "line":
-                return new Keyword(TokenKind.Line);
+                return new Keyword(TokenType.Line);
             case "segment":
-                return new Keyword(TokenKind.Segment);
+                return new Keyword(TokenType.Segment);
             case "ray":
-                return new Keyword(TokenKind.Ray);
+                return new Keyword(TokenType.Ray);
             case "circle":
-                return new Keyword(TokenKind.Circle);
+                return new Keyword(TokenType.Circle);
             case "sequence":
-                return new Keyword(TokenKind.Sequence);
+                return new Keyword(TokenType.Sequence);
             case "color":
-                return new Keyword(TokenKind.ColorKeyWord);
+                return new Keyword(TokenType.ColorKeyWord);
             case "restore":
-                return new Keyword(TokenKind.Restore);
+                return new Keyword(TokenType.Restore);
             case "import":
-                return new Keyword(TokenKind.Import);
+                return new Keyword(TokenType.Import);
             case "draw":
-                return new Keyword(TokenKind.Draw);
+                return new Keyword(TokenType.Draw);
             case "arc":
-                return new Keyword(TokenKind.Arc);
+                return new Keyword(TokenType.Arc);
             case "measure":
-                return new Keyword(TokenKind.Measure);
+                return new Keyword(TokenType.Measure);
             case "intersect":
-                return new Keyword(TokenKind.Intersect);
+                return new Keyword(TokenType.Intersect);
             case "count":
-                return new Keyword(TokenKind.Count);
+                return new Keyword(TokenType.Count);
             case "randoms":
-                return new Keyword(TokenKind.Randoms);
+                return new Keyword(TokenType.Randoms);
             case "points":
-                return new Keyword(TokenKind.Points);
+                return new Keyword(TokenType.Points);
             case "samples":
-                return new Keyword(TokenKind.Samples);
+                return new Keyword(TokenType.Samples);
             case "rest":
-                return new Keyword(TokenKind.Rest);
+                return new Keyword(TokenType.Rest);
             case "underScore":
-                return new Keyword(TokenKind.UnderScore);
+                return new Keyword(TokenType.UnderScore);
             case "and":
-                return new Keyword(TokenKind.And);
+                return new Keyword(TokenType.And);
             case "or":
-                return new Keyword(TokenKind.Or);
+                return new Keyword(TokenType.Or);
             case "not":
-                return new Keyword(TokenKind.Not);
+                return new Keyword(TokenType.Not);
             case "undefined":
-                return new Data(TokenKind.Undefined, null!);
+                return new Data(TokenType.Undefined, null!);
             default:
-                return new Keyword(TokenKind.Else);
+                return new Keyword(TokenType.Else);
         }
     }
 
@@ -309,23 +309,23 @@ public partial class Lexer
         switch (identifier)
         {
             case "red":
-                return new Data(TokenKind.Color, "red");
+                return new Data(TokenType.Color, "red");
             case "blue":
-                return new Data(TokenKind.Color, "blue");
+                return new Data(TokenType.Color, "blue");
             case "yellow":
-                return new Data(TokenKind.Color, "yellow");
+                return new Data(TokenType.Color, "yellow");
             case "green":
-                return new Data(TokenKind.Color, "green");
+                return new Data(TokenType.Color, "green");
             case "cyan":
-                return new Data(TokenKind.Color, "cyan");
+                return new Data(TokenType.Color, "cyan");
             case "magenta":
-                return new Data(TokenKind.Color, "magenta");
+                return new Data(TokenType.Color, "magenta");
             case "white":
-                return new Data(TokenKind.Color, "white");
+                return new Data(TokenType.Color, "white");
             case "gray":
-                return new Data(TokenKind.Color, "gray");
+                return new Data(TokenType.Color, "gray");
             default:
-                return new Data(TokenKind.Color, "black");
+                return new Data(TokenType.Color, "black");
         }
     }
 }
