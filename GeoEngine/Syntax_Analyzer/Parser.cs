@@ -3,10 +3,13 @@ using System.Formats.Asn1;
 namespace GeoEngine;
 public partial class ASTBuilder
 {
-    public List<Token> tokens;
+    List<Token> tokens;
     public List<Node> Nodes;
     public int currentTokenIndex;
+    int currentLine;
     Token currentToken;
+    Token nextToken { get => currentTokenIndex + 1 < tokens.Count ? tokens[currentTokenIndex + 1] : throw new Exception("Token Index out of bounds"); }
+    Token previousToken { get => currentTokenIndex - 1 >= 0 ? tokens[currentTokenIndex - 1] : throw new Exception("Token Index out of bounds"); }
 
     public ASTBuilder(List<Token> tokens)
     {
@@ -14,30 +17,20 @@ public partial class ASTBuilder
         Nodes = new List<Node>();
         currentTokenIndex = 0;
         currentToken = tokens[currentTokenIndex];
+        currentLine=1;
     }
 
-    public void BuildNodes()
+    public List<Node> BuildNodes()
     {
         while (currentToken.Type is not TokenType.EndOfFile)
         {
-            Node node = BuildNode();
-            Expect(TokenType.Semicolon);
+            Node node = BuildLevel1();
+            if (node.Type is not NodeType.LineBreak) { Expect(TokenType.Semicolon); }
             Nodes.Add(node);
+            System.Console.WriteLine($"{node.GetType()} added.");
         }
-    }
 
-    public Node BuildNode()
-    {
-        Node leftNode = BuildLevel1();
-        while (IsALevel1Operator(currentToken.Type))
-        {
-            TokenType operation = currentToken.Type;
-            MoveNext();
-            Node rightNode = BuildLevel2();
-            leftNode = BuildBinaryNode(leftNode, operation, rightNode);
-        }
-        Node node = leftNode;
-        return node;
+        return Nodes;
     }
 
     private Node BuildLevel1()
@@ -50,17 +43,18 @@ public partial class ASTBuilder
             Node rightNode = BuildLevel2();
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
+        Node node = leftNode;
         return leftNode;
     }
 
     private Node BuildLevel2()
     {
         Node leftNode = BuildLevel3();
-        while (IsALevel1Operator(currentToken.Type))
+        while (IsALevel2Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel2();
+            Node rightNode = BuildLevel3();
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
@@ -69,11 +63,11 @@ public partial class ASTBuilder
     private Node BuildLevel3()
     {
         Node leftNode = BuildLevel4();
-        while (IsALevel1Operator(currentToken.Type))
+        while (IsALevel3Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel2();
+            Node rightNode = BuildLevel4();
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
@@ -82,11 +76,11 @@ public partial class ASTBuilder
     private Node BuildLevel4()
     {
         Node leftNode = BuildLevel5();
-        while (IsALevel1Operator(currentToken.Type))
+        while (IsALevel4Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel2();
+            Node rightNode = BuildLevel5();
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
@@ -99,7 +93,7 @@ public partial class ASTBuilder
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel2();
+            Node rightNode = BuildAtom();
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
@@ -114,13 +108,31 @@ public partial class ASTBuilder
                 MoveNext();
                 return numberNode;
 
-            // case TokenType.LineBreak:
-                
-
-            default:
+            case TokenType.String:
                 Node stringNode = new Literal(currentToken.GetValue());
                 MoveNext();
                 return stringNode;
+
+            case TokenType.If:
+                Node ifThenElseNode = BuildTernaryNode();
+                return ifThenElseNode;
+
+            case TokenType.LeftParenthesis:
+                MoveNext();
+                Node expression = BuildLevel1();
+                Expect(TokenType.RightParenthesis);
+                return expression;
+
+            case TokenType.LineBreak:
+                Node lineBreakNode = new LineBreak(currentToken.GetValue());
+                currentLine++;
+                MoveNext();
+                return lineBreakNode;
+
+            default:
+                Console.WriteLine("not implemented");
+                MoveNext();
+                return null!;
         }
     }
 }

@@ -1,3 +1,6 @@
+using System.Formats.Asn1;
+using System.Runtime.InteropServices;
+
 namespace GeoEngine;
 
 public class IfThenElse : Node
@@ -13,12 +16,10 @@ public class IfThenElse : Node
         FalseNode = falseNode;
     }
 
-    public override bool BooleanValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
     public override void Evaluate()
     {
         Condition.Evaluate();
-        if (Condition.Value is 1)
+        if (BooleanValue.Checker(Condition.Value))
         {
             TrueNode.Evaluate();
             Value = TrueNode.Value;

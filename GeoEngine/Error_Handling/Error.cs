@@ -24,7 +24,7 @@ public class Error
     {
         foreach (Error error in diagnostics)
         {
-            Console.WriteLine($"! {error.errorKind} Error: {error.errorCode} {error.argument} in line number {error.location}");
+            Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
         }
     }
 }

@@ -11,6 +11,6 @@ public class NotEquals : BooleanExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Value = LeftNode.Value != RightNode.Value ? 1 : 0;
+        Value = LeftNode.Value.ToString() != RightNode.Value.ToString() ? 1 : 0;
     }
 }

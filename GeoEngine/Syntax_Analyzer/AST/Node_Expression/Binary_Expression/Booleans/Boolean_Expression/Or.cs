@@ -11,7 +11,6 @@ public class Or : BooleanExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        if (LeftNode.BooleanValue || RightNode.BooleanValue) { Value = 1; }
-        else { Value = 0; }
+        Value = Value = BooleanValue.Checker(LeftNode.Value) || BooleanValue.Checker(RightNode.Value) ? (double)1 : (double)0;
     }
 }

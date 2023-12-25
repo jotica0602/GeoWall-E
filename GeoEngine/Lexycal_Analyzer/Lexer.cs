@@ -6,14 +6,13 @@
 public partial class Lexer
 {
     #region  Lexer Object
-
-    //actual line of code
     public readonly string sourceCode;
-
     private int currentPosition;
-    private int line;
 
-    //current actual token list in tokenizer
+    // actual line of code 
+    private int currentLine;
+
+    // tokens list
     public List<Token> tokens;
 
     // ===>>> CONSTRUCTOR <<<===
@@ -22,7 +21,7 @@ public partial class Lexer
         this.sourceCode = sourceCode;
         tokens = new List<Token>();
         currentPosition = 0;
-        line = 1;
+        currentLine = 1;
     }
 
     #endregion
@@ -44,14 +43,14 @@ public partial class Lexer
             // If there's any white space we move on
             if (char.IsWhiteSpace(currentChar) && !(currentChar is '\n'))
             {
-                MoveNext();
+                currentPosition++;
                 continue;
             }
             //if its a line jump we add a token
             if (currentChar is '\n')
             {
-                tokens.Add(new Data(TokenType.LineBreak,line));
-                line++;
+                tokens.Add(new Data(TokenType.LineBreak, currentLine));
+                currentLine++;
                 MoveNext();
                 continue;
             }
@@ -84,11 +83,11 @@ public partial class Lexer
             else
             {
                 tokens.Add(new CommonToken(TokenType.Unknown, currentChar.ToString()));
-                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Unknown, $"token: {currentChar}", line);
+                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Unknown, $"token: {currentChar}", currentLine);
                 MoveNext();
             }
         }
-
+        tokens.Add(new Keyword(TokenType.EndOfFile));
         return tokens;
     }
 
@@ -106,7 +105,8 @@ public partial class Lexer
 
             if (IsLetter(LookAhead(1)))
             {
-                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Invalid, $"token: {number + LookAhead(1)}", line);
+                string badToken = (string)GetIdentifier().GetName();
+                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Invalid, $"token \"{badToken}\"", currentLine);
             }
 
             currentPosition++;
@@ -164,7 +164,8 @@ public partial class Lexer
                 return new CommonToken(TokenType.Addition, _operator.ToString());
 
             case '-':
-                return new CommonToken(TokenType.Addition, _operator.ToString());
+                MoveNext();
+                return new CommonToken(TokenType.Substraction, _operator.ToString());
 
             case '*':
                 MoveNext();
@@ -172,7 +173,7 @@ public partial class Lexer
 
             case '/':
                 MoveNext();
-                return new CommonToken(TokenType.Division, _operator.ToString());
+                return new CommonToken(TokenType.Quotient, _operator.ToString());
 
             case '^':
                 MoveNext();
@@ -186,29 +187,38 @@ public partial class Lexer
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenType.EqualsTo, _operator.ToString());
+                    return new CommonToken(TokenType.EqualsTo, "==");
                 }
 
                 MoveNext();
-                return new CommonToken(TokenType.Equals, _operator.ToString());
+                return new CommonToken(TokenType.Equals, "=");
+
+            case '!':
+                if (LookAhead(1) is '=')
+                {
+                    MoveNext(2);
+                    return new CommonToken(TokenType.NotEquals, "!=");
+                }
+                MoveNext();
+                return new CommonToken(TokenType.Not, "!");
 
             case '>':
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenType.GreaterOrEquals, _operator.ToString());
+                    return new CommonToken(TokenType.GreaterOrEquals, ">=");
                 }
-
                 MoveNext();
-                return new CommonToken(TokenType.GreaterThan, _operator.ToString());
+                return new CommonToken(TokenType.GreaterThan, ">");
+
             default:
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenType.LessOrEquals, _operator.ToString());
+                    return new CommonToken(TokenType.LessOrEquals, "<=");
                 }
                 MoveNext();
-                return new CommonToken(TokenType.LessThan, _operator.ToString());
+                return new CommonToken(TokenType.LessThan, "<");
         }
     }
 

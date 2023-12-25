@@ -6,8 +6,6 @@ public class Print : Node
         Value = value;
     }
 
-    public override bool BooleanValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
     public override void Evaluate()
     {
         Console.WriteLine(Value);

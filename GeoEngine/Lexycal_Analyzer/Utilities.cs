@@ -9,7 +9,7 @@ public partial class Lexer
 
     private void MoveNext()
     {
-        if (currentPosition + 1 < sourceCode.Length)
+        if (currentPosition + 1 <= sourceCode.Length)
             currentPosition++;
     }
 
@@ -32,7 +32,7 @@ public partial class Lexer
         List<char> Operators = new()
             {
                 '+', '-', '*', '/', '^','%',
-                '=','<','>',
+                '=','<','>','!'
             };
 
         return Operators.Contains(currentChar);

@@ -4,4 +4,5 @@ public enum NodeType{
     String,
     Temporal,
     Undefined,
+    LineBreak,
 }

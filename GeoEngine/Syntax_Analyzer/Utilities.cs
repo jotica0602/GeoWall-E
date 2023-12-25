@@ -39,6 +39,11 @@ public partial class ASTBuilder
                 BinaryExpression equalsTo = new EqualsTo(leftNode, rightNode);
                 leftNode = equalsTo;
                 break;
+            
+            case TokenType.NotEquals:
+                BinaryExpression notEquals = new NotEquals(leftNode,rightNode);
+                leftNode = notEquals;
+                break;
 
             case TokenType.Addition:
                 BinaryExpression additionNode = new Addition(leftNode, rightNode);
@@ -55,7 +60,7 @@ public partial class ASTBuilder
                 leftNode = productNode;
                 break;
 
-            case TokenType.Division:
+            case TokenType.Quotient:
                 BinaryExpression quotientNode = new Quotient(leftNode, rightNode);
                 leftNode = quotientNode;
                 break;
@@ -74,6 +79,18 @@ public partial class ASTBuilder
         return leftNode;
     }
 
+    private Node BuildTernaryNode()
+    {
+        MoveNext();
+        Node condition = BuildLevel1();
+        Expect(TokenType.Then);
+        Node trueNode = BuildLevel1();
+        Expect(TokenType.Else);
+        Node falseNode = BuildLevel1();
+        IfThenElse node = new IfThenElse(condition,trueNode,falseNode);
+        return node;
+    }
+
     private void MoveNext()
     {
         currentTokenIndex++;
@@ -82,8 +99,6 @@ public partial class ASTBuilder
         {
             currentToken = tokens[currentTokenIndex];
         }
-
-        else return;
     }
 
     private void MoveNext(int positions)
@@ -96,20 +111,17 @@ public partial class ASTBuilder
         }
     }
 
-    private Token NextToken() => tokens[currentTokenIndex + 1];
-
-    private Token PreviousToken() => tokens[currentTokenIndex - 1];
-
     private void Expect(TokenType expected)
     {
         if (currentToken.Type != expected)
         {
-            Console.WriteLine($"!syntax error: unexpected token: \"{currentToken}\" at index: {currentTokenIndex} expected: \"{expected}\".");
-            throw new Exception();
+            Error error = new Error(ErrorKind.Syntax, ErrorCode.Expected, $"\"{expected}\"", currentLine);
         }
 
         MoveNext();
     }
+
+    //  ==> (And Or) <==
     bool IsALevel1Operator(TokenType operation)
     {
         List<TokenType> operators = new List<TokenType>()
@@ -121,6 +133,7 @@ public partial class ASTBuilder
         return operators.Contains(operation);
     }
 
+    // ==> (< <= >= > == !=) <==
     bool IsALevel2Operator(TokenType operation)
     {
         List<TokenType> operators = new List<TokenType>()
@@ -136,6 +149,7 @@ public partial class ASTBuilder
         return operators.Contains(operation);
     }
 
+    // ==> (+ -) <==
     bool IsALevel3Operator(TokenType operation)
     {
         List<TokenType> operators = new List<TokenType>()
@@ -147,18 +161,20 @@ public partial class ASTBuilder
         return operators.Contains(operation);
     }
 
+    // ==> (* / %) <==
     bool IsALevel4Operator(TokenType operation)
     {
         List<TokenType> operators = new List<TokenType>()
             {
                 TokenType.Product,
-                TokenType.Division,
+                TokenType.Quotient,
                 TokenType.Modulo
             };
 
         return operators.Contains(operation);
     }
 
+    // ==> (^) <==
     bool IsALevel5Operator(TokenType operation)
     {
         List<TokenType> operators = new List<TokenType>()

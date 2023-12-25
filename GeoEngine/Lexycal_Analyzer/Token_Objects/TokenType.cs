@@ -65,7 +65,7 @@ public enum TokenType
 
     Product,
 
-    Division,
+    Quotient,
 
     Power,
 

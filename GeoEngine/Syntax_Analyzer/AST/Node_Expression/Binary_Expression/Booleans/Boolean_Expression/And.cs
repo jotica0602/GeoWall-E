@@ -11,7 +11,7 @@ public class And : BooleanExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        if (LeftNode.BooleanValue && RightNode.BooleanValue) { Value = 0; }
-        else { Value = 1; }
+        
+        Value = BooleanValue.Checker(LeftNode.Value) && BooleanValue.Checker(RightNode.Value) ? (double)1 : (double)0;
     }
 }
