@@ -10,7 +10,7 @@ public class Addition : ArithmeticExpression
 
     public override void Evaluate()
     {
-        RightNode.Evaluate();
+        LeftNode.Evaluate();
         RightNode.Evaluate();
         Value = (double)LeftNode.Value + (double)RightNode.Value;
     }

@@ -12,9 +12,10 @@ class Interpreter
     {
         string input =
             @"
-            
-            
-            3and3
+            3+2 * 10 -3;
+            134 % 100 + 145;
+            3 + 5;
+            if(2^(3+2)^2 - 1024) then 5 else 100;
             ";
 
         Lexer lexer = new Lexer(input);

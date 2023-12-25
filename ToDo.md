@@ -1,9 +1,17 @@
-To Do List 
+# To Do List
 
-- CheckSemantic
-- Evaluator
-<!-- - En el evaluador de las operaciones booleanas tener en cuenta las secuencias vacias y undefined -->
-- El nodo suma tambien admite operaciones con secuencias
-- 
+Implement:
+
+1. Constants
+
+2. Scope
+
+3. Let-in
+
+4. Functions
+
+5. Sequences
+
+6. Geometrics: point, line, arc, circle, ray, segment 
 
 
