@@ -1,77 +1,117 @@
+using System.Xml;
+
 namespace GeoEngine;
 public partial class ASTBuilder
 {
+    Node BuildUnaryNode(TokenType _operator)
+    {
+        switch (_operator)
+        {
+            case TokenType.Substraction:
+                if (nextToken.Type is TokenType.LeftParenthesis)
+                {
+                    NegativeNumber node = new NegativeNumber(null!, currentLine);
+                    MoveNext();
+                    node.Expression = BuildLevel4();
+                    return node;
+                }
+                else
+                {
+                    NegativeNumber node = new NegativeNumber(null!, currentLine);
+                    MoveNext();
+                    node.Expression = BuildAtom();
+                    return node;
+                }
+            default:
+                if (nextToken.Type is TokenType.LeftParenthesis)
+                {
+                    Not node = new Not(null!, currentLine);
+                    MoveNext();
+                    node.Expression = BuildLevel2();
+                    return node;
+                }
+                else
+                {
+                    Not node = new Not(null!, currentLine);
+                    MoveNext();
+                    node.Expression = BuildAtom();
+                    return node;
+                }
+        }
+    }
+
     Node BuildBinaryNode(Node leftNode, TokenType operation, Node rightNode)
     {
+
         switch (operation)
         {
             case TokenType.And:
-                BinaryExpression andNode = new And(leftNode, rightNode);
+                BinaryExpression andNode = new And(leftNode, rightNode, currentLine);
                 leftNode = andNode;
                 break;
 
             case TokenType.Or:
-                BinaryExpression orNode = new Or(leftNode, rightNode);
+                BinaryExpression orNode = new Or(leftNode, rightNode, currentLine);
                 leftNode = orNode;
                 break;
 
             case TokenType.GreaterOrEquals:
-                BinaryExpression greaterOrEqualsNode = new GreaterOrEquals(leftNode, rightNode);
+                BinaryExpression greaterOrEqualsNode = new GreaterOrEquals(leftNode, rightNode, currentLine);
                 leftNode = greaterOrEqualsNode;
                 break;
 
             case TokenType.GreaterThan:
-                BinaryExpression greaterThanNode = new GreaterThan(leftNode, rightNode);
+                BinaryExpression greaterThanNode = new GreaterThan(leftNode, rightNode, currentLine);
                 leftNode = greaterThanNode;
                 break;
 
             case TokenType.LessOrEquals:
-                BinaryExpression lessOrEqualsNode = new LessOrEquals(leftNode, rightNode);
+                BinaryExpression lessOrEqualsNode = new LessOrEquals(leftNode, rightNode, currentLine);
                 leftNode = lessOrEqualsNode;
                 break;
 
             case TokenType.LessThan:
-                BinaryExpression lesserThanNode = new LessThan(leftNode, rightNode);
+                BinaryExpression lesserThanNode = new LessThan(leftNode, rightNode, currentLine);
                 leftNode = lesserThanNode;
                 break;
 
             case TokenType.EqualsTo:
-                BinaryExpression equalsTo = new EqualsTo(leftNode, rightNode);
+                BinaryExpression equalsTo = new EqualsTo(leftNode, rightNode, currentLine);
                 leftNode = equalsTo;
                 break;
-            
+
             case TokenType.NotEquals:
-                BinaryExpression notEquals = new NotEquals(leftNode,rightNode);
+                BinaryExpression notEquals = new NotEquals(leftNode, rightNode, currentLine);
                 leftNode = notEquals;
                 break;
 
             case TokenType.Addition:
-                BinaryExpression additionNode = new Addition(leftNode, rightNode);
+                BinaryExpression additionNode = new Addition(leftNode, rightNode, currentLine);
                 leftNode = additionNode;
                 break;
 
             case TokenType.Substraction:
-                BinaryExpression difference = new Difference(leftNode, rightNode);
+                BinaryExpression difference = new Difference(leftNode, rightNode, currentLine);
                 leftNode = difference;
                 break;
 
             case TokenType.Product:
-                BinaryExpression productNode = new Product(leftNode, rightNode);
+                BinaryExpression productNode = new Product(leftNode, rightNode, currentLine);
                 leftNode = productNode;
                 break;
 
             case TokenType.Quotient:
-                BinaryExpression quotientNode = new Quotient(leftNode, rightNode);
+                BinaryExpression quotientNode = new Quotient(leftNode, rightNode, currentLine);
                 leftNode = quotientNode;
                 break;
 
             case TokenType.Modulo:
-                BinaryExpression moduloNode = new Modulo(leftNode, rightNode);
+                BinaryExpression moduloNode = new Modulo(leftNode, rightNode, currentLine);
                 leftNode = moduloNode;
                 break;
 
             case TokenType.Power:
-                BinaryExpression powerNode = new Power(leftNode, rightNode);
+                BinaryExpression powerNode = new Power(leftNode, rightNode, currentLine);
                 leftNode = powerNode;
                 break;
         }
@@ -81,13 +121,14 @@ public partial class ASTBuilder
 
     private Node BuildTernaryNode()
     {
+        int expressionLine = currentLine;
         MoveNext();
         Node condition = BuildLevel1();
         Expect(TokenType.Then);
         Node trueNode = BuildLevel1();
         Expect(TokenType.Else);
         Node falseNode = BuildLevel1();
-        IfThenElse node = new IfThenElse(condition,trueNode,falseNode);
+        IfThenElse node = new IfThenElse(condition, trueNode, falseNode, expressionLine);
         return node;
     }
 
@@ -115,7 +156,7 @@ public partial class ASTBuilder
     {
         if (currentToken.Type != expected)
         {
-            Error error = new Error(ErrorKind.Syntax, ErrorCode.Expected, $"\"{expected}\"", currentLine);
+            Error error = new Error(ErrorKind.Syntax, ErrorCode.Expected, $"token \"{expected}\"", currentToken.LineOfCode);
         }
 
         MoveNext();

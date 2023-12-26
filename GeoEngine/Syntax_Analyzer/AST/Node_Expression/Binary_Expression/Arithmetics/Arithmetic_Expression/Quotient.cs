@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class Quotient : ArithmeticExpression
 {
-    public Quotient(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+    public Quotient(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         Type = NodeType.Number;
     }

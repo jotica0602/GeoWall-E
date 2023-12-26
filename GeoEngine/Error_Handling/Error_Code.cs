@@ -6,4 +6,5 @@ public enum ErrorCode
     Expected,
     Invalid,
     Unknown,
+    
 }

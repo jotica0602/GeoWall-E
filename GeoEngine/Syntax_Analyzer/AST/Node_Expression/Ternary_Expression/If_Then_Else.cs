@@ -8,8 +8,8 @@ public class IfThenElse : Node
     public Node Condition;
     public Node TrueNode;
     public Node FalseNode;
-    
-    public IfThenElse(Node condition, Node trueNode, Node falseNode)
+
+    public IfThenElse(Node condition, Node trueNode, Node falseNode, int lineOfCode) : base(lineOfCode)
     {
         Condition = condition;
         TrueNode = trueNode;

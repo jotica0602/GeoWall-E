@@ -2,7 +2,7 @@ namespace GeoEngine;
 
 public class Addition : ArithmeticExpression
 {
-    public Addition(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+    public Addition(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         Type = NodeType.Number;
     }

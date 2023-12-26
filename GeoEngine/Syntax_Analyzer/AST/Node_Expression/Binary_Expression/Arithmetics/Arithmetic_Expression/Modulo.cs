@@ -1,7 +1,8 @@
 namespace GeoEngine;
 public class Modulo : ArithmeticExpression
 {
-    public Modulo(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+
+    public Modulo(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         Type = NodeType.Number;
     }

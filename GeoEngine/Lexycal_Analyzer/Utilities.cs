@@ -31,8 +31,16 @@ public partial class Lexer
     {
         List<char> Operators = new()
             {
-                '+', '-', '*', '/', '^','%',
-                '=','<','>','!'
+                '+',
+                '-',
+                '*',
+                '/',
+                '^',
+                '%',
+                '=',
+                '<',
+                '>',
+                '!'
             };
 
         return Operators.Contains(currentChar);
@@ -42,7 +50,14 @@ public partial class Lexer
     {
         List<char> Punctuators = new()
             {
-                '(', ')', ';', ',', '.', '"', '{' ,'}'
+                '(',
+                ')',
+                ';',
+                ',',
+                '.',
+                '"',
+                '{' ,
+                '}'
             };
 
         return Punctuators.Contains(currentChar);
@@ -52,11 +67,33 @@ public partial class Lexer
     {
         List<string> keywords = new()
             {
-                "let", "in", "if","then","else","point",
-                "line", "segment", "ray", "circle", "sequence",
-                "color","restore","import","draw","arc","measure",
-                "intersect","count","randoms","points","samples","rest",
-                "underScore","and","or","not"
+                "in", 
+                "if",
+                "or",
+                "arc",
+                "and",
+                "not",
+                "let", 
+                "ray", 
+                "draw",
+                "rest",
+                "then",
+                "line", 
+                "else",
+                "point",
+                "count",
+                "color",
+                "circle", 
+                "points",
+                "import",
+                "randoms",
+                "segment", 
+                "samples",
+                "measure",
+                "restore",
+                "sequence",
+                "intersect",
+                "underScore",
             };
 
         return keywords.Contains(idkind);
@@ -66,7 +103,15 @@ public partial class Lexer
     {
         List<string> colors = new List<string>
         {
-            "red", "blue","yellow","green","cyan",",magenta","white","gray","black"
+            "red", 
+            "blue",
+            "gray",
+            "cyan",
+            "green",
+            "black",
+            "white",
+            "yellow",
+            "magenta",
         };
 
         return colors.Contains(identifier);

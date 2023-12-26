@@ -120,7 +120,5 @@ public enum TokenType
 
     EndOfFile,
 
-    LineBreak,
-
     Unknown,
 }

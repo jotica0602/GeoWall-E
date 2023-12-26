@@ -4,9 +4,8 @@ namespace GeoEngine;
 public partial class ASTBuilder
 {
     List<Token> tokens;
-    public List<Node> Nodes;
-    public int currentTokenIndex;
-    int currentLine;
+    int currentTokenIndex;
+    int currentLine { get => currentToken.LineOfCode; }
     Token currentToken;
     Token nextToken { get => currentTokenIndex + 1 < tokens.Count ? tokens[currentTokenIndex + 1] : throw new Exception("Token Index out of bounds"); }
     Token previousToken { get => currentTokenIndex - 1 >= 0 ? tokens[currentTokenIndex - 1] : throw new Exception("Token Index out of bounds"); }
@@ -14,23 +13,22 @@ public partial class ASTBuilder
     public ASTBuilder(List<Token> tokens)
     {
         this.tokens = tokens;
-        Nodes = new List<Node>();
         currentTokenIndex = 0;
         currentToken = tokens[currentTokenIndex];
-        currentLine=1;
     }
 
     public List<Node> BuildNodes()
     {
+        List<Node> nodes = new List<Node>();
         while (currentToken.Type is not TokenType.EndOfFile)
         {
             Node node = BuildLevel1();
-            if (node.Type is not NodeType.LineBreak) { Expect(TokenType.Semicolon); }
-            Nodes.Add(node);
+            nodes.Add(node);
+            Expect(TokenType.Semicolon);
             System.Console.WriteLine($"{node.GetType()} added.");
         }
 
-        return Nodes;
+        return nodes;
     }
 
     private Node BuildLevel1()
@@ -104,14 +102,22 @@ public partial class ASTBuilder
         switch (currentToken.Type)
         {
             case TokenType.Number:
-                Node numberNode = new Literal(currentToken.GetValue());
+                Node numberNode = new Literal(currentToken.GetValue(), currentLine);
                 MoveNext();
                 return numberNode;
 
             case TokenType.String:
-                Node stringNode = new Literal(currentToken.GetValue());
+                Node stringNode = new Literal(currentToken.GetValue(), currentLine);
                 MoveNext();
                 return stringNode;
+
+            case TokenType.Substraction:
+                Node negativeNumberNode = BuildUnaryNode(TokenType.Substraction);
+                return negativeNumberNode;
+
+            case TokenType.Not:
+                Node notNode = BuildUnaryNode(TokenType.Not);
+                return notNode;
 
             case TokenType.If:
                 Node ifThenElseNode = BuildTernaryNode();
@@ -123,15 +129,10 @@ public partial class ASTBuilder
                 Expect(TokenType.RightParenthesis);
                 return expression;
 
-            case TokenType.LineBreak:
-                Node lineBreakNode = new LineBreak(currentToken.GetValue());
-                currentLine++;
-                MoveNext();
-                return lineBreakNode;
-
             default:
                 Console.WriteLine("not implemented");
                 MoveNext();
+                // Error.ShowErrors();
                 return null!;
         }
     }

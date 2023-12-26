@@ -1,5 +1,5 @@
 namespace GeoEngine;
 public abstract class ArithmeticExpression : BinaryExpression
 {
-    public ArithmeticExpression(Node LeftNode, Node RightNode) : base(LeftNode, RightNode){ }
+    protected ArithmeticExpression(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode) { }
 }

@@ -2,16 +2,23 @@
 
 Implement:
 
-1. Constants
+1. ~~Actual line of code for every node~~
 
-2. Scope
+2. ~~Unary Nodes~~
 
-3. Let-in
+3. Constants
 
-4. Functions
+4. Scope
 
-5. Sequences
+5. Let-in
 
-6. Geometrics: point, line, arc, circle, ray, segment 
+6. Functions
+
+7. Sequences
+
+8. Geometrics: point, line, arc, circle, ray, segment 
+
+# Fix:
+
 
 

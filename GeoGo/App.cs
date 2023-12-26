@@ -10,14 +10,17 @@ class Interpreter
 
     public static void Auto()
     {
-        string input =
-            @"
-            3+2 * 10 -3;
-            134 % 100 + 145;
-            3 + 5;
-            if(2^(3+2)^2 - 1024) then 5 else 100;
-            ";
+        // 2^(3+2)^2;
+        // 3 +
 
+        // 4;
+        // 7%4 + 1;
+        // 3 and 0;
+        // !0 and 1;
+        // 0 and 1;
+        // 0 or 1;
+        string input =
+        @"3 + 2";
         Lexer lexer = new Lexer(input);
         List<Token> tokens = lexer.Tokenize();
         // System.Console.WriteLine(string.Join('\n', tokens));
@@ -35,7 +38,7 @@ class Interpreter
         else
             System.Console.WriteLine("Clean of Errors!");
 
-        foreach (var node in nodes.Where(x => x.Type is not NodeType.LineBreak))
+        foreach (var node in nodes)
         {
             node.Evaluate();
             System.Console.WriteLine(node.Value);

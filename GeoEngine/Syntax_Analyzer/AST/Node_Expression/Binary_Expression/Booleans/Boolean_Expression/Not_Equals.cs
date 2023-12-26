@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class NotEquals : BooleanExpression
 {
-    public NotEquals(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+    public NotEquals(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         this.LeftNode = leftNode;
         this.RightNode = rightNode;

@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class LessOrEquals : BooleanExpression
 {
-    public LessOrEquals(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+    public LessOrEquals(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         this.LeftNode = leftNode;
         this.RightNode = rightNode;

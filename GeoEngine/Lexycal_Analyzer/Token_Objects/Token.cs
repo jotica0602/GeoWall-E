@@ -2,9 +2,12 @@ public abstract class Token
 {
     public TokenType Type { get; set; }
 
-    public Token(TokenType type)
+    public int LineOfCode { get; set; }
+
+    public Token(TokenType type, int currentLine)
     {
         Type = type;
+        LineOfCode = currentLine;
     }
 
     public TokenType Gettype() => Type;
@@ -25,7 +28,7 @@ public abstract class Token
 
 public class Keyword : Token
 {
-    public Keyword(TokenType type) : base(type)
+    public Keyword(TokenType type,int currentLine) : base(type,currentLine)
     {
         Type = type;
     }
@@ -44,7 +47,7 @@ public class CommonToken : Token
 {
     public string Representation { get; set; }
 
-    public CommonToken(TokenType type, string representation) : base(type)
+    public CommonToken(TokenType type, string representation, int currentLine) : base(type,currentLine)
     {
         Representation = representation;
     }
@@ -63,7 +66,7 @@ public class Data : Token
 {
     public object Value { get; set; }
 
-    public Data(TokenType type, object value) : base(type)
+    public Data(TokenType type, object value, int currentLine) : base(type,currentLine)
     {
         Value = value;
     }

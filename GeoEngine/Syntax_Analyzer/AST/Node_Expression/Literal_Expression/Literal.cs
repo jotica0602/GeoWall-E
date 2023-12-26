@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class Literal : Node
 {
-    public Literal(object Value)
+    public Literal(object Value, int lineOfCode) : base(lineOfCode)
     {
         this.Value = Value;
 
@@ -12,6 +12,7 @@ public class Literal : Node
         else
             Type = NodeType.Undefined;
     }
+
 
     public override void Evaluate() { }
 }

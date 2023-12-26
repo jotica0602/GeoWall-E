@@ -46,10 +46,8 @@ public partial class Lexer
                 currentPosition++;
                 continue;
             }
-            //if its a line jump we add a token
             if (currentChar is '\n')
             {
-                tokens.Add(new Data(TokenType.LineBreak, currentLine));
                 currentLine++;
                 MoveNext();
                 continue;
@@ -82,12 +80,12 @@ public partial class Lexer
             // Unknown token
             else
             {
-                tokens.Add(new CommonToken(TokenType.Unknown, currentChar.ToString()));
+                tokens.Add(new CommonToken(TokenType.Unknown, currentChar.ToString(), currentLine));
                 Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Unknown, $"token: {currentChar}", currentLine);
                 MoveNext();
             }
         }
-        tokens.Add(new Keyword(TokenType.EndOfFile));
+        tokens.Add(new Keyword(TokenType.EndOfFile, currentLine));
         return tokens;
     }
 
@@ -101,18 +99,17 @@ public partial class Lexer
 
         while ((currentPosition < sourceCode.Length) && (char.IsDigit(sourceCode[currentPosition]) || sourceCode[currentPosition] == '.'))
         {
-            number += sourceCode[currentPosition];
-
             if (IsLetter(LookAhead(1)))
             {
                 string badToken = (string)GetIdentifier().GetName();
-                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Invalid, $"token \"{badToken}\"", currentLine);
+                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Invalid, $"token \"{number}{badToken}\"", currentLine);
             }
+            number += sourceCode[currentPosition];
 
             currentPosition++;
         }
 
-        return new Data(TokenType.Number, Double.Parse(number));
+        return new Data(TokenType.Number, Double.Parse(number), currentLine);
     }
 
     private Token GetIdentifier()
@@ -129,13 +126,13 @@ public partial class Lexer
             return Color(identifier);
 
         else if (identifier is "_")
-            return new CommonToken(TokenType.UnderScore, identifier);
+            return new CommonToken(TokenType.UnderScore, identifier, currentLine);
 
         else if (IsKeyWord(identifier))
             return KeyWord(identifier);
 
         else
-            return new CommonToken(TokenType.Identifier, identifier);
+            return new CommonToken(TokenType.Identifier, identifier, currentLine);
     }
 
     private Token String()
@@ -150,7 +147,7 @@ public partial class Lexer
         }
 
         MoveNext();
-        return new Data(TokenType.String, str);
+        return new Data(TokenType.String, str, currentLine);
     }
 
     private Token Operator()
@@ -161,64 +158,64 @@ public partial class Lexer
         {
             case '+':
                 MoveNext();
-                return new CommonToken(TokenType.Addition, _operator.ToString());
+                return new CommonToken(TokenType.Addition, _operator.ToString(), currentLine);
 
             case '-':
                 MoveNext();
-                return new CommonToken(TokenType.Substraction, _operator.ToString());
+                return new CommonToken(TokenType.Substraction, _operator.ToString(), currentLine);
 
             case '*':
                 MoveNext();
-                return new CommonToken(TokenType.Product, _operator.ToString());
+                return new CommonToken(TokenType.Product, _operator.ToString(), currentLine);
 
             case '/':
                 MoveNext();
-                return new CommonToken(TokenType.Quotient, _operator.ToString());
+                return new CommonToken(TokenType.Quotient, _operator.ToString(), currentLine);
 
             case '^':
                 MoveNext();
-                return new CommonToken(TokenType.Power, _operator.ToString());
+                return new CommonToken(TokenType.Power, _operator.ToString(), currentLine);
 
             case '%':
                 MoveNext();
-                return new CommonToken(TokenType.Modulo, _operator.ToString());
+                return new CommonToken(TokenType.Modulo, _operator.ToString(), currentLine);
 
             case '=':
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenType.EqualsTo, "==");
+                    return new CommonToken(TokenType.EqualsTo, "==", currentLine);
                 }
 
                 MoveNext();
-                return new CommonToken(TokenType.Equals, "=");
+                return new CommonToken(TokenType.Equals, "=", currentLine);
 
             case '!':
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenType.NotEquals, "!=");
+                    return new CommonToken(TokenType.NotEquals, "!=", currentLine);
                 }
                 MoveNext();
-                return new CommonToken(TokenType.Not, "!");
+                return new CommonToken(TokenType.Not, "!", currentLine);
 
             case '>':
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenType.GreaterOrEquals, ">=");
+                    return new CommonToken(TokenType.GreaterOrEquals, ">=", currentLine);
                 }
                 MoveNext();
-                return new CommonToken(TokenType.GreaterThan, ">");
+                return new CommonToken(TokenType.GreaterThan, ">", currentLine);
 
             default:
                 if (LookAhead(1) is '=')
                 {
                     MoveNext(2);
-                    return new CommonToken(TokenType.LessOrEquals, "<=");
+                    return new CommonToken(TokenType.LessOrEquals, "<=", currentLine);
                 }
                 MoveNext();
-                return new CommonToken(TokenType.LessThan, "<");
+                return new CommonToken(TokenType.LessThan, "<", currentLine);
         }
     }
 
@@ -229,25 +226,25 @@ public partial class Lexer
         {
             case '(':
                 MoveNext();
-                return new CommonToken(TokenType.LeftParenthesis, punctuator.ToString());
+                return new CommonToken(TokenType.LeftParenthesis, punctuator.ToString(), currentLine);
             case ')':
                 MoveNext();
-                return new CommonToken(TokenType.RightParenthesis, punctuator.ToString());
+                return new CommonToken(TokenType.RightParenthesis, punctuator.ToString(), currentLine);
             case ',':
                 MoveNext();
-                return new CommonToken(TokenType.Comma, punctuator.ToString());
+                return new CommonToken(TokenType.Comma, punctuator.ToString(), currentLine);
             case ';':
                 MoveNext();
-                return new CommonToken(TokenType.Semicolon, punctuator.ToString());
+                return new CommonToken(TokenType.Semicolon, punctuator.ToString(), currentLine);
             case '{':
                 MoveNext();
-                return new CommonToken(TokenType.LeftCurlyBracket, punctuator.ToString());
+                return new CommonToken(TokenType.LeftCurlyBracket, punctuator.ToString(), currentLine);
             case '}':
                 MoveNext();
-                return new CommonToken(TokenType.RightCurlyBracket, punctuator.ToString());
+                return new CommonToken(TokenType.RightCurlyBracket, punctuator.ToString(), currentLine);
             default:
                 MoveNext();
-                return new CommonToken(TokenType.Quote, punctuator.ToString());
+                return new CommonToken(TokenType.Quote, punctuator.ToString(), currentLine);
         }
     }
 
@@ -256,61 +253,61 @@ public partial class Lexer
         switch (identifier)
         {
             case "let":
-                return new Keyword(TokenType.Let);
+                return new Keyword(TokenType.Let, currentLine);
             case "in":
-                return new Keyword(TokenType.In);
+                return new Keyword(TokenType.In, currentLine);
             case "if":
-                return new Keyword(TokenType.If);
+                return new Keyword(TokenType.If, currentLine);
             case "then":
-                return new Keyword(TokenType.Then);
+                return new Keyword(TokenType.Then, currentLine);
             case "point":
-                return new Keyword(TokenType.Point);
+                return new Keyword(TokenType.Point, currentLine);
             case "line":
-                return new Keyword(TokenType.Line);
+                return new Keyword(TokenType.Line, currentLine);
             case "segment":
-                return new Keyword(TokenType.Segment);
+                return new Keyword(TokenType.Segment, currentLine);
             case "ray":
-                return new Keyword(TokenType.Ray);
+                return new Keyword(TokenType.Ray, currentLine);
             case "circle":
-                return new Keyword(TokenType.Circle);
+                return new Keyword(TokenType.Circle, currentLine);
             case "sequence":
-                return new Keyword(TokenType.Sequence);
+                return new Keyword(TokenType.Sequence, currentLine);
             case "color":
-                return new Keyword(TokenType.ColorKeyWord);
+                return new Keyword(TokenType.ColorKeyWord, currentLine);
             case "restore":
-                return new Keyword(TokenType.Restore);
+                return new Keyword(TokenType.Restore, currentLine);
             case "import":
-                return new Keyword(TokenType.Import);
+                return new Keyword(TokenType.Import, currentLine);
             case "draw":
-                return new Keyword(TokenType.Draw);
+                return new Keyword(TokenType.Draw, currentLine);
             case "arc":
-                return new Keyword(TokenType.Arc);
+                return new Keyword(TokenType.Arc, currentLine);
             case "measure":
-                return new Keyword(TokenType.Measure);
+                return new Keyword(TokenType.Measure, currentLine);
             case "intersect":
-                return new Keyword(TokenType.Intersect);
+                return new Keyword(TokenType.Intersect, currentLine);
             case "count":
-                return new Keyword(TokenType.Count);
+                return new Keyword(TokenType.Count, currentLine);
             case "randoms":
-                return new Keyword(TokenType.Randoms);
+                return new Keyword(TokenType.Randoms, currentLine);
             case "points":
-                return new Keyword(TokenType.Points);
+                return new Keyword(TokenType.Points, currentLine);
             case "samples":
-                return new Keyword(TokenType.Samples);
+                return new Keyword(TokenType.Samples, currentLine);
             case "rest":
-                return new Keyword(TokenType.Rest);
+                return new Keyword(TokenType.Rest, currentLine);
             case "underScore":
-                return new Keyword(TokenType.UnderScore);
+                return new Keyword(TokenType.UnderScore, currentLine);
             case "and":
-                return new Keyword(TokenType.And);
+                return new Keyword(TokenType.And, currentLine);
             case "or":
-                return new Keyword(TokenType.Or);
+                return new Keyword(TokenType.Or, currentLine);
             case "not":
-                return new Keyword(TokenType.Not);
+                return new Keyword(TokenType.Not, currentLine);
             case "undefined":
-                return new Data(TokenType.Undefined, null!);
+                return new Data(TokenType.Undefined, null!, currentLine);
             default:
-                return new Keyword(TokenType.Else);
+                return new Keyword(TokenType.Else, currentLine);
         }
     }
 
@@ -319,23 +316,23 @@ public partial class Lexer
         switch (identifier)
         {
             case "red":
-                return new Data(TokenType.Color, "red");
+                return new Data(TokenType.Color, "red", currentLine);
             case "blue":
-                return new Data(TokenType.Color, "blue");
+                return new Data(TokenType.Color, "blue", currentLine);
             case "yellow":
-                return new Data(TokenType.Color, "yellow");
+                return new Data(TokenType.Color, "yellow", currentLine);
             case "green":
-                return new Data(TokenType.Color, "green");
+                return new Data(TokenType.Color, "green", currentLine);
             case "cyan":
-                return new Data(TokenType.Color, "cyan");
+                return new Data(TokenType.Color, "cyan", currentLine);
             case "magenta":
-                return new Data(TokenType.Color, "magenta");
+                return new Data(TokenType.Color, "magenta", currentLine);
             case "white":
-                return new Data(TokenType.Color, "white");
+                return new Data(TokenType.Color, "white", currentLine);
             case "gray":
-                return new Data(TokenType.Color, "gray");
+                return new Data(TokenType.Color, "gray", currentLine);
             default:
-                return new Data(TokenType.Color, "black");
+                return new Data(TokenType.Color, "black", currentLine);
         }
     }
 }

@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class Difference : ArithmeticExpression
 {
-    public Difference(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+    public Difference(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         Type = NodeType.Number;
     }

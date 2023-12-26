@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class Power : ArithmeticExpression
 {
-    public Power(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+    public Power(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         Type = NodeType.Number;
     }

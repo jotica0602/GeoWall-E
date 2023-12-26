@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class Product : ArithmeticExpression
 {
-    public Product(Node leftNode, Node rightNode) : base(leftNode, rightNode)
+    public Product(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         Type = NodeType.Number;
     }

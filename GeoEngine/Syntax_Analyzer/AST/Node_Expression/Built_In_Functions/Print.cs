@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public class Print : Node
 {
-    public Print(object value)
+    public Print(object value, int lineOfCode): base (lineOfCode)
     {
         Value = value;
     }
