@@ -1,5 +1,5 @@
 namespace GeoEngine;
-public class Print : Node
+public class Print : Expression
 {
     public Print(object value, int lineOfCode): base (lineOfCode)
     {

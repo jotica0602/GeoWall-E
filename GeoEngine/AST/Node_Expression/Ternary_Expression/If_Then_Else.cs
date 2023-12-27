@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace GeoEngine;
 
-public class IfThenElse : Node
+public class IfThenElse : Expression
 {
     public Node Condition;
     public Node TrueNode;

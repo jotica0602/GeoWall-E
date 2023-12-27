@@ -6,9 +6,9 @@ Implement:
 
 2. ~~Unary Nodes~~
 
-3. Constants
+3. ~~Constants~~
 
-4. Scope
+4. ~~Scope~~
 
 5. Let-in
 

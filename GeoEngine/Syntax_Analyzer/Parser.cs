@@ -17,87 +17,90 @@ public partial class ASTBuilder
         currentToken = tokens[currentTokenIndex];
     }
 
-    public List<Node> BuildNodes()
+    public List<Node> BuildNodes(Scope scope)
     {
         List<Node> nodes = new List<Node>();
         while (currentToken.Type is not TokenType.EndOfFile)
         {
-            Node node = BuildLevel1();
-            nodes.Add(node);
-            Expect(TokenType.Semicolon);
-            System.Console.WriteLine($"{node.GetType()} added.");
+            Node node = BuildLevel1(scope);
+            if (node is not null)
+            {
+                nodes.Add(node);
+                Expect(TokenType.Semicolon);
+                System.Console.WriteLine($"{node.GetType()} added.");
+            }
         }
 
         return nodes;
     }
 
-    private Node BuildLevel1()
+    private Node BuildLevel1(Scope scope)
     {
-        Node leftNode = BuildLevel2();
+        Node leftNode = BuildLevel2(scope);
         while (IsALevel1Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel2();
+            Node rightNode = BuildLevel2(scope);
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         Node node = leftNode;
         return leftNode;
     }
 
-    private Node BuildLevel2()
+    private Node BuildLevel2(Scope scope)
     {
-        Node leftNode = BuildLevel3();
+        Node leftNode = BuildLevel3(scope);
         while (IsALevel2Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel3();
+            Node rightNode = BuildLevel3(scope);
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
     }
 
-    private Node BuildLevel3()
+    private Node BuildLevel3(Scope scope)
     {
-        Node leftNode = BuildLevel4();
+        Node leftNode = BuildLevel4(scope);
         while (IsALevel3Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel4();
+            Node rightNode = BuildLevel4(scope);
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
     }
 
-    private Node BuildLevel4()
+    private Node BuildLevel4(Scope scope)
     {
-        Node leftNode = BuildLevel5();
+        Node leftNode = BuildLevel5(scope);
         while (IsALevel4Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildLevel5();
+            Node rightNode = BuildLevel5(scope);
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
     }
 
-    private Node BuildLevel5()
+    private Node BuildLevel5(Scope scope)
     {
-        Node leftNode = BuildAtom();
+        Node leftNode = BuildAtom(scope);
         while (IsALevel5Operator(currentToken.Type))
         {
             TokenType operation = currentToken.Type;
             MoveNext();
-            Node rightNode = BuildAtom();
+            Node rightNode = BuildAtom(scope);
             leftNode = BuildBinaryNode(leftNode, operation, rightNode);
         }
         return leftNode;
     }
 
-    private Node BuildAtom()
+    private Node BuildAtom(Scope scope)
     {
         switch (currentToken.Type)
         {
@@ -111,21 +114,24 @@ public partial class ASTBuilder
                 MoveNext();
                 return stringNode;
 
+            case TokenType.Identifier:
+                return HandleIdentifier(scope);
+
             case TokenType.Substraction:
-                Node negativeNumberNode = BuildUnaryNode(TokenType.Substraction);
+                Node negativeNumberNode = BuildUnaryNode(TokenType.Substraction, scope);
                 return negativeNumberNode;
 
             case TokenType.Not:
-                Node notNode = BuildUnaryNode(TokenType.Not);
+                Node notNode = BuildUnaryNode(TokenType.Not, scope);
                 return notNode;
 
             case TokenType.If:
-                Node ifThenElseNode = BuildTernaryNode();
+                Node ifThenElseNode = BuildTernaryNode(scope);
                 return ifThenElseNode;
 
             case TokenType.LeftParenthesis:
                 MoveNext();
-                Node expression = BuildLevel1();
+                Node expression = BuildLevel1(scope);
                 Expect(TokenType.RightParenthesis);
                 return expression;
 

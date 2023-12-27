@@ -3,7 +3,7 @@ using System.Xml;
 namespace GeoEngine;
 public partial class ASTBuilder
 {
-    Node BuildUnaryNode(TokenType _operator)
+    Expression BuildUnaryNode(TokenType _operator, Scope scope)
     {
         switch (_operator)
         {
@@ -12,14 +12,14 @@ public partial class ASTBuilder
                 {
                     NegativeNumber node = new NegativeNumber(null!, currentLine);
                     MoveNext();
-                    node.Expression = BuildLevel4();
+                    node.Expression = BuildLevel4(scope);
                     return node;
                 }
                 else
                 {
                     NegativeNumber node = new NegativeNumber(null!, currentLine);
                     MoveNext();
-                    node.Expression = BuildAtom();
+                    node.Expression = BuildAtom(scope);
                     return node;
                 }
             default:
@@ -27,14 +27,14 @@ public partial class ASTBuilder
                 {
                     Not node = new Not(null!, currentLine);
                     MoveNext();
-                    node.Expression = BuildLevel2();
+                    node.Expression = BuildLevel2(scope);
                     return node;
                 }
                 else
                 {
                     Not node = new Not(null!, currentLine);
                     MoveNext();
-                    node.Expression = BuildAtom();
+                    node.Expression = BuildAtom(scope);
                     return node;
                 }
         }
@@ -119,17 +119,42 @@ public partial class ASTBuilder
         return leftNode;
     }
 
-    private Node BuildTernaryNode()
+    private Node BuildTernaryNode(Scope scope)
     {
         int expressionLine = currentLine;
         MoveNext();
-        Node condition = BuildLevel1();
+        Node condition = BuildLevel1(scope);
         Expect(TokenType.Then);
-        Node trueNode = BuildLevel1();
+        Node trueNode = BuildLevel1(scope);
         Expect(TokenType.Else);
-        Node falseNode = BuildLevel1();
+        Node falseNode = BuildLevel1(scope);
         IfThenElse node = new IfThenElse(condition, trueNode, falseNode, expressionLine);
         return node;
+    }
+
+    private Node HandleIdentifier(Scope scope)
+    {
+        string idName = currentToken.GetName();
+        int idLine = currentLine;
+        switch (nextToken.Type)
+        {
+            case TokenType.Equals:
+                MoveNext(2);
+                ConstantDeclaration constant = new ConstantDeclaration(BuildLevel1(scope), idLine);
+                for (var actualScope = scope; actualScope is not null; actualScope = actualScope.Parent)
+                    if (actualScope.Constants.ContainsKey(idName))
+                    {
+                        Error error = new Error(ErrorKind.Semantic, ErrorCode.Invalid, $"operation, cannot redefine constant \"{idName}\"", idLine);
+                        Error.ShowErrors();
+                    }
+                scope.Constants.Add(idName, constant);
+                return null!;
+
+            default:
+                Constant node = new Constant(scope, idName, idLine);
+                MoveNext();
+                return node;
+        }
     }
 
     private void MoveNext()

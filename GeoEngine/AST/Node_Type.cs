@@ -1,5 +1,6 @@
 namespace GeoEngine;
-public enum NodeType{
+public enum NodeType
+{
     Number,
     String,
     Temporal,

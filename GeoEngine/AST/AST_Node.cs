@@ -2,8 +2,8 @@ namespace GeoEngine;
 public abstract class Node
 {
     public NodeType Type { get; set; }
-    public object Value { get; set; }
-    public int LineOfCode { get; set;}
+    public object Value { get; set;}
+    public int LineOfCode { get; set; }
 
     public Node(int lineOfCode)
     {
