@@ -10,15 +10,24 @@ class Interpreter
 
     public static void Auto()
     {
-        
-        string input =
-        @"
-           let 
-                a = 5; 
-                b = let 
+
+        /* let                  
+                a = 5;          
+                b = let         <== redefinition error
                         a = 4;
                     in a + 2; 
-            in a + b";
+            in a + b 
+        */
+
+        string input =
+        @"
+            let a = 
+                let b = 
+                    let c = 21; 
+                    in c + 1; 
+                in b; 
+            in a - 22;
+        ";
 
         Lexer lexer = new Lexer(input);
         List<Token> tokens = lexer.Tokenize();
