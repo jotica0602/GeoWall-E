@@ -12,7 +12,6 @@ public class NegativeNumber : UnaryExpression
     public override void Evaluate()
     {
         Expression.Evaluate();
-        
-        Value = ((Expression)Expression.Value);
+        Value = -(double)Expression.Value;
     }
 }

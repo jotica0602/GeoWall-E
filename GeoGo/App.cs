@@ -10,12 +10,16 @@ class Interpreter
 
     public static void Auto()
     {
-
+        
         string input =
-        @"a=3;
-        a+3;
-        a = 4;
-        ";
+        @"
+           let 
+                a = 5; 
+                b = let 
+                        a = 4;
+                    in a + 2; 
+            in a + b";
+
         Lexer lexer = new Lexer(input);
         List<Token> tokens = lexer.Tokenize();
         // System.Console.WriteLine(string.Join('\n', tokens));

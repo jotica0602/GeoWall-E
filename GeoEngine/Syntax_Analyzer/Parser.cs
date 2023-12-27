@@ -117,17 +117,17 @@ public partial class ASTBuilder
             case TokenType.Identifier:
                 return HandleIdentifier(scope);
 
+            case TokenType.Addition:
+                Node positiveNumber = BuildUnaryNode(TokenType.Addition, scope);
+                return positiveNumber;
+
             case TokenType.Substraction:
-                Node negativeNumberNode = BuildUnaryNode(TokenType.Substraction, scope);
-                return negativeNumberNode;
+                Node negativeNumber = BuildUnaryNode(TokenType.Substraction, scope);
+                return negativeNumber;
 
             case TokenType.Not:
                 Node notNode = BuildUnaryNode(TokenType.Not, scope);
                 return notNode;
-
-            case TokenType.If:
-                Node ifThenElseNode = BuildTernaryNode(scope);
-                return ifThenElseNode;
 
             case TokenType.LeftParenthesis:
                 MoveNext();
@@ -135,10 +135,18 @@ public partial class ASTBuilder
                 Expect(TokenType.RightParenthesis);
                 return expression;
 
+            case TokenType.If:
+                Node ifThenElseNode = BuildTernaryNode(scope);
+                return ifThenElseNode;
+
+            case TokenType.Let:
+                Node node = BuildLetNode(scope);
+                return node;
+
             default:
                 Console.WriteLine("not implemented");
-                MoveNext();
-                // Error.ShowErrors();
+                Error.ShowErrors();
+                throw new Exception();
                 return null!;
         }
     }

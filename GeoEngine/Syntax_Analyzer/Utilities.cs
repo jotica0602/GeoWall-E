@@ -7,6 +7,22 @@ public partial class ASTBuilder
     {
         switch (_operator)
         {
+            case TokenType.Addition:
+                if (nextToken.Type is TokenType.LeftParenthesis)
+                {
+                    PositiveNumber node = new PositiveNumber(null!, currentLine);
+                    MoveNext();
+                    node.Expression = BuildLevel4(scope);
+                    return node;
+                }
+                else
+                {
+                    PositiveNumber node = new PositiveNumber(null!, currentLine);
+                    MoveNext();
+                    node.Expression = BuildAtom(scope);
+                    return node;
+                }
+
             case TokenType.Substraction:
                 if (nextToken.Type is TokenType.LeftParenthesis)
                 {
@@ -22,6 +38,7 @@ public partial class ASTBuilder
                     node.Expression = BuildAtom(scope);
                     return node;
                 }
+
             default:
                 if (nextToken.Type is TokenType.LeftParenthesis)
                 {
@@ -155,6 +172,25 @@ public partial class ASTBuilder
                 MoveNext();
                 return node;
         }
+    }
+
+    private Node BuildLetNode(Scope scope)
+    {
+        Let node = new Let(currentLine);
+        Scope child = scope.MakeChild();
+        MoveNext();
+
+        while (currentToken.Type is not TokenType.In)
+        {
+            Node instruction = BuildLevel1(child);
+            if (instruction is not null)
+                node.Instructions.Add(instruction);
+            Expect(TokenType.Semicolon);
+        }
+
+        MoveNext();
+        node.InNode = BuildLevel1(child);
+        return node;
     }
 
     private void MoveNext()

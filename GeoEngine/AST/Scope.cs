@@ -7,7 +7,7 @@ public class Scope
         Constants = new Dictionary<string, ConstantDeclaration>();
     }
 
-    Scope MakeChild()
+    public Scope MakeChild()
     {
         Scope child = new Scope();
         child.Parent = this;

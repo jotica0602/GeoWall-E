@@ -85,7 +85,7 @@ public partial class Lexer
                 MoveNext();
             }
         }
-        tokens.Add(new Keyword(TokenType.EndOfFile, currentLine));
+        tokens.Add(new Keyword(TokenType.EndOfFile, tokens[tokens.Count-1].LineOfCode));
         return tokens;
     }
 

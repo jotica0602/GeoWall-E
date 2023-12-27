@@ -10,15 +10,10 @@ Implement:
 
 4. ~~Scope~~
 
-5. Let-in
+5. ~~Let-in~~
 
 6. Functions
 
 7. Sequences
 
 8. Geometrics: point, line, arc, circle, ray, segment 
-
-# Fix:
-
-
-
