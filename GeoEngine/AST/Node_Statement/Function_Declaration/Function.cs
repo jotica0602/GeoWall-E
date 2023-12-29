@@ -25,8 +25,8 @@ public class FunctionDeclaration : Statement
     public override bool CheckSemantic()
     {
         bool isOverWriting = IsOverWriting();
-        bool argAreVariables = CheckArgs();
-        return !isOverWriting && argAreVariables;
+        bool argsAreVariables = CheckArgs();
+        return !isOverWriting && argsAreVariables;
     }
 
     bool CheckArgs()
@@ -65,8 +65,7 @@ public class FunctionDeclaration : Statement
 
     void FeedArgsName()
     {
-        if (CheckSemantic())
-            foreach (Constant arg in Arguments)
-                ArgumentsName.Add(arg.Name);
+        foreach (Constant arg in Arguments)
+            ArgumentsName.Add(arg.Name);
     }
 }

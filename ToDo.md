@@ -14,7 +14,7 @@ Implement:
 
 6. CheckSemantic() for every node.
 
-7. Functions.
+~~7. Functions.~~
 
 8. Sequences.
 

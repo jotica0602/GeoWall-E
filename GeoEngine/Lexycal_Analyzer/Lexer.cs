@@ -110,7 +110,7 @@ public partial class Lexer
             currentPosition++;
         }
 
-        return new Data(TokenType.Number, Double.TryParse(number,out _), currentLine);
+        return new Data(TokenType.Number, Double.Parse(number), currentLine);
     }
 
     private Token GetIdentifier()

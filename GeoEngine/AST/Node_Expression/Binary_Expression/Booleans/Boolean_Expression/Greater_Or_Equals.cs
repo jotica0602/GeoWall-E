@@ -8,6 +8,6 @@ public class GreaterOrEquals : BooleanExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Value = (double)LeftNode.Value >= (double)RightNode.Value ? 1 : 0;
+        Value = (double)LeftNode.Value >= (double)RightNode.Value ? (double)1 : (double)0;
     }
 }

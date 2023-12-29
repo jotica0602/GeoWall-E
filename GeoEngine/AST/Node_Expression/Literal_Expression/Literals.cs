@@ -5,6 +5,7 @@ public class Literal : Expression
     public Literal(object value, int lineOfCode) : base(lineOfCode)
     {
         Value = value;
+        
         if (Value is double)
             Type = NodeType.Number;
         else if (Value is string)
@@ -61,6 +62,7 @@ public class Constant : Expression
                 var match = actualScope.Constants.Find(x => x.Name == this.Name);
                 match!.Evaluate();
                 Value = match.Value;
+                break;
             }
 
 

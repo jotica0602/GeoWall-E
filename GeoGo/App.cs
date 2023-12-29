@@ -12,7 +12,10 @@ class Interpreter
     public static void Auto()
     {
         string input =
-        @"f(b = 7);";
+        @"
+            fact(x) = if(n>1) then fib(n-1) + fib(n-2) else 1;
+            fib(5);
+        ";
 
         #region Lexer
         Lexer lexer = new Lexer(input);
@@ -27,7 +30,7 @@ class Interpreter
         Scope scope = new Scope();
         ASTBuilder parser = new ASTBuilder(tokens);
         List<Node> nodes = parser.BuildNodes(scope);
-        
+
 
         if (Error.diagnostics.Count > 0) { Error.ShowErrors(); }
         else { System.Console.WriteLine("Clean of Errors!"); }

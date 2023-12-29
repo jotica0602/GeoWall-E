@@ -160,6 +160,7 @@ public partial class ASTBuilder
                 ConstantDeclaration constant =
                 new ConstantDeclaration(idName, BuildLevel1(scope), scope, idLine);
                 scope.Constants.Add(constant);
+                Expect(TokenType.Semicolon);
                 return null!;
 
             case TokenType.LeftParenthesis:
@@ -209,7 +210,6 @@ public partial class ASTBuilder
             Node instruction = BuildLevel1(child);
             if (instruction is not null)
                 node.Instructions.Add(instruction);
-            Expect(TokenType.Semicolon);
         }
 
         MoveNext();
@@ -241,6 +241,7 @@ public partial class ASTBuilder
         int bodyEndingIndex = currentTokenIndex;
         for (int i = bodyStartingIndex; i <= bodyEndingIndex; i++)
             body.Add(tokens[i]);
+        body.Add(new Keyword(TokenType.EndOfFile,body.Last().LineOfCode));
     }
 
     private void MoveNext()
