@@ -157,15 +157,39 @@ public partial class ASTBuilder
         {
             case TokenType.Equals:
                 MoveNext(2);
-                ConstantDeclaration constant = new ConstantDeclaration(BuildLevel1(scope), idLine);
-                for (var actualScope = scope; actualScope is not null; actualScope = actualScope.Parent)
-                    if (actualScope.Constants.ContainsKey(idName))
-                    {
-                        Error error = new Error(ErrorKind.Semantic, ErrorCode.Invalid, $"operation, cannot redefine constant \"{idName}\"", idLine);
-                        Error.ShowErrors();
-                    }
-                scope.Constants.Add(idName, constant);
+                ConstantDeclaration constant =
+                new ConstantDeclaration(idName, BuildLevel1(scope), scope, idLine);
+                scope.Constants.Add(constant);
                 return null!;
+
+            case TokenType.LeftParenthesis:
+
+                // Initializing args list
+                List<Node> arguments = new List<Node>();
+                MoveNext(2);
+                GetArguments(ref arguments, scope);
+                Expect(TokenType.RightParenthesis);
+
+                // at this point all arguments have been gathered
+                // being an equals token means it is a function declaration
+
+                if (IsAFunctionDeclaration())
+                {
+                    FunctionDeclaration function =
+                    new FunctionDeclaration(idName, arguments, scope, currentLine);
+                    GetBody(function.Body, scope);
+                    Expect(TokenType.Semicolon);
+                    scope.Functions.Add(function);
+                    return null!;
+                }
+
+                // otherwise it means it is a function invocation
+                else
+                {
+                    FunctionInvocation functionCallNode =
+                    new FunctionInvocation(idName, arguments, scope, idLine);
+                    return functionCallNode;
+                }
 
             default:
                 Constant node = new Constant(scope, idName, idLine);
@@ -193,6 +217,32 @@ public partial class ASTBuilder
         return node;
     }
 
+    void GetArguments(ref List<Node> arguments, Scope scope)
+    {
+
+        if (currentToken.Type is TokenType.RightParenthesis)
+            return;
+
+        arguments.Add(BuildLevel1(scope));
+        while (currentToken.Type is TokenType.Comma)
+        {
+            MoveNext();
+            arguments.Add(BuildLevel1(scope));
+        }
+    }
+
+    bool IsAFunctionDeclaration() => currentToken.Type is TokenType.Equals;
+
+    void GetBody(List<Token> body, Scope scope)
+    {
+        MoveNext();
+        int bodyStartingIndex = currentTokenIndex;
+        BuildLevel1(scope);
+        int bodyEndingIndex = currentTokenIndex;
+        for (int i = bodyStartingIndex; i <= bodyEndingIndex; i++)
+            body.Add(tokens[i]);
+    }
+
     private void MoveNext()
     {
         currentTokenIndex++;
@@ -217,7 +267,7 @@ public partial class ASTBuilder
     {
         if (currentToken.Type != expected)
         {
-            Error error = new Error(ErrorKind.Syntax, ErrorCode.Expected, $"token \"{expected}\"", currentToken.LineOfCode);
+            Error error = new Error(ErrorKind.Syntax, ErrorCode.expected, $"\"{expected}\"", currentToken.LineOfCode);
         }
 
         MoveNext();

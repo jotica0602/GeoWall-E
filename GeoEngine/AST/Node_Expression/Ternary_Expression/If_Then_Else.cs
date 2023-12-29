@@ -16,6 +16,9 @@ public class IfThenElse : Expression
         FalseNode = falseNode;
     }
 
+    public override bool CheckSemantic() 
+    => Condition.CheckSemantic() && TrueNode.CheckSemantic() && FalseNode.CheckSemantic();
+
     public override void Evaluate()
     {
         Condition.Evaluate();

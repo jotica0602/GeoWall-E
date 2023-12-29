@@ -9,4 +9,6 @@ public abstract class BinaryExpression : Expression
         LeftNode = leftNode;
         RightNode = rightNode;
     }
+
+    public override bool CheckSemantic()=> LeftNode.CheckSemantic() && RightNode.CheckSemantic();
 }

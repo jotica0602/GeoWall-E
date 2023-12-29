@@ -24,7 +24,21 @@ public class Error
     {
         foreach (Error error in diagnostics)
         {
-            Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
+            switch (error.errorKind)
+            {
+                case ErrorKind.Semantic:
+                    Console.WriteLine($"!{error.errorKind} Error: {error.argument} in line {error.location}.");
+                    break;
+
+                case ErrorKind.Syntax:
+                    Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
+                    break;
+
+                case ErrorKind.Lexycal:
+                    Console.WriteLine($"!{error.errorKind} Error, {error.errorCode} {error.argument} in line {error.location}.");
+                    break;
+            }
         }
     }
 }
+

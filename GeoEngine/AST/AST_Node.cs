@@ -10,4 +10,5 @@ public abstract class Node
         LineOfCode = lineOfCode;
     }
     public abstract void Evaluate();
+    public abstract bool CheckSemantic();
 }

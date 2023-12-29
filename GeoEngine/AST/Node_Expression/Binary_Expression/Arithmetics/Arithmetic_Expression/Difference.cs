@@ -5,7 +5,7 @@ public class Difference : ArithmeticExpression
     {
         Type = NodeType.Number;
     }
-
+    
     public override void Evaluate()
     {
         LeftNode.Evaluate();

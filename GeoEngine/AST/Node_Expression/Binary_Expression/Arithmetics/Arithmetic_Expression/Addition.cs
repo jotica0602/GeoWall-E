@@ -7,7 +7,6 @@ public class Addition : ArithmeticExpression
         Type = NodeType.Number;
     }
 
-
     public override void Evaluate()
     {
         LeftNode.Evaluate();

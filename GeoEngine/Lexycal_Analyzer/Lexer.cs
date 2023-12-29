@@ -81,7 +81,7 @@ public partial class Lexer
             else
             {
                 tokens.Add(new CommonToken(TokenType.Unknown, currentChar.ToString(), currentLine));
-                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Unknown, $"token: {currentChar}", currentLine);
+                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.unknown, $"token: {currentChar}", currentLine);
                 MoveNext();
             }
         }
@@ -102,14 +102,15 @@ public partial class Lexer
             if (IsLetter(LookAhead(1)))
             {
                 string badToken = (string)GetIdentifier().GetName();
-                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.Invalid, $"token \"{number}{badToken}\"", currentLine);
+                Error newError = new Error(ErrorKind.Lexycal, ErrorCode.invalid, $"token \"{number}{badToken}\"", currentLine);
+                break;
             }
             number += sourceCode[currentPosition];
 
             currentPosition++;
         }
 
-        return new Data(TokenType.Number, Double.Parse(number), currentLine);
+        return new Data(TokenType.Number, Double.TryParse(number,out _), currentLine);
     }
 
     private Token GetIdentifier()

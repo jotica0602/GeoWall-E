@@ -2,18 +2,20 @@
 
 Implement:
 
-1. ~~Actual line of code for every node~~
+1. ~~Actual line of code for every node~~.
 
-2. ~~Unary Nodes~~
+2. ~~Unary Nodes~~.
 
-3. ~~Constants~~
+3. ~~Constants~~.
 
-4. ~~Scope~~
+4. ~~Scope~~.
 
-5. ~~Let-in~~
+5. ~~Let-in~~.
 
-6. Functions
+6. CheckSemantic() for every node.
 
-7. Sequences
+7. Functions.
 
-8. Geometrics: point, line, arc, circle, ray, segment 
+8. Sequences.
+
+9. Geometrics: point, line, arc, circle, ray, segment.

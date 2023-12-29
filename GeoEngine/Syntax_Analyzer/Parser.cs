@@ -147,8 +147,6 @@ public partial class ASTBuilder
                 Console.WriteLine("not implemented");
                 Error.ShowErrors();
                 throw new Exception();
-                return null!;
         }
     }
 }
-

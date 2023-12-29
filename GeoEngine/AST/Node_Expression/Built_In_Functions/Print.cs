@@ -6,6 +6,8 @@ public class Print : Expression
         Value = value;
     }
 
+    public override bool CheckSemantic() => true;
+
     public override void Evaluate()
     {
         Console.WriteLine(Value);

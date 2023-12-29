@@ -2,9 +2,9 @@ namespace GeoEngine;
 
 public enum ErrorCode
 {
-    None,
-    Expected,
-    Invalid,
-    Unknown,
+    none,
+    expected,
+    invalid,
+    unknown,
     
 }

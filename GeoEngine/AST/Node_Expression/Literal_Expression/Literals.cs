@@ -13,13 +13,14 @@ public class Literal : Expression
             Type = NodeType.Undefined;
     }
 
+    public override bool CheckSemantic() => true;
     public override void Evaluate() { }
 }
 
 public class Constant : Expression
 {
     Scope Scope { get; set; }
-    string Name { get; set; }
+    public string Name { get; set; }
     public Constant(Scope scope, string name, int lineOfCode) : base(lineOfCode)
     {
         Scope = scope;
@@ -27,14 +28,41 @@ public class Constant : Expression
         Type = NodeType.Temporal;
     }
 
+    public override bool CheckSemantic()
+    {
+        return Exists();
+    }
+
+    bool Exists()
+    {
+        bool exists = false;
+        for (var actualScope = Scope; actualScope!.Parent is not null; actualScope = actualScope.Parent)
+        {
+            if (actualScope.Constants.Exists(x => x.Name == this.Name))
+                return true;
+            if (actualScope.Parent is null)
+                new Error
+                (
+                    ErrorKind.Semantic,
+                    ErrorCode.invalid,
+                    $"constant invocation, \"{Name}\" does not exists.",
+                    LineOfCode
+                );
+
+        }
+        return exists;
+    }
+
     public override void Evaluate()
     {
         for (var actualScope = Scope; actualScope is not null; actualScope = actualScope.Parent)
-            if (actualScope.Constants.ContainsKey(Name))
+            if (actualScope.Constants.Exists(x => x.Name == this.Name))
             {
-                actualScope.Constants[Name].Evaluate();
-                Value = actualScope.Constants[Name].Value;
+                var match = actualScope.Constants.Find(x => x.Name == this.Name);
+                match!.Evaluate();
+                Value = match.Value;
             }
+
 
         switch (Value.GetType().ToString())
         {

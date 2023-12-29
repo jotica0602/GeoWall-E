@@ -1,9 +1,5 @@
-using GeoEngine;
-
+namespace GeoEngine;
 public abstract class Statement : Node
 {
-    public Statement(int lineOfCode) : base(lineOfCode)
-    {
-        
-    }
+    public Statement(int lineOfCode) : base(lineOfCode) { }
 }
