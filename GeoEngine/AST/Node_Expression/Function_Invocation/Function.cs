@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace GeoEngine;
 public class FunctionInvocation : Expression
 {
@@ -15,9 +17,12 @@ public class FunctionInvocation : Expression
     public override bool CheckSemantic()
     {
         bool exists = Exists();
-        bool argsAreExpressions = CheckArgs();
+        bool argsAreExpressions = CheckArgsType();
+        bool argsCountIsOk = false;
+        if (exists)
+            argsCountIsOk = CheckArgsCount();
 
-        return exists && argsAreExpressions;
+        return exists && argsAreExpressions && argsCountIsOk;
     }
 
     bool Exists()
@@ -30,14 +35,14 @@ public class FunctionInvocation : Expression
         (
             ErrorKind.Semantic,
             ErrorCode.invalid,
-            $"function call, function \"{Name}\" does not exists",
+            $"function invocation, function \"{Name}\" does not exists",
             LineOfCode
         );
 
         return false;
     }
 
-    bool CheckArgs()
+    bool CheckArgsType()
     {
         if (Arguments.Where(x => x is not Expression).Count() is not 0)
         {
@@ -45,22 +50,53 @@ public class FunctionInvocation : Expression
             (
                 ErrorKind.Semantic,
                 ErrorCode.invalid,
-                "parameter(s) type, they/it must be Expression(s).",
+                "parameter(s) type must be Expression(s).",
                 LineOfCode
             );
             return false;
         }
-
         return true;
+    }
+
+    bool CheckArgsCount()
+    {
+        int originalCount = 0;
+        for (var actualScope = Scope; actualScope is not null; actualScope = actualScope.Parent)
+            if (actualScope.Functions.Exists(x => Equals(x.Name, this.Name)))
+            {
+                var original = actualScope.Functions.Find(x => Equals(x.Name, this.Name));
+                originalCount = original!.Arguments.Count;
+                if (original!.Arguments.Count == this.Arguments.Count) return true;
+            }
+
+        new Error
+        (
+            ErrorKind.Semantic,
+            ErrorCode.invalid,
+            $"function invocation, \"{Name}\" recieves {originalCount} argument(s), but {this.Arguments.Count} were given",
+            LineOfCode
+        );
+
+        return false;
     }
 
     public override void Evaluate()
     {
         SetUp();
+
+        // Parse Tokens
         ASTBuilder parser = new ASTBuilder(Tokens);
-        List<Node> functionTree = parser.BuildNodes(Scope);
-        functionTree[0].Evaluate();
-        Value = functionTree[0].Value;
+        Node functionTree = parser.BuildNodes(Scope).First();
+        Error.CheckErrors(ErrorKind.Syntax);
+
+        functionTree.CheckSemantic();
+
+        Error.CheckErrors(ErrorKind.Semantic);
+
+        // Evaluate Tree
+        functionTree.Evaluate();
+        Value = functionTree.Value;
+    
         switch (Value)
         {
             case "System.Double":
@@ -78,16 +114,32 @@ public class FunctionInvocation : Expression
         Scope scope = new Scope();
         scope.Parent = Scope.Parent;
 
+        // Getting original function declaration
         for (var actualScope = Scope; actualScope is not null; actualScope = actualScope.Parent)
-            if (actualScope.Functions.Exists(x => Equals(x.Name, this.Name)))
-                original = actualScope.Functions.Find(x => Equals(x.Name, this.Name))!;
+            foreach(var function in actualScope.Functions)
+            {
+                scope.Functions.Add(function);
+                if(function.Name == this.Name)
+                    original = function;
+            }
+            // if (actualScope.Functions.Exists(x => Equals(x.Name, this.Name)))
+            //     original = actualScope.Functions.Find(x => Equals(x.Name, this.Name))!;
+        
+
+        // Adding it to the new scope
         scope.Functions.Add(original);
+
+        // Getting Tokens
         Tokens = original.Body;
+
+        // Getting Argument Names
         List<string> argNames = original.ArgumentsName;
 
-        for (int i = 0; i < argNames.Count; i++)
-            scope.Constants.Add(new ConstantDeclaration(argNames[i], Arguments[i], Scope.MakeChild(), LineOfCode));
+        // Matching Argument Names with Expression
+        for (int i = 0; i < argNames.Count; i++)                                    //error here
+            scope.Constants.Add(new ConstantDeclaration(argNames[i], Arguments[i], scope, LineOfCode));
 
+        // Setting the function invocation scope to the new one
         Scope = scope;
     }
 }

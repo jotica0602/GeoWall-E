@@ -13,30 +13,37 @@ class Interpreter
     {
         string input =
         @"
-            fact(x) = if(n>1) then fib(n-1) + fib(n-2) else 1;
-            fib(5);
+        fib(x) = if(x>1) then fib(x-1) + fib(x-2) + f(x) else 1;
+        f(x) = x;
+
+        let 
+            b = 
+                let 
+                    m = 5; 
+                    in fib(m) + f(m+10);
+        in b;
         ";
 
         #region Lexer
         Lexer lexer = new Lexer(input);
+        
         List<Token> tokens = lexer.Tokenize();
         // System.Console.WriteLine(string.Join('\n', tokens));
-
-        if (Error.diagnostics.Count > 0) { Error.ShowErrors(); }
-        else { System.Console.WriteLine("Clean of Errors!"); }
+        Error.CheckErrors(ErrorKind.Lexycal);
         #endregion
 
         #region Parser
         Scope scope = new Scope();
         ASTBuilder parser = new ASTBuilder(tokens);
         List<Node> nodes = parser.BuildNodes(scope);
-
-
-        if (Error.diagnostics.Count > 0) { Error.ShowErrors(); }
-        else { System.Console.WriteLine("Clean of Errors!"); }
+        Error.CheckErrors(ErrorKind.Syntax);
         #endregion
 
         #region Semantic Analyzer
+        foreach (Expression node in nodes.Where(node => node is Expression))
+            node.CheckSemantic();
+
+        Error.CheckErrors(ErrorKind.Semantic);
         #endregion
 
         #region Interpreter
@@ -47,4 +54,6 @@ class Interpreter
         }
         #endregion
     }
+
+
 }

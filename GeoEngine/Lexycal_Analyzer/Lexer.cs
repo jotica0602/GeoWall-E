@@ -189,7 +189,7 @@ public partial class Lexer
                 }
 
                 MoveNext();
-                return new CommonToken(TokenType.Equals, "=", currentLine);
+                return new CommonToken(TokenType.Assignment, "=", currentLine);
 
             case '!':
                 if (LookAhead(1) is '=')

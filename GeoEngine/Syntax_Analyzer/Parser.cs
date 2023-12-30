@@ -26,9 +26,9 @@ public partial class ASTBuilder
             if (node is not null)
             {
                 nodes.Add(node);
-                Expect(TokenType.Semicolon);
-                System.Console.WriteLine($"{node.GetType()} added.");
+                // System.Console.WriteLine($"{node.GetType()} added.");
             }
+            Expect(TokenType.Semicolon);
         }
 
         return nodes;
@@ -144,8 +144,14 @@ public partial class ASTBuilder
                 return node;
 
             default:
-                Console.WriteLine("not implemented");
-                Error.ShowErrors();
+                new Error
+                (   
+                    ErrorKind.Syntax,
+                    ErrorCode.unexpected,
+                    $"token \"{currentToken}\"",
+                    currentLine
+                );
+                Error.CheckErrors(ErrorKind.RunTimeError);
                 throw new Exception();
         }
     }

@@ -155,12 +155,13 @@ public partial class ASTBuilder
         int idLine = currentLine;
         switch (nextToken.Type)
         {
-            case TokenType.Equals:
+            case TokenType.Assignment:
                 MoveNext(2);
                 ConstantDeclaration constant =
-                new ConstantDeclaration(idName, BuildLevel1(scope), scope, idLine);
+                new ConstantDeclaration(idName, null!, scope, idLine);
                 scope.Constants.Add(constant);
-                Expect(TokenType.Semicolon);
+                constant.Expression = BuildLevel1(scope);
+                // Expect(TokenType.Semicolon);
                 return null!;
 
             case TokenType.LeftParenthesis:
@@ -179,7 +180,7 @@ public partial class ASTBuilder
                     FunctionDeclaration function =
                     new FunctionDeclaration(idName, arguments, scope, currentLine);
                     GetBody(function.Body, scope);
-                    Expect(TokenType.Semicolon);
+                    // Expect(TokenType.Semicolon);
                     scope.Functions.Add(function);
                     return null!;
                 }
@@ -208,14 +209,17 @@ public partial class ASTBuilder
         while (currentToken.Type is not TokenType.In)
         {
             Node instruction = BuildLevel1(child);
+            Expect(TokenType.Semicolon);
             if (instruction is not null)
-                node.Instructions.Add(instruction);
+                node.Instructions.Add(instruction!);
         }
-
+        
         MoveNext();
         node.InNode = BuildLevel1(child);
         return node;
     }
+
+    
 
     void GetArguments(ref List<Node> arguments, Scope scope)
     {
@@ -231,7 +235,7 @@ public partial class ASTBuilder
         }
     }
 
-    bool IsAFunctionDeclaration() => currentToken.Type is TokenType.Equals;
+    bool IsAFunctionDeclaration() => currentToken.Type is TokenType.Assignment;
 
     void GetBody(List<Token> body, Scope scope)
     {

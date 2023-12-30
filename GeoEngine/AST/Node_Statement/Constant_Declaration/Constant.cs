@@ -3,7 +3,7 @@ public class ConstantDeclaration : Statement
 {
     public string Name { get; set; }
     Scope Scope { get; set; }
-    Node Expression { get; set; }
+    public Node Expression { get; set; }
     public ConstantDeclaration(string name, Node expression, Scope scope, int lineOfCode) : base(lineOfCode)
     {
         Name = name;
@@ -22,7 +22,7 @@ public class ConstantDeclaration : Statement
                 (
                     ErrorKind.Semantic, 
                     ErrorCode.invalid, 
-                    $"constants cannot be redefined", 
+                    $"constant \"{Name}\" cannot be redefined.", 
                     LineOfCode
                 );
                 return false;

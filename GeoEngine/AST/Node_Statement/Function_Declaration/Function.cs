@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace GeoEngine;
 public class FunctionDeclaration : Statement
 {
@@ -25,11 +27,11 @@ public class FunctionDeclaration : Statement
     public override bool CheckSemantic()
     {
         bool isOverWriting = IsOverWriting();
-        bool argsAreVariables = CheckArgs();
+        bool argsAreVariables = CheckArgsType();
         return !isOverWriting && argsAreVariables;
     }
 
-    bool CheckArgs()
+    bool CheckArgsType()
     {
         if (Arguments.Where(x => x is not Constant).Count() is not 0)
         {
@@ -56,7 +58,6 @@ public class FunctionDeclaration : Statement
                 $"operation, function \"{Name}\" already exists",
                 LineOfCode
             );
-            Error.ShowErrors();
             return true;
         }
 

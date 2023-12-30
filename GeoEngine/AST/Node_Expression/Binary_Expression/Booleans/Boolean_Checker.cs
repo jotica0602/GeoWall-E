@@ -4,7 +4,7 @@ public class BooleanValue
 {
     public static bool Checker(object nodeValue)
     {
-        System.Console.WriteLine(nodeValue.GetType());
+        // System.Console.WriteLine(nodeValue.GetType());
         if
         (
             (nodeValue == null) ||

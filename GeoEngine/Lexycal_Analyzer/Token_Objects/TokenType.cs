@@ -80,7 +80,7 @@ public enum TokenType
     Not,
 
 
-    Equals,
+    Assignment,
 
     EqualsTo,
 
