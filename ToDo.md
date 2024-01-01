@@ -19,3 +19,5 @@ Implement:
 8. Sequences.
 
 9. Geometrics: point, line, arc, circle, ray, segment.
+
+10. Implement GetColor() abstract method in all figures.
