@@ -320,6 +320,36 @@ function drawArcBetweenPoints2(canvasId, centerX, centerY, pointBX, pointBY, poi
     ctx.stroke();
 }
 
+function drawLabeledArc(canvasId, centerX, centerY, pointBX, pointBY, pointCX, pointCY, radius, label, color, lineWidth) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext("2d");
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+
+    // Calcular los ángulos correspondientes a los puntos B y C con respecto al punto A (centro)
+    var angleB = Math.atan2(pointBY - centerY, pointBX - centerX);
+    var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
+
+    // Asegurarse de que los ángulos estén en el rango correcto (de B a C en sentido horario)
+    if (angleB > angleC) {
+        var temp = angleB;
+        angleB = angleC;
+        angleC = temp;
+    }
+
+    // Dibujar el arco
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, angleB, angleC);
+    ctx.stroke();
+    
+    // Etiquetar el arco
+    ctx.fillStyle = "black";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(label, centerX, centerY - radius - 5);
+}
+
 function isInsideCanvas(point, canvasWidth, canvasHeight) {
     return point.x >= 0 && point.x <= canvasWidth && point.y >= 0 && point.y <= canvasHeight;
 }

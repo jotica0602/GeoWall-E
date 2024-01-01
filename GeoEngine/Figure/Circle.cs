@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 public class Circle : Figure
 {
-    public string Label = null;
+    public string Label = null!;
     //Parameters
     public Point Center {get; }
     public double Radius {get; }

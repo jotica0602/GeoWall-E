@@ -10,7 +10,7 @@
 <div class="main-container">
     <div class="canvas-container">
         <canvas id="graphCanvas" width=100% height=100%></canvas>
-        @* <button @onclick="DrawArcBetweenPoints2">Dibuja Línea</button> *@
+        <button @onclick="DrawArcBetweenPoints2">Dibuja Línea</button>
     </div>
     <div class="control-panel">
         <div class="code-input">
@@ -225,9 +225,9 @@
         // Por ejemplo, traza un arco desde el centro (100, 100) hasta los puntos (150, 50) y (200, 100),
         // con un radio de 50, color verde y ancho de línea 2.
         await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 100, 100, "Punto A", "red", 3);
-        await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 150, 50, "Punto B", "red", 3);
+        await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 150, 150, "Punto B", "red", 3);
         await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 200, 100, "Punto C", "red", 3);
-        await JSRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", 100, 100, 150, 50, 200, 100, 50, "green", 2);
+        await JSRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", 100, 100, 150, 150, 200, 100, 50, "green", 2);
     }
 
     private async Task DrawLabeledPoint()

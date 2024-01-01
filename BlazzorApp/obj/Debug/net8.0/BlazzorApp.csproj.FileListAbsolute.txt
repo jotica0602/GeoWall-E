@@ -29,13 +29,13 @@ E:\University\Wall-E\BlazzorApp\BlazzorApp\obj\Debug\net8.0\refint\BlazzorApp.dl
 E:\University\Wall-E\BlazzorApp\BlazzorApp\obj\Debug\net8.0\BlazzorApp.pdb
 E:\University\Wall-E\BlazzorApp\BlazzorApp\obj\Debug\net8.0\BlazzorApp.genruntimeconfig.cache
 E:\University\Wall-E\BlazzorApp\BlazzorApp\obj\Debug\net8.0\ref\BlazzorApp.dll
+E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.exe
+E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.dll
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\appsettings.Development.json
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\appsettings.json
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.staticwebassets.runtime.json
-E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.exe
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.deps.json
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.runtimeconfig.json
-E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.dll
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.pdb
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\GeoEngine.dll
 E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\GeoEngine.pdb

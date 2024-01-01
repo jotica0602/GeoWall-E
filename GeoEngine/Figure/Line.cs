@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 public class Line : Figure
 {
-    public string Label = null;
+    public string Label = null!;
     //Parameters
     public Point P1 { get; }
     public Point P2 { get; }

@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 //Draw a line to the end of the canvas between P1 and P2 begining in P1
 public class Ray : Figure
 {
-    public string Label = null;
+    public string Label = null!;
     //Parameters
     public Point P1 { get; }
     public Point P2 { get; }

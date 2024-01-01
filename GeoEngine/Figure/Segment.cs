@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 //Draw a line between P1 and P2
 public class Segment : Figure
 {
-    public string Label = null;
+    public string Label = null!;
     //Parameters
     public Point P1 { get; }
     public Point P2 { get; }
