@@ -6,5 +6,15 @@ public abstract class Figure
 
     public abstract void Draw();
 
-    public abstract void GetColor();
+    public virtual void GetColor()
+    {
+        if(DrawEngine.stackColor.Count > 0)
+        {
+            Color = DrawEngine.stackColor.Peek();
+        }
+        else
+        {
+            Color = "white";
+        }
+    }
 }

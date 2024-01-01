@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 public class Point : Figure
 {
     //in case we need a label
-    string Label = null!;
+    public string Label = null!;
     //now its parameters
     public double X {get; }
     public double Y {get; }
@@ -48,18 +48,15 @@ public class Point : Figure
     {
         if(Label is not null)
         {
+            GetColor();
             await DrawEngine._jsRuntime.InvokeAsync<object>("drawLabeledPoint", "graphCanvas", X, Y, Label, Color, 3);
             //await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 100, 100, "Punto A", "red", 3);
         }
         else
         {
+            GetColor();
             await DrawEngine._jsRuntime.InvokeAsync<object>("drawPoint", "graphCanvas", X, Y, Color, 3);
             //await JSRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", 100, 100, "red", 3);
         }
-    }
-
-    public override void GetColor()
-    {
-        throw new NotImplementedException();
     }
 }

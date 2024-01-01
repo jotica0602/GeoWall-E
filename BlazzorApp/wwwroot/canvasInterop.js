@@ -9,6 +9,7 @@ function drawPoint(canvasId, x, y, color, radius) {
     ctx.fill();
 }
 
+//this is a segment
 function drawLine(canvasId, startX, startY, endX, endY, color) {
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext("2d");
@@ -20,6 +21,30 @@ function drawLine(canvasId, startX, startY, endX, endY, color) {
     ctx.lineTo(endX, endY);
     ctx.stroke();
 }
+
+function drawLabeledSegment(canvasId, startX, startY, endX, endY, color) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext("2d");
+
+    ctx.strokeStyle = color;
+
+    // Dibujar la línea
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+
+    // Calcular el punto medio de la línea
+    var midPointX = (startX + endX) / 2;
+    var midPointY = (startY + endY) / 2;
+
+    // Etiquetar el punto medio
+    ctx.fillStyle = "black";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(label, midPointX, midPointY);
+}
+
 
 function drawCircleOutline(canvasId, centerX, centerY, radius, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
@@ -34,6 +59,25 @@ function drawCircleOutline(canvasId, centerX, centerY, radius, color, lineWidth)
     ctx.stroke();
 }
 
+function drawLabeledCircleOutline(canvasId, centerX, centerY, radius, label, color, lineWidth) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext("2d");
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+
+    // Dibujar el círculo con contorno
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    // Etiquetar el círculo
+    ctx.fillStyle = "black";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(label, centerX, centerY);
+}
+
 function drawCircle(canvasId, centerX, centerY, radius, color) {
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext("2d");
@@ -44,6 +88,27 @@ function drawCircle(canvasId, centerX, centerY, radius, color) {
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
     ctx.fill();
 }
+
+function drawLabeledCircle(canvasId, centerX, centerY, radius, label, color) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = color;
+
+    // Dibujar el círculo
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    ctx.fill();
+
+    // Etiquetar el círculo
+    ctx.fillStyle = "black";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(label, centerX, centerY);
+}
+
+
+// this is line
 
 function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
@@ -175,6 +240,44 @@ function drawRayThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, colo
     ctx.lineTo(end.x, end.y);
     ctx.stroke();
 }
+
+function drawLabeledRay(canvasId, point1X, point1Y, point2X, point2Y, label, color, lineWidth) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext("2d");
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+
+    // Calcular la pendiente y la intersección y de la semirrecta que pasa por los dos puntos dados
+    var slope = (point2Y - point1Y) / (point2X - point1X);
+    var interceptY = point1Y - slope * point1X;
+
+    // Calcular la intersección con el borde derecho del canvas
+    var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
+
+    // Determinar el punto de inicio y el punto final de la semirrecta dentro del canvas
+    var start = { x: point1X, y: point1Y };
+    var end;
+
+    if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
+        end = intersectionRight;
+    } else {
+        end = { x: canvas.width, y: slope * canvas.width + interceptY };
+    }
+
+    // Dibujar la semirrecta
+    ctx.beginPath();
+    ctx.moveTo(start.x, start.y);
+    ctx.lineTo(end.x, end.y);
+    ctx.stroke();
+
+    // Etiquetar el punto de inicio
+    ctx.fillStyle = "black";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "start";
+    ctx.fillText(label, start.x + 5, start.y - 5);
+}
+
 
 function drawArcBetweenPoints(canvasId, centerX, centerY, pointBX, pointBY, pointCX, pointCY, radius, color, lineWidth) {
     var canvas = document.getElementById(canvasId);

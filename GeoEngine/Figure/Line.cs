@@ -1,10 +1,9 @@
 namespace GeoEngine;
 using Microsoft.JSInterop;
 
-
 public class Line : Figure
 {
-    string Label = null;
+    public string Label = null;
     //Parameters
     public Point P1 { get; }
     public Point P2 { get; }
@@ -28,16 +27,13 @@ public class Line : Figure
     {
         if(Label is not null)
         {
+            GetColor();
             DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);
         }
         else
         {
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 3);
+            GetColor();
+            DrawEngine._jsRuntime.InvokeVoidAsync("drawLineThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 3);
         }
-    }
-
-    public override void GetColor()
-    {
-        throw new NotImplementedException();
     }
 }

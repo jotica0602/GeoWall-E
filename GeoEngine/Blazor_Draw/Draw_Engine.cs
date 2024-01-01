@@ -11,6 +11,7 @@ public class DrawEngine
     // static Interpreter interpreter;
     // public static Dictionary<string, AST> Functiones = new Dictionary<string, AST>();
     public static string console;
+    public static Stack<string> stackColor = new Stack<string>();
     public static void Principal2(IJSRuntime jsRuntime)
     {
         _jsRuntime = jsRuntime;
@@ -25,12 +26,7 @@ public class DrawEngine
             // COLOR.stackColor.Clear();
             // Interpreter.Scope.Clear();
         }
-
-
-
     }
-
-
     public static void Method()
     {
         // lexer = new Lexer(Text);
