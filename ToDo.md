@@ -21,3 +21,6 @@ Implement:
 9. Geometrics: point, line, arc, circle, ray, segment.
 
 10. Implement GetColor() abstract method in all figures.
+
+11. Test if "DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);" works 
+with no await.
