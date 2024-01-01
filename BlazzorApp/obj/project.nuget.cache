@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "AFByK99LlDmJKzxUL+NzcTLCu0Urobt64OuWjGZtZGMMY9zY/UlBkMOCk8TYvU9jHoZfR2ZEmz9tstLrs6KDHQ==",
+  "dgSpecHash": "45kaYHtYZs81jlOdOvQddHPBlCmAo6P21eiaALHK/6OQV9CmvJy/pmSRNhbVhJbyG7PenZZCQ1QxPKrYvvomTg==",
   "success": true,
-  "projectFilePath": "E:\\University\\Wall-E\\BlazzorApp\\BlazzorApp\\BlazzorApp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\BlazzorApp\\BlazzorApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Josue\\.nuget\\packages\\microsoft.jsinterop\\7.0.0\\microsoft.jsinterop.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
