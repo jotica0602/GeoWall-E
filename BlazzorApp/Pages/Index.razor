@@ -1,17 +1,20 @@
 ﻿@page "/"
+@inherits LayoutComponentBase
 
-@using Microsoft.AspNetCore.Components
-@using Microsoft.AspNetCore.Components.Routing
-
-
-<div class="container">
-    <h1>Bienvenido al Proyecto de Compilación de Funciones Geométricas</h1>
-
-    <p>Esta es la página de presentación del proyecto, diseñada de manera detallada y minimalista.</p>
+<div class="welcome-section">
+    <h1 class="welcome-title">Welcome to GeoWall-E Project</h1>
+    <p class="welcome-subtitle">u can find our project at : <a href="https://github.com/TuUsuario/TuProyecto" target="_blank">GeoWall-E GitHub</a></p>
     
-    <div class="floating-buttons">
-        <a href="/compiler" class="button">Ir al Compilador</a>
-        <li><a href="/pdf/orientacion.pdf" target="_blank" class="button">Orientación del Proyecto (PDF)</a></li>
-        <li><a href="/readme" class="button">Acerca del Proyecto (Readme)</a></li>
+    <div class="buttons-container">
+        <a class="button" href="/writecode">Write Code</a>
+        <a class="button" href="/order">Order</a>
+        <button class="button" @onclick="OpenReadme">Readme</button>
     </div>
 </div>
+
+@code {
+    private void OpenReadme()
+    {
+        // Lógica para abrir el archivo .md, puedes usar JavaScript interop para esto.
+    }
+}
