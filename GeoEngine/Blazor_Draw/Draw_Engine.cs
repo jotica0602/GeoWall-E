@@ -8,6 +8,7 @@ public class DrawEngine
     static Lexer lexer;
     public static string Text;
     public static string ErrorMessage { get; set; }
+    public static string Logs { get; set; }
     public static Stack<string> stackColor = new Stack<string>();
     public static void DrawMotor(IJSRuntime jsRuntime)
     {
@@ -77,5 +78,15 @@ public class DrawEngine
     public static void UpdateErrors()
     {
         ErrorMessage = Error.GetErrors();
+    }
+
+    public static void UpdateLogs()
+    {
+        Logs = Print.GetAllLogs();
+    }
+
+    public static void ClearLogs()
+    {
+        Print.Logs = new List<string>();
     }
 }

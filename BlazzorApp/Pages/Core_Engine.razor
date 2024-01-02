@@ -17,6 +17,7 @@
         </div>
         <div class="console-output">
             <div id="consoleOutput" class="error-output">
+                @* @(consoleText.Split('\n').Select(line => new MarkupString($"{line}<br />"))) *@
                 @((MarkupString)consoleText)
             </div>
         </div>
@@ -177,7 +178,11 @@
         //clear console
         consoleText = string.Empty;
         string compilationErrors = "";
+        string consoleLogs = "";
 
+        //clear logs
+        DrawEngine.ClearLogs();
+        
         //clear canvas
         await JSRuntime.InvokeVoidAsync("clearCanvas", "graphCanvas");
 
@@ -187,12 +192,18 @@
         {
             DrawEngine.DrawMotor(JSRuntime);
             @* Principal.Principal2(JSRuntime); *@
+            DrawEngine.UpdateLogs();
+            consoleLogs = DrawEngine.Logs;
+            consoleText += $"<span style=\"color: white;\">{consoleLogs}</span><br />";
         }
         catch (Exception ex)
         {
+            DrawEngine.UpdateLogs();
+            consoleLogs = DrawEngine.Logs;
+            consoleText += $"<span style=\"color: white;\">{consoleLogs}</span><br />";
             DrawEngine.UpdateErrors();
             compilationErrors = DrawEngine.ErrorMessage;
-            consoleText += $"<span style=\"color: red;\">{compilationErrors}</span>\n";
+            consoleText += $"<span style=\"color: red;\">{compilationErrors}</span><br />";
             return;
         }
     }

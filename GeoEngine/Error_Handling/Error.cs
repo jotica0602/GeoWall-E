@@ -67,15 +67,15 @@ public class Error
             switch (error.errorKind)
             {
                 case ErrorKind.Semantic:
-                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.\n";
+                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.<br />";
                     break;
 
                 case ErrorKind.Syntax:
-                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.\n";
+                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.<br />";
                     break;
 
                 case ErrorKind.Lexycal:
-                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.\n";
+                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.<br />";
                     break;
             }
         }

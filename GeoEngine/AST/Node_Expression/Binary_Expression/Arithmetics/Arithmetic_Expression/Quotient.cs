@@ -15,7 +15,7 @@ public class Quotient : ArithmeticExpression
         {
             Error error = new Error(ErrorKind.RunTime, ErrorCode.invalid, "operation, cannot divide by 0", LineOfCode);
             Error.CheckErrors(ErrorKind.RunTime);
-            throw new DivideByZeroException();
+            return;
         }
         Tools.NumberTypeChecker(LeftNode, Operator, RightNode, LineOfCode);
         Value = (double)LeftNode.Value / (double)RightNode.Value;
