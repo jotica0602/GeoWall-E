@@ -74,6 +74,7 @@ public class ConstantsDeclarationForSequences : ConstantDeclaration
 
             Expression.Evaluate();
             Value = Expression.Value;
+            Type = Expression.Type;
         }
 
         else
@@ -106,6 +107,7 @@ public class ConstantsDeclarationForSequences : ConstantDeclaration
 
             Expression.Evaluate();
             Value = Expression.Value;
+            Type = Expression.Type;
         }
     }
 }

@@ -11,7 +11,7 @@ public class Power : ArithmeticExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Tools.NumberTypeChecker(LeftNode, Operator, RightNode, LineOfCode);
+        Tools.RunTimeNumberTypeChecker(LeftNode, Operator, RightNode, LineOfCode);
         Value = Math.Pow((double)LeftNode.Value, (double)RightNode.Value);
     }
 }

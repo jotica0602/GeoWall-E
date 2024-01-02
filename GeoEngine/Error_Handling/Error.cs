@@ -20,42 +20,22 @@ public class Error
         diagnostics.Add(this);
     }
 
-    public static void CheckErrors(ErrorKind kind)
+    public static void CheckErrors()
     {
         if (Error.diagnostics.Count != 0)
         {
             Error.ShowErrors();
-            Environment.Exit(0);
+            throw new Exception();
         }
-        // else
-        // {
-        //     System.Console.WriteLine($"Clean of {kind} errors!");
-        // }
     }
 
-    static void ShowErrors()
+    public static void ShowErrors()
     {
         foreach (Error error in diagnostics)
         {
-            switch (error.errorKind)
-            {
-                case ErrorKind.Semantic:
-                    Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
-                    break;
-
-                case ErrorKind.Syntax:
-                    Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
-                    break;
-
-                case ErrorKind.Lexycal:
-                    Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
-                    break;
-                    
-                default:
-                    Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
-                    break;
-            }
+            Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
         }
     }
 }
+
 

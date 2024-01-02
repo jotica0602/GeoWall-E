@@ -6,6 +6,7 @@ public class FiniteSequence : Sequence
     public FiniteSequence(List<Node> elements, int lineOfCode) : base(elements, lineOfCode)
     {
         Value = this;
+        Type = NodeType.FiniteSequence;
     }
 
     public override bool CheckSemantic()

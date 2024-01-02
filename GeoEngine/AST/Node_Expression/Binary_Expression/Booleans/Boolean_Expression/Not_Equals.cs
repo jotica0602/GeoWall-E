@@ -10,7 +10,7 @@ public class NotEquals : BooleanExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Tools.NumberTypeChecker(LeftNode,Operator,RightNode,LineOfCode);
+        Tools.RunTimeNumberTypeChecker(LeftNode,Operator,RightNode,LineOfCode);
         Value = LeftNode.Value.ToString() != RightNode.Value.ToString() ? (double)1 : (double)0;
     }
 }

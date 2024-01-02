@@ -132,11 +132,11 @@ public class FunctionInvocation : Expression
         Node functionTree = parser.BuildNodes(Scope).First();
         Body = functionTree;
 
-        Error.CheckErrors(ErrorKind.Syntax);
+        Error.CheckErrors();
 
         Body.CheckSemantic();
 
-        Error.CheckErrors(ErrorKind.Semantic);
+        Error.CheckErrors();
 
     }
 }

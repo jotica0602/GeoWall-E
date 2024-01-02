@@ -19,9 +19,9 @@ public class ConstantDeclaration : Statement
             {
                 new Error
                 (
-                    ErrorKind.Semantic, 
-                    ErrorCode.invalid, 
-                    $"constant \"{Name}\" cannot be redefined.", 
+                    ErrorKind.Semantic,
+                    ErrorCode.invalid,
+                    $"constant \"{Name}\" cannot be redefined.",
                     LineOfCode
                 );
                 return false;
@@ -34,5 +34,6 @@ public class ConstantDeclaration : Statement
     {
         Expression.Evaluate();
         Value = Expression.Value;
+        Type = Expression.Type;
     }
 }

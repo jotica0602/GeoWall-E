@@ -6,7 +6,7 @@ public class FiniteGeneratedSequence : Sequence
     Node UpperBound { get; set; }
     public FiniteGeneratedSequence(List<Node> elements, Node lowerBound, Node upperBound, int lineOfCode) : base(elements, lineOfCode)
     {
-        Type = NodeType.Number;
+        Type = NodeType.FiniteSequence;
         LowerBound = lowerBound;
         UpperBound = upperBound;
     }
@@ -19,7 +19,7 @@ public class FiniteGeneratedSequence : Sequence
 
         double lowerBoundValue = Double.Parse(LowerBound.Value.ToString()!);
         double upperBoundValue = Double.Parse(UpperBound.Value.ToString()!);
-
+        
         if (!IsInt(lowerBoundValue) && !IsInt(upperBoundValue))
         {
             new Error
@@ -40,7 +40,7 @@ public class FiniteGeneratedSequence : Sequence
             (
                 ErrorKind.Semantic,
                 ErrorCode.invalid,
-                "sequence range lower bound must be lower than the upper bound",
+                "sequence range, lower bound must be less than the upper bound",
                 LineOfCode
             );
         }

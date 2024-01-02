@@ -39,6 +39,7 @@ public class Constant : Expression
                 if (match!.Value is not null)
                 {
                     this.Value = match.Value;
+                    Type = match.Type;
                     break;
                 }
                 else

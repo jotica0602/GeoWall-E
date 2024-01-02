@@ -161,7 +161,7 @@ public partial class ASTBuilder
                     $"token \"{currentToken}\"",
                     currentLine
                 );
-                Error.CheckErrors(ErrorKind.RunTime);
+                Error.CheckErrors();
                 throw new Exception();
         }
     }

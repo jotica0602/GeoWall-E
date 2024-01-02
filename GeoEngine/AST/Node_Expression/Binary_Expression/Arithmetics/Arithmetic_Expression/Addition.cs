@@ -15,34 +15,6 @@ public class Addition : ArithmeticExpression
 
         return leftSemantic && rightSemantic;
     }
-    // {
-    //     if
-    //     (
-    //         LeftNode.Type is NodeType.
-    //         LeftNode.Type is not NodeType.Temporal &&
-    //         LeftNode.Type is not NodeType.Number &&
-    //         LeftNode.Type is not NodeType.FiniteSequence &&
-    //         LeftNode.Type is not NodeType.InfiniteSequence &&
-    //         LeftNode.Type is not NodeType.Undefined &&
-    //         RightNode.Type is not NodeType.Temporal &&
-    //         RightNode.Type is not NodeType.Number &&
-    //         RightNode.Type is not NodeType.FiniteSequence &&
-    //         RightNode.Type is not NodeType.InfiniteSequence &&
-    //         RightNode.Type is not NodeType.Undefined
-    //     )
-    //     {
-    //         new Error
-    //         (
-    //             ErrorKind.Semantic,
-    //             ErrorCode.invalid,
-    //             $"operation, operator \"{Operator}\" cannot be applied between \"{LeftNode.Type}\" and \"{RightNode.Type}\"",
-    //             LineOfCode
-    //         );
-    //         return false;
-    //     }
-
-    //     return true;
-    // }
 
     public override void Evaluate()
     {
@@ -50,13 +22,44 @@ public class Addition : ArithmeticExpression
         LeftNode.Evaluate();
         RightNode.Evaluate();
 
-        if
-        (
-            (LeftNode.Type is NodeType.FiniteSequence || LeftNode.Type is NodeType.InfiniteSequence || LeftNode.Type is NodeType.InfiniteSequence) &&
-            (RightNode is FiniteSequence || RightNode is FiniteGeneratedSequence)
-        )
-            Value = Tools.FiniteSequenceHandler((Sequence)LeftNode, (Sequence)RightNode, Value, LineOfCode);
+        if (LeftNode.Type is NodeType.Undefined || RightNode.Type is NodeType.Undefined)
+        {
+            // System.Console.WriteLine("result is undefined");
+            Type = NodeType.Undefined;
+        }
 
-        else Value = (double)LeftNode.Value + (double)RightNode.Value;
+        else if (Tools.IsSequence(LeftNode) && Tools.IsSequence(RightNode))
+        {
+            LeftNode = (Sequence)LeftNode.Value;
+            RightNode = (Sequence)RightNode.Value;
+            // System.Console.WriteLine("both are sequences");
+            Value = Tools.SequenceConcatenation((Sequence)LeftNode, (Sequence)RightNode, LineOfCode);
+            // System.Console.WriteLine(((Node)Value).Type);
+            Type = ((Node)Value).Type;
+        }
+
+        else
+        {
+
+            double leftNodeValue;
+            double rightNodeValue;
+            if (Double.TryParse(LeftNode.Value.ToString(), out leftNodeValue) && Double.TryParse(RightNode.Value.ToString(), out rightNodeValue))
+            {
+                Value = leftNodeValue + rightNodeValue;
+            }
+            else
+            {
+                new Error
+                (
+                    ErrorKind.RunTime,
+                    ErrorCode.invalid,
+                    $"operation, operator \"{Operator}\" cannot be applied between \"{LeftNode.Type}\" and \"{RightNode.Type}\"",
+                    LineOfCode
+                );
+                Error.CheckErrors();
+                throw new Exception();
+            }
+        }
     }
+
 }

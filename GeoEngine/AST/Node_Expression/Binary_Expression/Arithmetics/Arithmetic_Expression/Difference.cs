@@ -11,7 +11,7 @@ public class Difference : ArithmeticExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Tools.NumberTypeChecker(LeftNode, Operator, RightNode, LineOfCode);
+        Tools.RunTimeNumberTypeChecker(LeftNode, Operator, RightNode, LineOfCode);
         Value = (double)LeftNode.Value - (double)RightNode.Value;
     }
 }

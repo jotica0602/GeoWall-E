@@ -10,7 +10,7 @@ public class LessThan : BooleanExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        Tools.NumberTypeChecker(LeftNode,Operator,RightNode,LineOfCode);
+        Tools.RunTimeNumberTypeChecker(LeftNode,Operator,RightNode,LineOfCode);
         Value = (double)LeftNode.Value < (double)RightNode.Value ? (double)1 : (double)0;
     }
 }

@@ -12,13 +12,14 @@ public abstract class Sequence : Expression
             Value = null!;
         }
     }
+
     public NodeType GetNodeType() => this.Type;
     public override string ToString()
     {
-        string value = "";
+        string value = string.Empty;
 
         foreach (var element in Elements)
-            value += element.Value + " ";
+            value += $"{element.Value} ";
 
         return value;
     }

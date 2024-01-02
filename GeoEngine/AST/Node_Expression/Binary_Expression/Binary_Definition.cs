@@ -16,7 +16,7 @@ public abstract class BinaryExpression : Expression
         if
         (
             LeftNode.Type is not NodeType.Number &&
-            LeftNode.Type is not NodeType.Temporal &&
+            LeftNode.Type is not NodeType.Temporal ||
             RightNode.Type is not NodeType.Number &&
             RightNode.Type is not NodeType.Temporal
         )
@@ -24,7 +24,7 @@ public abstract class BinaryExpression : Expression
             new Error
             (
                 ErrorKind.Semantic, ErrorCode.invalid,
-                $"operator \"{Operator}\" cannot be applied between \"{LeftNode.Type}\" and \"{RightNode}\"",
+                $"operation, operator \"{Operator}\" cannot be applied between \"{LeftNode.Type}\" and \"{RightNode.Type}\"",
                 LineOfCode
             );
             return false;

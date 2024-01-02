@@ -6,7 +6,7 @@ public class InfiniteSequence : Sequence
 
     public InfiniteSequence(List<Node> elements, Node lowerBound, int lineOfCode) : base(elements, lineOfCode)
     {
-        Type = NodeType.Number;
+        Type = NodeType.InfiniteSequence;
         LowerBound = lowerBound;
         Value = this;
     }

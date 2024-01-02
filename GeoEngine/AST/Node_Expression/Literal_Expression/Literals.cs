@@ -21,10 +21,6 @@ public class Literal : Expression
     }
 
     public override bool CheckSemantic() => true;
-    public override void Evaluate()
-    {
-        if (Type is NodeType.Undefined)
-            System.Console.WriteLine("undefined");
-    }
+    public override void Evaluate() { }
 }
 

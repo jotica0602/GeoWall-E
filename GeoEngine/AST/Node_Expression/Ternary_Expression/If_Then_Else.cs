@@ -26,11 +26,13 @@ public class IfThenElse : Expression
         {
             TrueNode.Evaluate();
             Value = TrueNode.Value;
+            Type = TrueNode.Type;
         }
         else
         {
             FalseNode.Evaluate();
             Value = FalseNode.Value;
+            Type = FalseNode.Type;
         }
     }
 

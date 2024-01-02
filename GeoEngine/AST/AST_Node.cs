@@ -9,9 +9,9 @@ public abstract class Node
     {
         LineOfCode = lineOfCode;
     }
-    
+
     public abstract void Evaluate();
     public abstract bool CheckSemantic();
 
-    public override string ToString() => Value is null ? this.GetType().ToString() : Value.ToString()!;
+    public override string ToString() => this.Type is NodeType.Undefined ? "undefined" : Value.ToString()!;
 }
