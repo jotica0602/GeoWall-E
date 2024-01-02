@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Xml;
 
 namespace GeoEngine;
@@ -151,84 +152,163 @@ public partial class ASTBuilder
 
     private Node HandleIdentifier(Scope scope)
     {
-        string idName = currentToken.GetName();
+        string identifier = currentToken.GetName();
         int idLine = currentLine;
-        switch (nextToken.Type)
+        if (IsABuiltInFunction(identifier))
+            return BuiltInFunction(identifier, scope, idLine);
+
+        if (nextToken.Type is TokenType.Assignment)
         {
-            case TokenType.Assignment:
-                MoveNext(2);
-                ConstantDeclaration constant =
-                new ConstantDeclaration(idName, null!, scope, idLine);
-                constant.CheckSemantic();
-                scope.Constants.Add(constant);
-                constant.Expression = BuildLevel1(scope);
-                // Expect(TokenType.Semicolon);
-                return null!;
-
-            case TokenType.LeftParenthesis:
-
-                // Initializing args list
-                List<Node> arguments = new List<Node>();
-                MoveNext(2);
-                GetArguments(ref arguments, scope);
-                Expect(TokenType.RightParenthesis);
-
-                // at this point all arguments have been gathered
-                // being an equals token means it is a function declaration
-
-                if (IsAFunctionDeclaration())
-                {
-                    FunctionDeclaration function =
-                    new FunctionDeclaration(idName, arguments, scope, currentLine);
-                    GetBody(function.Body, scope);
-                    // Expect(TokenType.Semicolon);
-                    scope.Functions.Add(function);
-                    return null!;
-                }
-
-                // otherwise it means it is a function invocation
-                else
-                {
-                    FunctionInvocation functionCallNode =
-                    new FunctionInvocation(idName, arguments, scope, idLine);
-                    return functionCallNode;
-                }
-
-            case TokenType.Comma:
-                List<string> constantNames = new List<string>();
-                constantNames.Add(currentToken.GetName());
-                MoveNext(2);
-                GetConstants(ref constantNames);
-                Node sequence = BuildLevel1(scope);
-
-                // this expression or this expression result must be a sequence
-                // System.Console.WriteLine(string.Join('\n', constantNames));
-                for (int i = 0; i < constantNames.Count; i++)
-                {
-                    if (constantNames[i] is "_")
-                        continue;
-
-                    scope.Constants.Add
-                    (
-                        new ConstantsDeclarationForSequences
-                        (
-                            constantNames[i],
-                            null!,
-                            sequence,
-                            i,
-                            i == constantNames.Count - 1,
-                            scope,
-                            idLine
-                        )
-                    );
-                }
-                return null!;
-
-            default:
-                Constant node = new Constant(scope, idName, idLine);
-                MoveNext();
-                return node;
+            MoveNext(2);
+            ConstantDeclaration constant =
+            new ConstantDeclaration(identifier, null!, scope, idLine);
+            constant.CheckSemantic();
+            scope.Constants.Add(constant);
+            constant.Expression = BuildLevel1(scope);
+            // Expect(TokenType.Semicolon);
+            return null!;
         }
+        else if (nextToken.Type is TokenType.LeftParenthesis)
+        {
+            HandlingFunction = true;
+            // Initializing args list
+            List<Node> arguments = new List<Node>();
+            MoveNext(2);
+            GetArguments(ref arguments, scope);
+            Expect(TokenType.RightParenthesis);
+
+            // at this point all arguments have been gathered
+            // being an equals token means it is a function declaration
+
+            if (IsAFunctionDeclaration())
+            {
+                FunctionDeclaration function =
+                new FunctionDeclaration(identifier, arguments, scope, currentLine);
+                GetBody(function.Body, scope);
+                // Expect(TokenType.Semicolon);
+                scope.Functions.Add(function);
+                HandlingFunction = false;
+                return null!;
+            }
+
+            // otherwise it means it is a function invocation
+            FunctionInvocation functionCallNode =
+            new FunctionInvocation(identifier, arguments, scope, idLine);
+            HandlingFunction = false;
+            return functionCallNode;
+        }
+
+        else if (nextToken.Type is TokenType.Comma && !HandlingFunction)
+        {
+            List<string> constantNames = new List<string>();
+            constantNames.Add(currentToken.GetName());
+            MoveNext(2);
+            GetConstants(ref constantNames);
+            Node sequence = BuildLevel1(scope);
+
+            // this expression or this expression result must be a sequence
+            // System.Console.WriteLine(string.Join('\n', constantNames));
+            for (int i = 0; i < constantNames.Count; i++)
+            {
+                if (constantNames[i] is "_")
+                    continue;
+
+                scope.Constants.Add
+                (
+                    new ConstantsDeclarationForSequences
+                    (
+                        constantNames[i],
+                        null!,
+                        sequence,
+                        i,
+                        i == constantNames.Count - 1,
+                        scope,
+                        idLine
+                    )
+                );
+            }
+            return null!;
+        }
+
+        else
+        {
+            Constant node = new Constant(scope, identifier, idLine);
+            MoveNext();
+            return node;
+        }
+        // switch (nextToken.Type)
+        // {
+        //     case TokenType.Assignment:
+        //         MoveNext(2);
+        //         ConstantDeclaration constant =
+        //         new ConstantDeclaration(identifier, null!, scope, idLine);
+        //         constant.CheckSemantic();
+        //         scope.Constants.Add(constant);
+        //         constant.Expression = BuildLevel1(scope);
+        //         // Expect(TokenType.Semicolon);
+        //         return null!;
+
+        //     case TokenType.LeftParenthesis:
+        //         HandlingFunction = true;
+        //         // Initializing args list
+        //         List<Node> arguments = new List<Node>();
+        //         MoveNext(2);
+        //         GetArguments(ref arguments, scope);
+        //         Expect(TokenType.RightParenthesis);
+
+        //         // at this point all arguments have been gathered
+        //         // being an equals token means it is a function declaration
+
+        //         if (IsAFunctionDeclaration())
+        //         {
+        //             FunctionDeclaration function =
+        //             new FunctionDeclaration(identifier, arguments, scope, currentLine);
+        //             GetBody(function.Body, scope);
+        //             // Expect(TokenType.Semicolon);
+        //             scope.Functions.Add(function);
+        //             return null!;
+        //         }
+
+        //         // otherwise it means it is a function invocation
+        //         FunctionInvocation functionCallNode =
+        //         new FunctionInvocation(identifier, arguments, scope, idLine);
+        //         return functionCallNode;
+
+        //     case TokenType.Comma:
+        //         List<string> constantNames = new List<string>();
+        //         constantNames.Add(currentToken.GetName());
+        //         MoveNext(2);
+        //         GetConstants(ref constantNames);
+        //         Node sequence = BuildLevel1(scope);
+
+        //         // this expression or this expression result must be a sequence
+        //         // System.Console.WriteLine(string.Join('\n', constantNames));
+        //         for (int i = 0; i < constantNames.Count; i++)
+        //         {
+        //             if (constantNames[i] is "_")
+        //                 continue;
+
+        //             scope.Constants.Add
+        //             (
+        //                 new ConstantsDeclarationForSequences
+        //                 (
+        //                     constantNames[i],
+        //                     null!,
+        //                     sequence,
+        //                     i,
+        //                     i == constantNames.Count - 1,
+        //                     scope,
+        //                     idLine
+        //                 )
+        //             );
+        //         }
+        //         return null!;
+
+        //     default:
+        //         Constant node = new Constant(scope, identifier, idLine);
+        //         MoveNext();
+        //         return node;
+        // }
     }
 
     private Node BuildLetNode(Scope scope)
@@ -305,7 +385,7 @@ public partial class ASTBuilder
         if (nextToken.Type is TokenType.RightCurlyBracket)
         {
             MoveNext(2);
-            System.Console.WriteLine("vacia");
+            // System.Console.WriteLine("vacia");
             return new FiniteSequence(sequenceNodes, currentLine);
         }
 
@@ -314,7 +394,7 @@ public partial class ASTBuilder
 
         if (isFinite && hasTriplePoints)
         {
-            System.Console.WriteLine("finita 3 puntos");
+            // System.Console.WriteLine("finita 3 puntos");
             return new FiniteGeneratedSequence
             (
                 sequenceNodes,
@@ -404,6 +484,22 @@ public partial class ASTBuilder
                 currentLine
             );
         }
+    }
+
+    Node BuiltInFunction(string functionName, Scope scope, int idLine)
+    {
+        Node builtInFunction = null!;
+        MoveNext();
+
+        switch (functionName)
+        {
+            case "print":
+                Node argument = BuildLevel1(scope);
+                builtInFunction = new Print(argument, idLine);
+                break;
+        }
+
+        return builtInFunction;
     }
 
     private void MoveNext()
@@ -508,14 +604,14 @@ public partial class ASTBuilder
         return operators.Contains(operation);
     }
 
-    bool IsABuiltInFunction(Token Identifier)
+    bool IsABuiltInFunction(string identifier)
     {
         List<string> builtInFunctions = new()
         {
             "print", "sin","cos","log","exp","sqrt"
         };
 
-        return builtInFunctions.Contains(Identifier.GetName());
+        return builtInFunctions.Contains(identifier);
     }
 
 }

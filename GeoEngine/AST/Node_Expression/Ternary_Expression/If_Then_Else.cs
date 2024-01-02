@@ -22,7 +22,7 @@ public class IfThenElse : Expression
     public override void Evaluate()
     {
         Condition.Evaluate();
-        if (BooleanValue.Checker(Condition.Value))
+        if (Tools.BooleanChecker(Condition.Value))
         {
             TrueNode.Evaluate();
             Value = TrueNode.Value;

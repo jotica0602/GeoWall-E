@@ -1,15 +1,27 @@
 namespace GeoEngine;
 public class Print : Expression
 {
-    public Print(object value, int lineOfCode): base (lineOfCode)
+    Node Argument { get; set; }
+    public Print(Node argument, int lineOfCode) : base(lineOfCode)
     {
-        Value = value;
+        Argument = argument;
     }
 
-    public override bool CheckSemantic() => true;
+    public override bool CheckSemantic()
+    {
+        if (Argument is not Expression)
+        {
+            new Error(ErrorKind.Semantic, ErrorCode.invalid, "argument type, it must be an expression", LineOfCode);
+            return false;
+        }
+
+        return true;
+    }
 
     public override void Evaluate()
     {
-        Console.WriteLine(Value);
+        Argument.Evaluate();
+        Value = Argument.Value;
+        // System.Console.WriteLine(Value);
     }
 }

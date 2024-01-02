@@ -11,20 +11,16 @@ class Interpreter
     {
         string input =
 
-        @"
-        a = {1,2,3,4};
-        b = a;
-        c,d,e,_ = b;
-        c;
-        d;
-        e;";
+            @"a = {1,2,3} + {1...10}; 
+            a+ {100...200};
+            3 and undefined;";
 
 
         #region Lexer
         Lexer lexer = new Lexer(input);
 
         List<Token> tokens = lexer.Tokenize();
-        
+
         // System.Console.WriteLine(string.Join('\n', tokens));
         Error.CheckErrors(ErrorKind.Lexycal);
         #endregion

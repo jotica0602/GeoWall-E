@@ -9,7 +9,6 @@ public class FiniteGeneratedSequence : Sequence
         Type = NodeType.Number;
         LowerBound = lowerBound;
         UpperBound = upperBound;
-        Value = this;
     }
 
     public override bool CheckSemantic()
@@ -78,7 +77,7 @@ public class FiniteGeneratedSequence : Sequence
                 element.Evaluate();
                 // Console.Write(element.Value);
             }
-            Value = Elements;
+            Value = this;
         }
 
     }

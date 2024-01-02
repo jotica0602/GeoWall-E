@@ -45,21 +45,9 @@ public class Constant : Expression
                 {
                     match!.Evaluate();
                     Value = match.Value!;
+                    Type = match.Type;
                     break;
                 }
-            }
-        if(Value is not null)
-            switch (Value!.GetType().ToString())
-            {
-                case "System.Double":
-                    Type = NodeType.Number;
-                    break;
-                case "System.String":
-                    Type = NodeType.String;
-                    break;
-                case "System.Collections.Generic.List`1[GeoEngine.Node]":
-                    Type = NodeType.Sequence;
-                    break;
             }
     }
 }

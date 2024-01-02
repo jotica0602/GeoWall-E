@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Security.Cryptography.X509Certificates;
 
 namespace GeoEngine;
@@ -5,6 +6,7 @@ public class FunctionInvocation : Expression
 {
     public string Name { get; set; }
     public List<Node> Arguments { get; set; }
+    Node Body { get; set; }
     public List<Token> Tokens { get; set; }
     public Scope Scope { get; set; }
     public FunctionInvocation(string name, List<Node> arguments, Scope scope, int lineOfCode) : base(lineOfCode)
@@ -19,6 +21,7 @@ public class FunctionInvocation : Expression
         bool exists = Exists();
         bool argsAreExpressions = CheckArgsType();
         bool argsCountIsOk = false;
+
         if (exists)
             argsCountIsOk = CheckArgsCount();
 
@@ -84,28 +87,10 @@ public class FunctionInvocation : Expression
     {
         SetUp();
 
-        // Parse Tokens
-        ASTBuilder parser = new ASTBuilder(Tokens);
-        Node functionTree = parser.BuildNodes(Scope).First();
-        Error.CheckErrors(ErrorKind.Syntax);
-
-        functionTree.CheckSemantic();
-
-        Error.CheckErrors(ErrorKind.Semantic);
-
         // Evaluate Tree
-        functionTree.Evaluate();
-        Value = functionTree.Value;
-    
-        switch (Value)
-        {
-            case "System.Double":
-                Type = NodeType.Number;
-                break;
-            case "System.String":
-                Type = NodeType.String;
-                break;
-        }
+        Body.Evaluate();
+        Value = Body.Value;
+        Type = Body.Type;
     }
 
     public void SetUp()
@@ -116,15 +101,15 @@ public class FunctionInvocation : Expression
 
         // Getting original function declaration
         for (var actualScope = Scope; actualScope is not null; actualScope = actualScope.Parent)
-            foreach(var function in actualScope.Functions)
+            foreach (var function in actualScope.Functions)
             {
                 scope.Functions.Add(function);
-                if(function.Name == this.Name)
+                if (function.Name == this.Name)
                     original = function;
             }
-            // if (actualScope.Functions.Exists(x => Equals(x.Name, this.Name)))
-            //     original = actualScope.Functions.Find(x => Equals(x.Name, this.Name))!;
-        
+        // if (actualScope.Functions.Exists(x => Equals(x.Name, this.Name)))
+        //     original = actualScope.Functions.Find(x => Equals(x.Name, this.Name))!;
+
 
         // Adding it to the new scope
         scope.Functions.Add(original);
@@ -141,5 +126,17 @@ public class FunctionInvocation : Expression
 
         // Setting the function invocation scope to the new one
         Scope = scope;
+
+        // Parse Tokens
+        ASTBuilder parser = new ASTBuilder(Tokens);
+        Node functionTree = parser.BuildNodes(Scope).First();
+        Body = functionTree;
+
+        Error.CheckErrors(ErrorKind.Syntax);
+
+        Body.CheckSemantic();
+
+        Error.CheckErrors(ErrorKind.Semantic);
+
     }
 }

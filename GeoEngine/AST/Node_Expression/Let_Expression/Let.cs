@@ -27,5 +27,6 @@ public class Let : Expression
 
         InNode.Evaluate();
         Value = InNode.Value;
+        Type = InNode.Type;
     }
 }

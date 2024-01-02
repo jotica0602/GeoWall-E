@@ -4,6 +4,7 @@ public class Quotient : ArithmeticExpression
     public Quotient(Node leftNode, Node rightNode, int lineOfCode) : base(leftNode, rightNode, lineOfCode)
     {
         Type = NodeType.Number;
+        Operator = "/";
     }
 
     public override void Evaluate()
@@ -16,6 +17,7 @@ public class Quotient : ArithmeticExpression
             Error.CheckErrors(ErrorKind.RunTime);
             throw new DivideByZeroException();
         }
+        Tools.NumberTypeChecker(LeftNode, Operator, RightNode, LineOfCode);
         Value = (double)LeftNode.Value / (double)RightNode.Value;
     }
 }

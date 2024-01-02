@@ -12,6 +12,6 @@ public class Not : UnaryExpression
     public override void Evaluate()
     {
         Expression.Evaluate();
-        Value = !BooleanValue.Checker(Expression.Value) ? (double)1 : (double)0;
+        Value = !Tools.BooleanChecker(Expression.Value) ? (double)1 : (double)0;
     }
 }

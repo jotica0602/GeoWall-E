@@ -92,8 +92,8 @@ public partial class Lexer
                 "measure",
                 "restore",
                 "sequence",
+                "undefined",
                 "intersect",
-                "underScore",
             };
 
         return keywords.Contains(idkind);

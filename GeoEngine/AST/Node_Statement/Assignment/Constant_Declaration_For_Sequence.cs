@@ -18,7 +18,6 @@ public class ConstantsDeclarationForSequences : ConstantDeclaration
     public override bool CheckSemantic()
     {
         bool isNotRedifining = IsNotRedifining();
-
         return isNotRedifining;
     }
 

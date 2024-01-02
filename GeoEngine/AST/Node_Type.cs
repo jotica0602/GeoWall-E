@@ -4,9 +4,9 @@ public enum NodeType
     Number,
     String,
     Temporal,
-    Sequence,
+    FiniteSequence,
+    InfiniteSequence,
     EmptySequence,
-    Infinite,
     Undefined,
     LineBreak,
 }

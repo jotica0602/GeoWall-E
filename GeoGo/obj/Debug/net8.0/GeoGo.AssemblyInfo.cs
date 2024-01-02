@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GeoGo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1ec12881d6a545384275aac7993c3ead38c0a2e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3530c473019a37dfe40721735aaa9c560c8ca44")]
 [assembly: System.Reflection.AssemblyProductAttribute("GeoGo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeoGo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
