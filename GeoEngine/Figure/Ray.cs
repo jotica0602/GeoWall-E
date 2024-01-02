@@ -10,7 +10,7 @@ public class Ray : Figure
     public Point P2 { get; }
 
     //===>>> Constructor with label
-    public Ray(string label, Point p1, Point p2)
+    public Ray(string label, Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
         P1 = p1;
@@ -19,7 +19,7 @@ public class Ray : Figure
     }
 
     //===>>> Constructor with no label
-    public Ray(Point p1, Point p2)
+    public Ray(Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
         P1 = p1;
         P2 = p2;

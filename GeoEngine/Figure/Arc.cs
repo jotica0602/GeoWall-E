@@ -11,7 +11,7 @@ public class Arc : Figure
     public double Radius { get; }
 
     //===>>> Constructor with label
-    public Arc(string label, Point center, Point b, Point c, double radius)
+    public Arc(string label, Point center, Point b, Point c, double radius, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
         Center = center;
@@ -22,7 +22,7 @@ public class Arc : Figure
     }
 
     //===>>> Constructor with no label
-    public Arc(Point center, Point b, Point c, double radius)
+    public Arc(Point center, Point b, Point c, double radius, int lineOfCode) : base(lineOfCode)
     {
         Center = center;
         B = b;

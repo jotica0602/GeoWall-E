@@ -11,7 +11,7 @@ public class Segment : Figure
     public Point P2 { get; }
 
     //===>>> Constructor with label
-    public Segment(string label, Point p1, Point p2)
+    public Segment(string label, Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
         P1 = p1;
@@ -20,7 +20,7 @@ public class Segment : Figure
     }
     
     //===>>> Constructor with no label
-    public Segment(Point p1, Point p2)
+    public Segment(Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
         P1 = p1;
         P2 = p2;

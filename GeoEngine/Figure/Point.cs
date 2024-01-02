@@ -10,7 +10,7 @@ public class Point : Figure
     public double Y {get; }
 
     //===>>> Contructor with label
-    public Point(string label, double x, double y)
+    public Point(string label, double x, double y, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
         X = x;
@@ -19,7 +19,7 @@ public class Point : Figure
     }
 
     //===>>> Constructor with no label
-    public Point(double x, double y)
+    public Point(double x, double y, int lineOfCode) : base(lineOfCode)
     {
         X = x;
         Y = y;
@@ -27,7 +27,7 @@ public class Point : Figure
     }
 
     //===>>> Contructor for random point with label
-    public Point(string label)
+    public Point(string label, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
         Random rnd = new Random();
@@ -37,7 +37,7 @@ public class Point : Figure
     }
 
     //===>>> Constructor for random point with no label
-    public Point()
+    public Point(int lineOfCode) : base(lineOfCode)
     {
         Random rnd = new Random();
         X = rnd.Next(0, 691);

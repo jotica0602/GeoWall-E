@@ -1,7 +1,12 @@
 namespace GeoEngine;
 
-public abstract class Figure
+public abstract class Figure : Node
 {
+    protected Figure(int lineOfCode) : base(lineOfCode)
+    {
+
+    }
+
     public string Color { get; set; }
 
     public abstract void Draw();
@@ -17,4 +22,7 @@ public abstract class Figure
             Color = "white";
         }
     }
+
+    public override void Evaluate() {}
+    public override bool CheckSemantic() => true;
 }

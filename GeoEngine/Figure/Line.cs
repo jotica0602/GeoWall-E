@@ -9,7 +9,7 @@ public class Line : Figure
     public Point P2 { get; }
 
     //===>>> Constructor with label
-    public Line(string label, Point p1, Point p2)
+    public Line(string label, Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
         P1 = p1;
@@ -17,7 +17,7 @@ public class Line : Figure
         Color = "white";
     }
     //===>>> Constructor with no label
-    public Line(Point p1, Point p2)
+    public Line(Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
         P1 = p1;
         P2 = p2;
