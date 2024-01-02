@@ -1,20 +1,100 @@
 ﻿@page "/"
-@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
-<div class="welcome-section">
+<div class="welcome-container">
     <h1 class="welcome-title">Welcome to GeoWall-E Project</h1>
-    <p class="welcome-subtitle">u can find our project at : <a href="https://github.com/TuUsuario/TuProyecto" target="_blank">GeoWall-E GitHub</a></p>
-    
-    <div class="buttons-container">
-        <a class="button" href="/writecode">Write Code</a>
-        <a class="button" href="/order">Order</a>
-        <button class="button" @onclick="OpenReadme">Readme</button>
+
+    <div class="button-container">
+        <button class="custom-button" @onclick="GoToCodePage">Write code</button>
+        <button class="custom-button" @onclick="DownloadPdf">Order</button>
+        <button class="custom-button" @onclick="OpenReadme">Readme</button>
     </div>
 </div>
 
+<div class="container-footer">
+
+        <footer>
+
+            <div class="redes-footer">
+                <a href="https://github.com/jotica0602/GeoWall-E" class="github"><i
+                        class="ri-github-fill">Repository</i></a>
+            </div>
+            <hr>
+            <h5>Computer Science </h5>
+            <h5>University of Havana</h5>
+            <h5>2023</h5>
+        </footer>
+
+
+    </div>
+    <style>
+     .container-footer {
+            width: 100%;
+            padding: 40px;
+            background: #eae9e9;
+            margin-top: 40px;
+        }
+
+        .container-footer footer {
+            max-width: 65%;
+            margin: auto;
+        }
+
+        .container-footer footer .redes-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .container-footer footer .redes-footer .github {
+            font-size: 20px;
+            margin: 20px;
+            background: #d3d2d2;
+            width: 140px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 30px;
+            color: #a2a2a2;
+        }
+
+        .container-footer footer hr {
+            margin-top: 20px;
+            border: none;
+            height: 1px;
+            background-color: rgb(186, 186, 186);
+        }
+
+        .container-footer h4 {
+            text-align: center;
+            margin-top: 40px;
+            color: #8e8e8e;
+        }
+
+        .container-footer h5 {
+            text-align: center;
+            margin-top: 7px;
+            color: #8e8e8e;
+        }
+    </style>
 @code {
-    private void OpenReadme()
+    private async Task GoToCodePage()
     {
-        // Lógica para abrir el archivo .md, puedes usar JavaScript interop para esto.
+        // Navegar a la página /CoreEngine
+        NavigationManager.NavigateTo("/CoreEngine");
+    }
+
+    private async Task DownloadPdf()
+    {
+        // Descargar el PDF con la orientación del proyecto
+        // Puedes implementar la descarga del PDF según tus necesidades
+    }
+
+    private async Task OpenReadme()
+    {
+        // Abrir el archivo .md con la información del proyecto
+        // Puedes implementar la apertura del archivo según tus necesidades
     }
 }
