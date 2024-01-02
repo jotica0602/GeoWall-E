@@ -1,0 +1,92 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+@inherits LayoutComponentBase
+
+
+<div class="content">
+    <NavMenu />
+    <!-- Resto del contenido de tu página de presentación -->
+</div>
+
+<div class="welcome-container">
+    <h1 class="welcome-title">Welcome to GeoWall-E Project</h1>
+</div>
+
+<div class="container-footer">
+
+    <footer>
+
+        <div class="redes-footer">
+            <a href="https://github.com/jotica0602/GeoWall-E" class="github"><i
+                    class="ri-github-fill">Repository</i></a>
+        </div>
+        <hr>
+        <h5>Computer Science </h5>
+        <h5>University of Havana</h5>
+        <h5>2023</h5>
+    </footer>
+
+
+</div>
+<style>
+    .welcome-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 15px;
+    }
+    .container-footer {
+        width: 100%;
+        padding: 40px;
+        background: #eae9e9;
+        margin-top: 40px;
+    }
+
+    .container-footer footer {
+        max-width: 65%;
+        margin: auto;
+    }
+
+    .container-footer footer .redes-footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .container-footer footer .redes-footer .github {
+        font-size: 20px;
+        margin: 20px;
+        background: #d3d2d2;
+        width: 140px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 30px;
+        color: #a2a2a2;
+    }
+
+    .container-footer footer hr {
+        margin-top: 20px;
+        border: none;
+        height: 1px;
+        background-color: rgb(186, 186, 186);
+    }
+
+    .container-footer h4 {
+        text-align: center;
+        margin-top: 40px;
+        color: #8e8e8e;
+    }
+
+    .container-footer h5 {
+        text-align: center;
+        margin-top: 7px;
+        color: #8e8e8e;
+    }
+</style>
+@code {
+
+}

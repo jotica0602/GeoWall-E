@@ -22,6 +22,16 @@ public partial class Lexer
         tokens = new List<Token>();
         currentPosition = 0;
         currentLine = 1;
+
+
+        //clean error every time sourceCode is modified
+        Error.diagnostics.Clear();
+
+        //check if its empty
+        if((sourceCode == string.Empty) || (sourceCode.Length < 1) || (sourceCode is null))
+        {
+            Error error = new Error(ErrorKind.Lexycal, ErrorCode.empty, "source code", 0);
+        }
     }
 
     #endregion

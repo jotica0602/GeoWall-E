@@ -7,5 +7,5 @@ public enum ErrorCode
     unexpected,
     invalid,
     unknown,
-
+    empty,
 }
