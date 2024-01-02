@@ -16,3 +16,12 @@ function clearCanvas(canvasId) {
     var context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
+
+window.getFileContent = async function (fileInput) {
+    const file = fileInput.files[0];
+    if (file) {
+        const content = await file.text();
+        return content;
+    }
+    return null;
+}
