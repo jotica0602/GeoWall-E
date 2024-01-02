@@ -149,15 +149,17 @@
 
     private void CompileCode()
     {
-        @* Principal.Text = codeText;
+        @* Principal.Text = codeText; *@
+        DrawEngine.Text = codeText;
         try
         {
-            Principal.Principal2(JSRuntime);
+            DrawEngine.DrawMotor(JSRuntime);
+            @* Principal.Principal2(JSRuntime); *@
         }
         catch (Exception ex)
         {
 
-        } *@
+        }
     }
 
     //limits x:691 y:741

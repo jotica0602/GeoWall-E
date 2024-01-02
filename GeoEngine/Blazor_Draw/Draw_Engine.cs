@@ -6,18 +6,15 @@ public class DrawEngine
 {
     public static IJSRuntime _jsRuntime;
     static Lexer lexer;
-    // static Parser parser;
     public static string Text;
-    // static Interpreter interpreter;
-    // public static Dictionary<string, AST> Functiones = new Dictionary<string, AST>();
     public static string console;
     public static Stack<string> stackColor = new Stack<string>();
-    public static void Principal2(IJSRuntime jsRuntime)
+    public static void DrawMotor(IJSRuntime jsRuntime)
     {
         _jsRuntime = jsRuntime;
         try
         {
-            Method();
+            Main();
         }
         catch (Exception ex)
         {
@@ -27,14 +24,56 @@ public class DrawEngine
             // Interpreter.Scope.Clear();
         }
     }
-    public static void Method()
+    public static void Main()
     {
-        // lexer = new Lexer(Text);
-        // parser = new Parser(lexer);
-        // interpreter = new Interpreter(parser);
+        lexer = new Lexer(Text);
+        List<Token> tokens = lexer.Tokenize();
 
-        //Console.ForegroundColor = ConsoleColor.Green;
+        //if there are any errors at the end of the lexer stop the program and show them
+        if (Error.diagnostics.Count > 0)
+        {
+            //we got some lexycal errors
+            throw new Exception();
+        }
+        //else we process to pase
+        else
+        {
+            Scope scope = new Scope();
+            ASTBuilder parser = new ASTBuilder(tokens);
+            List<Node> nodes = parser.BuildNodes(scope);
 
-        // interpreter.Interpret();
+            //now we look for syntax errors
+            if (Error.diagnostics.Count > 0)
+            {
+                //we got some syntax errors
+                throw new Exception();
+            }
+            // we look for semantic errors
+            else
+            {
+                foreach (Expression node in nodes.Where(node => node is Expression))
+                    node.CheckSemantic();
+
+                if (Error.diagnostics.Count > 0)
+                {
+                    throw new Exception();
+                }
+                //finally we evaluate
+                else
+                {
+                    foreach (Expression node in nodes.Where(node => node is Expression))
+                    {
+                        node.Evaluate();
+                    }
+
+                    //we look for run time error at the end of evaluation
+                    if (Error.diagnostics.Count > 0)
+                    {
+                        throw new Exception();
+                    }
+                }
+            }
+        }
+    
     }
 }
