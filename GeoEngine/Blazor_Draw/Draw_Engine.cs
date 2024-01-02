@@ -7,22 +7,20 @@ public class DrawEngine
     public static IJSRuntime _jsRuntime;
     static Lexer lexer;
     public static string Text;
+    public static string ErrorMessage { get; set; }
     public static string console;
     public static Stack<string> stackColor = new Stack<string>();
     public static void DrawMotor(IJSRuntime jsRuntime)
     {
         _jsRuntime = jsRuntime;
-        try
-        {
-            Main();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("An error has ocurred in your program");
-            // Functiones.Clear();
-            // COLOR.stackColor.Clear();
-            // Interpreter.Scope.Clear();
-        }
+        // try
+        // {
+        Main();
+        // }
+        // catch (Exception ex)
+        // {
+        //     ErrorMessage = Error.GetErrors();
+        // }
     }
     public static void Main()
     {
@@ -74,6 +72,11 @@ public class DrawEngine
                 }
             }
         }
-    
+
+    }
+
+    public static void UpdateErrors()
+    {
+        ErrorMessage = Error.GetErrors();
     }
 }

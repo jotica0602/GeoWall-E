@@ -10,14 +10,15 @@
 <div class="main-container">
     <div class="canvas-container">
         <canvas id="graphCanvas" width=100% height=100%></canvas>
-        <button @onclick="DrawArcBetweenPoints2">Dibuja Línea</button>
     </div>
     <div class="control-panel">
         <div class="code-input">
             <textarea id="codeInput" @bind="codeText"></textarea>
         </div>
         <div class="console-output">
-            <textarea id="consoleOutput" readonly @bind="consoleText"></textarea>
+            <div id="consoleOutput" class="error-output">
+                @((MarkupString)consoleText)
+            </div>
         </div>
         <div class="buttons">
             <div class="save-container">
@@ -91,6 +92,8 @@
         color: white;
         border: none;
         cursor: pointer;
+
+        border-radius: 15px;
     }
 
     .buttons button:hover {
@@ -111,6 +114,8 @@
         /* Ajuste para comodidad visual y táctil */
         font-size: 16px;
         /* Ajuste para una apariencia uniforme */
+
+        border-radius: 15px;
     }
 
     .save-container input {
@@ -123,6 +128,20 @@
     .save-container button {
         cursor: pointer;
     }
+
+    .error-output {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding: 10px;
+        background-color: #222;
+        color: white;
+        border: 1px solid #555;
+    }
+
+    .error-output span {
+        color: red;
+    }
 </style>
 
 @code {
@@ -134,7 +153,7 @@
     {
         if (string.IsNullOrWhiteSpace(filename))
         {
-            consoleText = "Input file name.";
+            consoleText = "Error 404: Not file name founded";
             return;
         }
 
@@ -147,8 +166,16 @@
     }
 
 
-    private void CompileCode()
+    //canvas limits x:691 y:741
+    private async Task CompileCode()
     {
+        //clear console
+        consoleText = string.Empty;
+        string compilationErrors = "";
+
+        //clear canvas
+        await JSRuntime.InvokeVoidAsync("clearCanvas", "graphCanvas");
+
         @* Principal.Text = codeText; *@
         DrawEngine.Text = codeText;
         try
@@ -158,84 +185,11 @@
         }
         catch (Exception ex)
         {
-
+            DrawEngine.UpdateErrors();
+            compilationErrors = DrawEngine.ErrorMessage;
+            consoleText += $"<span style=\"color: red;\">{compilationErrors}</span>\n";
+            return;
         }
-    }
-
-    //limits x:691 y:741
-    private async Task DrawLine()
-    {
-        await JSRuntime.InvokeVoidAsync("drawLine", "graphCanvas", 100, 100, 500, 500, "yellow");
-    }
-
-    private async Task DrawPoint()
-    {
-        await JSRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", 500, 500, "white", 3);
-    }
-
-    private async Task DrawPoint1()
-    {
-        await JSRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", 100, 100, "red", 3);
-    }
-
-    private async Task DrawPoint2()
-    {
-        await JSRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", 30, 120, "red", 3);
-    }
-
-    private async Task DrawPoint3()
-    {
-        await JSRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", 200, 100, "red", 3);
-    }
-
-    private async Task DrawCircle()
-    {
-        await JSRuntime.InvokeVoidAsync("drawCircle", "graphCanvas", 100, 100, 100, "blue");
-    }
-
-    private async Task DrawCircleOutline()
-    {
-        await JSRuntime.InvokeVoidAsync("drawCircleOutline", "graphCanvas", 100, 100, 100, "blue", 2);
-    }
-
-    private async Task DrawLineThroughPoints()
-    {
-        // Por ejemplo, traza una recta que pase por los puntos (50, 50) y (150, 150) y se extienda hasta los bordes del canvas,
-        // con color azul y ancho de línea 2.
-        await JSRuntime.InvokeVoidAsync("drawLineThroughPoints", "graphCanvas", 100, 100, 500, 500, "blue", 2);
-    }
-
-    private async Task DrawRayThroughPoints()
-    {
-        // Por ejemplo, traza una semirrecta que comienza en los puntos (50, 50) y pasa por (150, 150),
-        // y se extiende hasta el final del canvas, con color rojo y ancho de línea 2.
-        await JSRuntime.InvokeVoidAsync("drawRayThroughPoints", "graphCanvas", 100, 100, 500, 500, "red", 2);
-    }
-
-    private async Task DrawArcBetweenPoints()
-    {
-        // Por ejemplo, traza un arco desde el centro (100, 100) hasta los puntos (150, 50) y (200, 100),
-        // con un radio de 50, color verde y ancho de línea 2.
-        DrawPoint1();
-        DrawPoint2();
-        DrawPoint3();
-        await JSRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", 100, 100, 30, 120, 200, 100, 50, "blue", 2);
-    }
-
-    private async Task DrawArcBetweenPoints2()
-    {
-        // Por ejemplo, traza un arco desde el centro (100, 100) hasta los puntos (150, 50) y (200, 100),
-        // con un radio de 50, color verde y ancho de línea 2.
-        await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 100, 100, "Punto A", "red", 3);
-        await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 150, 150, "Punto B", "red", 3);
-        await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 200, 100, "Punto C", "red", 3);
-        await JSRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", 100, 100, 150, 150, 200, 100, 50, "green", 2);
-    }
-
-    private async Task DrawLabeledPoint()
-    {
-        // Por ejemplo, dibuja un punto en (100, 100), con la etiqueta "Punto A", color rojo y radio de 5.
-        await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 100, 100, "Punto A", "red", 3);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -10,3 +10,9 @@ function saveAsFile(filename, data) {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(anchor);
 }
+
+function clearCanvas(canvasId) {
+    var canvas = document.getElementById(canvasId);
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}

@@ -53,5 +53,29 @@ public class Error
             }
         }
     }
+
+    //This method is for returning one string with all errors
+    public static string GetErrors()
+    {
+        string errors = "";
+        foreach (Error error in diagnostics)
+        {
+            switch (error.errorKind)
+            {
+                case ErrorKind.Semantic:
+                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.\n";
+                    break;
+
+                case ErrorKind.Syntax:
+                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.\n";
+                    break;
+
+                case ErrorKind.Lexycal:
+                    errors += $"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.\n";
+                    break;
+            }
+        }
+        return errors;
+    }
 }
 
