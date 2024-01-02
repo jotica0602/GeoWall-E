@@ -1,0 +1,41 @@
+/* styles.css */
+
+.welcome-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #222;
+    color: #fff;
+}
+
+.welcome-title {
+    font-size: 2em;
+}
+
+.welcome-text {
+    font-size: 1.2em;
+}
+
+.github-link {
+    color: rgb(210, 47, 47);
+    text-decoration: none;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.custom-button {
+    background-color: #555;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* styles.css - Configuración del tema oscuro */
+
+body {
+    background-color: #1e1e1e;
+    color: #fff;
+}
