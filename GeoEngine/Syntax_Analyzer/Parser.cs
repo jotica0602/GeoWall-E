@@ -117,6 +117,10 @@ public partial class ASTBuilder
             case TokenType.Identifier:
                 return HandleIdentifier(scope);
 
+            case TokenType.LeftCurlyBracket:
+                Node sequence = BuildSequence(scope);
+                return sequence;
+
             case TokenType.Addition:
                 Node positiveNumber = BuildUnaryNode(TokenType.Addition, scope);
                 return positiveNumber;
@@ -151,7 +155,7 @@ public partial class ASTBuilder
                     $"token \"{currentToken}\"",
                     currentLine
                 );
-                Error.CheckErrors(ErrorKind.RunTimeError);
+                Error.CheckErrors(ErrorKind.RunTime);
                 throw new Exception();
         }
     }

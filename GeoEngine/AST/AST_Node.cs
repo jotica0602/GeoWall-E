@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public abstract class Node
 {
-    public NodeType Type { get; set; }
+    public NodeType Type { get; protected set; }
     public object Value { get; set; }
     public int LineOfCode { get; set; }
 
@@ -12,4 +12,6 @@ public abstract class Node
     
     public abstract void Evaluate();
     public abstract bool CheckSemantic();
+
+    public override string ToString() => Value is null ? this.GetType().ToString() : Value.ToString()!;
 }

@@ -36,19 +36,30 @@ public class Constant : Expression
             if (actualScope.Constants.Exists(x => x.Name == this.Name))
             {
                 var match = actualScope.Constants.Find(x => x.Name == this.Name);
-                match!.Evaluate();
-                Value = match.Value;
-                break;
+                if (match!.Value is not null)
+                {
+                    this.Value = match.Value;
+                    break;
+                }
+                else
+                {
+                    match!.Evaluate();
+                    Value = match.Value!;
+                    break;
+                }
             }
-
-        switch (Value.GetType().ToString())
-        {
-            case "System.Double":
-                Type = NodeType.Number;
-                break;
-            case "System.String":
-                Type = NodeType.String;
-                break;
-        }
+        if(Value is not null)
+            switch (Value!.GetType().ToString())
+            {
+                case "System.Double":
+                    Type = NodeType.Number;
+                    break;
+                case "System.String":
+                    Type = NodeType.String;
+                    break;
+                case "System.Collections.Generic.List`1[GeoEngine.Node]":
+                    Type = NodeType.Sequence;
+                    break;
+            }
     }
 }

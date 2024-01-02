@@ -116,8 +116,6 @@ public enum TokenType
 
     // Utility 
 
-    UnderScore,
-
     EndOfFile,
 
     Unknown,

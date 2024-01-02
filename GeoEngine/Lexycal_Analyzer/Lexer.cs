@@ -85,7 +85,7 @@ public partial class Lexer
                 MoveNext();
             }
         }
-        tokens.Add(new Keyword(TokenType.EndOfFile, tokens[tokens.Count-1].LineOfCode));
+        tokens.Add(new Keyword(TokenType.EndOfFile, tokens[tokens.Count - 1].LineOfCode));
         return tokens;
     }
 
@@ -97,7 +97,7 @@ public partial class Lexer
 
         string number = "";
 
-        while ((currentPosition < sourceCode.Length) && (char.IsDigit(sourceCode[currentPosition]) || sourceCode[currentPosition] == '.'))
+        while ((currentPosition < sourceCode.Length) && (char.IsDigit(sourceCode[currentPosition]) || (sourceCode[currentPosition] == '.' && sourceCode[currentPosition + 1] is not '.')))
         {
             if (IsLetter(LookAhead(1)))
             {
@@ -106,9 +106,12 @@ public partial class Lexer
                 break;
             }
             number += sourceCode[currentPosition];
+            
 
             currentPosition++;
         }
+
+        number = number.Replace('.', ',');
 
         return new Data(TokenType.Number, Double.Parse(number), currentLine);
     }
@@ -125,9 +128,6 @@ public partial class Lexer
         }
         if (IsColor(identifier))
             return Color(identifier);
-
-        else if (identifier is "_")
-            return new CommonToken(TokenType.UnderScore, identifier, currentLine);
 
         else if (IsKeyWord(identifier))
             return KeyWord(identifier);
@@ -243,6 +243,19 @@ public partial class Lexer
             case '}':
                 MoveNext();
                 return new CommonToken(TokenType.RightCurlyBracket, punctuator.ToString(), currentLine);
+            case '.':
+                if (LookAhead(1) is '.' && LookAhead(2) is '.')
+                {
+                    MoveNext(3);
+                    return new CommonToken(TokenType.TriplePoint, "...", currentLine);
+                }
+                else
+                {
+                    MoveNext();
+                    Token unknown = new CommonToken(TokenType.Unknown, ".", currentLine);
+                    new Error(ErrorKind.Lexycal, ErrorCode.invalid, "token \".\"", currentLine);
+                    return unknown!;
+                }
             default:
                 MoveNext();
                 return new CommonToken(TokenType.Quote, punctuator.ToString(), currentLine);
@@ -297,8 +310,6 @@ public partial class Lexer
                 return new Keyword(TokenType.Samples, currentLine);
             case "rest":
                 return new Keyword(TokenType.Rest, currentLine);
-            case "underScore":
-                return new Keyword(TokenType.UnderScore, currentLine);
             case "and":
                 return new Keyword(TokenType.And, currentLine);
             case "or":

@@ -2,7 +2,7 @@ namespace GeoEngine;
 public class ConstantDeclaration : Statement
 {
     public string Name { get; set; }
-    Scope Scope { get; set; }
+    protected Scope Scope { get; set; }
     public Node Expression { get; set; }
     public ConstantDeclaration(string name, Node expression, Scope scope, int lineOfCode) : base(lineOfCode)
     {
@@ -10,7 +10,6 @@ public class ConstantDeclaration : Statement
         Scope = scope;
         Expression = expression;
         Type = NodeType.Temporal;
-        CheckSemantic();
     }
 
     public override bool CheckSemantic()

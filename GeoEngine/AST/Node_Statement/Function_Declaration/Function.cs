@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 
 namespace GeoEngine;
@@ -39,7 +40,9 @@ public class FunctionDeclaration : Statement
             (
                 ErrorKind.Syntax,
                 ErrorCode.invalid,
-                "parameter(s) type in function declaration, they must be identifiers",
+                Arguments.Count > 1 ?
+                "parameters type in function declaration, they must be identifiers" :
+                "parameter type in function declaration, it must be an identifier",
                 LineOfCode
             );
             return false;

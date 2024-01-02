@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata;
-using System.Security.Cryptography.X509Certificates;
-using GeoEngine;
+﻿using GeoEngine;
 
 class Interpreter
 {
@@ -12,22 +10,21 @@ class Interpreter
     public static void Auto()
     {
         string input =
-        @"
-        fib(x) = if(x>1) then fib(x-1) + fib(x-2) + f(x) else 1;
-        f(x) = x;
 
-        let 
-            b = 
-                let 
-                    m = 5; 
-                    in fib(m) + f(m+10);
-        in b;
-        ";
+        @"
+        a = {1,2,3,4};
+        b = a;
+        c,d,e,_ = b;
+        c;
+        d;
+        e;";
+
 
         #region Lexer
         Lexer lexer = new Lexer(input);
-        
+
         List<Token> tokens = lexer.Tokenize();
+        
         // System.Console.WriteLine(string.Join('\n', tokens));
         Error.CheckErrors(ErrorKind.Lexycal);
         #endregion
@@ -37,6 +34,8 @@ class Interpreter
         ASTBuilder parser = new ASTBuilder(tokens);
         List<Node> nodes = parser.BuildNodes(scope);
         Error.CheckErrors(ErrorKind.Syntax);
+
+        // Environment.Exit(0);
         #endregion
 
         #region Semantic Analyzer
@@ -47,13 +46,13 @@ class Interpreter
         #endregion
 
         #region Interpreter
+
+
         foreach (Expression node in nodes.Where(node => node is Expression))
         {
             node.Evaluate();
-            System.Console.WriteLine(node.Value);
+            System.Console.WriteLine(node);
         }
         #endregion
     }
-
-
 }

@@ -27,10 +27,10 @@ public class Error
             Error.ShowErrors();
             Environment.Exit(0);
         }
-        else
-        {
-            // System.Console.WriteLine($"Clean of {kind} errors!");
-        }
+        // else
+        // {
+        //     System.Console.WriteLine($"Clean of {kind} errors!");
+        // }
     }
 
     static void ShowErrors()
@@ -48,6 +48,10 @@ public class Error
                     break;
 
                 case ErrorKind.Lexycal:
+                    Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
+                    break;
+                    
+                default:
                     Console.WriteLine($"!{error.errorKind} Error: {error.errorCode} {error.argument} in line {error.location}.");
                     break;
             }

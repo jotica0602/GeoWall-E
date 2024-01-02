@@ -10,9 +10,11 @@ public class Quotient : ArithmeticExpression
     {
         LeftNode.Evaluate();
         RightNode.Evaluate();
-        if (RightNode.Value is 0)
+        if (RightNode.Value is (double)0)
         {
-            Error error = new Error(ErrorKind.RunTimeError, ErrorCode.invalid, "operation, cannot divide by 0.", LineOfCode);
+            Error error = new Error(ErrorKind.RunTime, ErrorCode.invalid, "operation, cannot divide by 0", LineOfCode);
+            Error.CheckErrors(ErrorKind.RunTime);
+            throw new DivideByZeroException();
         }
         Value = (double)LeftNode.Value / (double)RightNode.Value;
     }

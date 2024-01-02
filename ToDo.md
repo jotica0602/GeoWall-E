@@ -19,3 +19,7 @@ Implement:
 8. Sequences.
 
 9. Geometrics: point, line, arc, circle, ray, segment.
+
+
+Sequences Assignment logic.
+

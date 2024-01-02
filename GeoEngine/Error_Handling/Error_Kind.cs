@@ -5,6 +5,6 @@ public enum ErrorKind
     Lexycal,
     Syntax,
     Semantic,
-    RunTimeError,
+    RunTime,
 
 }
