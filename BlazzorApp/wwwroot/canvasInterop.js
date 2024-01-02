@@ -1,3 +1,4 @@
+
 function drawPoint(canvasId, x, y, color, radius) {
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext("2d");

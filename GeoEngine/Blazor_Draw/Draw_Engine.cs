@@ -8,7 +8,6 @@ public class DrawEngine
     static Lexer lexer;
     public static string Text;
     public static string ErrorMessage { get; set; }
-    public static string console;
     public static Stack<string> stackColor = new Stack<string>();
     public static void DrawMotor(IJSRuntime jsRuntime)
     {
