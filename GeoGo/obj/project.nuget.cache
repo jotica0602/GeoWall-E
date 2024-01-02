@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "mwAyfRLnBbw+URU8Q/0xWB2DljiXxFmDYW2v/Jwil5XJmyDKEBhNXWNoubUTuleBEPK3FywJ7i0ypbcMbR+UzA==",
+  "dgSpecHash": "pvACsrqJy2QfF5fguKZgJsHblNh2I7EFdDbkZDBOpMfDwynEceUyIfXJaByqlPV/uK8FrfW+Ytl+pzT+e1hKOA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\GeoGo.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Alex\\.nuget\\packages\\microsoft.jsinterop\\7.0.0\\microsoft.jsinterop.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
