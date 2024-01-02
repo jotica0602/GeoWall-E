@@ -1,4 +1,41 @@
-.navbar-toggler {
+/* NavMenu.razor.css */
+
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #38517a;
+    padding: 10px;
+
+    border-radius: 15px;
+}
+
+.nav-title h3 {
+    margin: 0;
+}
+
+.nav-buttons a, .nav-buttons button {
+    margin-left: 15px;
+    padding: 8px 12px;
+    text-decoration: none;
+    background-color: #bebe08;
+    color: #d7e3e1;
+    border: none;
+    cursor: pointer;
+
+    border-radius: 15px;
+}
+
+.nav-buttons button {
+    background-color: #827378;
+}
+
+.nav-button:hover {
+    background-color: #7db1dc;
+}
+
+
+/* .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -56,13 +93,13 @@
     }
 
     .collapse {
-        /* Never collapse the sidebar for wide screens */
+        Never collapse the sidebar for wide screens
         display: block;
     }
     
     .nav-scrollable {
-        /* Allow sidebar to scroll for tall menus */
+        Allow sidebar to scroll for tall menus
         height: calc(100vh - 3.5rem);
         overflow-y: auto;
     }
-}
+} */

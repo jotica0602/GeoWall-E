@@ -1,4 +1,20 @@
-﻿@* <div class="top-row ps-3 navbar navbar-dark">
+﻿@inject IJSRuntime JSRuntime
+
+<div class="nav-menu">
+    <div class="nav-title">
+        <h3>GeoWall-E</h3>
+    </div>
+    <div class="nav-buttons">
+        <a href="/CoreEngine" class="nav-button">Write Code</a>
+        <a href="/GeoWall-E.pdf" target="_blank" class="nav-button">Ver PDF</a>
+    </div>
+</div>
+
+@code {
+    
+}
+
+@* <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazzorApp</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">

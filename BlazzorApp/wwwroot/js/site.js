@@ -25,3 +25,11 @@ window.getFileContent = async function (fileInput) {
     }
     return null;
 }
+
+window.openPDF = function (pdfUrl) {
+    var newWindow = window.open(pdfUrl, "_blank");
+    if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+        // Bloqueadores de ventanas emergentes pueden interferir
+        alert("Por favor, habilite las ventanas emergentes para ver el PDF.");
+    }
+}
