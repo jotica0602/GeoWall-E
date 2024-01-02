@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EKPat2/5370JBbAVGMttHDAzorN3cJJCIftn7XsoJ4o=",
+  "Hash": "cVcXA8q7e22v0CU66rP+dutzw/Sw1F/pQtKmu01/+ig=",
   "Source": "BlazzorApp",
   "BasePath": "_content/BlazzorApp",
   "Mode": "Default",
@@ -300,6 +300,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\BlazzorApp\\wwwroot\\css\\styles.css",
+      "SourceId": "BlazzorApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\BlazzorApp\\wwwroot\\",
+      "BasePath": "_content/BlazzorApp",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
     },
     {
       "Identity": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\BlazzorApp\\wwwroot\\favicon.png",
