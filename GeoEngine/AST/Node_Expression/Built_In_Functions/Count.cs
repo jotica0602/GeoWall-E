@@ -47,7 +47,7 @@ public class Count : Expression
 
         if (Argument is InfiniteSequence)
         {
-            Value = null!;
+            Value = null!; /* new Literal(NodeType.Undefined, LineOfCode)! */ 
             Type = NodeType.Undefined;
         }
 

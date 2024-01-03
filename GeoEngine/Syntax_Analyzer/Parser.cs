@@ -1,4 +1,5 @@
 using System.Formats.Asn1;
+using System.Reflection.Metadata;
 
 namespace GeoEngine;
 public partial class ASTBuilder
@@ -124,6 +125,12 @@ public partial class ASTBuilder
             case TokenType.Point:
                 return BuildPoint(scope);
 
+            case TokenType.Line:
+                return BuildLine(scope);
+
+            case TokenType.Circle:
+                return BuildCircle(scope);
+
             case TokenType.Draw:
                 return BuiltInFunction("draw", scope, currentLine);
 
@@ -164,7 +171,7 @@ public partial class ASTBuilder
                 return node;
 
             case TokenType.ColorKeyWord:
-                line = currentLine;
+                int line = currentLine;
                 MoveNext();
                 Expect(TokenType.Color);
                 node = new Color(previousToken.GetName(), line);

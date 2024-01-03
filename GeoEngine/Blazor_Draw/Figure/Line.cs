@@ -23,6 +23,7 @@ public class Line : Figure
         P2 = p2;
         Color = "white";
     }
+
     public override void Draw()
     {
         if(Label is not null)

@@ -1,7 +1,7 @@
 namespace GeoEngine;
 public partial class ASTBuilder
 {
-    private Node BuildPoint(Scope scope)
+    Node BuildPoint(Scope scope)
     {
         // point p1(number,number) "label";
         MoveNext();
@@ -62,6 +62,58 @@ public partial class ASTBuilder
             ConstantDeclaration a = new ConstantDeclaration(name, p, scope, pointLine);
             scope.Constants.Add(a);
             return null!;
+        }
+    }
+
+    Node BuildLine(Scope scope)
+    {
+        int lineOfCode = currentLine;
+
+        switch (nextToken.Type)
+        {
+            case TokenType.Identifier:
+                // generar recta random
+                return null!;
+
+            case TokenType.LeftParenthesis:
+                HandlingFunction = true;
+                MoveNext(2);
+                Node p1 = BuildLevel1(scope);
+                Expect(TokenType.Comma);
+                Node p2 = BuildLevel1(scope);
+                Expect(TokenType.RightParenthesis);
+                HandlingFunction = false;
+                return new LineFunction(p1, p2, lineOfCode);
+
+            default:
+                return null!;
+                // line (let a = 42 in a, 3+3);
+        }
+    }
+
+    Node BuildCircle(Scope scope)
+    {
+        int lineOfCode = currentLine;
+
+        switch (nextToken.Type)
+        {
+            case TokenType.Identifier:
+                // generar recta random
+                return null!;
+
+            case TokenType.LeftParenthesis:
+                HandlingFunction = true;
+                MoveNext(2);
+                Node radius = BuildLevel1(scope);
+                Expect(TokenType.Comma);
+                Node center = BuildLevel1(scope);
+                Expect(TokenType.RightParenthesis);
+                HandlingFunction = false;
+                return new CircleFunction(center, radius, lineOfCode);
+
+            default:
+                return null!;
+                // line (let a = 42 in a, 3+3);
         }
     }
 }

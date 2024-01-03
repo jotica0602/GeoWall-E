@@ -3,7 +3,7 @@ public partial class ASTBuilder
 {
     Node BuiltInFunction(string functionName, Scope scope, int idLine)
     {
-        // HandlingFunction = true;
+        HandlingFunction = true;
         Node builtInFunction = null!;
         MoveNext();
 
@@ -23,7 +23,7 @@ public partial class ASTBuilder
                 break;
         }
 
-        // HandlingFunction = false;
+        HandlingFunction = false;
 
         return builtInFunction;
     }
