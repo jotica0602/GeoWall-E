@@ -11,7 +11,7 @@ public partial class ASTBuilder
 
         if (nextToken.Type is TokenType.RightCurlyBracket)
         {
-            
+            HandlingSequence = false;
             MoveNext(2);
             // System.Console.WriteLine("vacia");
             return new FiniteSequence(sequenceNodes, currentLine);
@@ -51,7 +51,7 @@ public partial class ASTBuilder
                 sequenceLine
             );
         }
-        
+
     }
 
     void GetSequenceElement(Scope scope, ref List<Node> sequenceNodes, out bool isFinite, out bool hasTriplePoints)

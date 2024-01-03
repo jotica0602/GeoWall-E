@@ -7,6 +7,11 @@ public class FiniteSequence : Sequence
     {
         Value = this;
         Type = NodeType.FiniteSequence;
+        if (Elements.Count is 0)
+        {
+            Type = NodeType.EmptySequence;
+            Value = this;
+        }
     }
 
     public override bool CheckSemantic()

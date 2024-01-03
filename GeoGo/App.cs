@@ -9,10 +9,7 @@ class Interpreter
     public static void Auto()
     {
         string input =
-        @"
-        point p1;
-        point p2;
-        draw {p1,p2};";
+        $"line l1 \"el segmento\"; draw l1;";
 
 
         #region Lexer

@@ -3,7 +3,7 @@ public partial class ASTBuilder
 {
     Node BuiltInFunction(string functionName, Scope scope, int idLine)
     {
-        // HandlingFunction = true;
+        HandlingFunction = true;
         Node builtInFunction = null!;
         MoveNext();
 
@@ -17,9 +17,13 @@ public partial class ASTBuilder
                 argument = BuildLevel1(scope);
                 builtInFunction = new Draw(argument, idLine);
                 break;
+            case "count":
+                argument = BuildLevel1(scope);
+                builtInFunction = new Count(argument, idLine);
+                break;
         }
 
-        // HandlingFunction = false;
+        HandlingFunction = false;
 
         return builtInFunction;
     }

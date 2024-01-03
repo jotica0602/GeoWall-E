@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoGo\\GeoGo.csproj": {}
+    "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\GeoGo.csproj": {}
   },
   "projects": {
-    "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
+    "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
         "projectName": "GeoEngine",
-        "projectPath": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
-        "packagesPath": "C:\\Users\\Josue\\.nuget\\packages\\",
-        "outputPath": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoEngine\\obj\\",
+        "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
+        "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Josue\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -69,20 +69,20 @@
         }
       }
     },
-    "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoGo\\GeoGo.csproj": {
+    "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\GeoGo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoGo\\GeoGo.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\GeoGo.csproj",
         "projectName": "GeoGo",
-        "projectPath": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoGo\\GeoGo.csproj",
-        "packagesPath": "C:\\Users\\Josue\\.nuget\\packages\\",
-        "outputPath": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoGo\\obj\\",
+        "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\GeoGo.csproj",
+        "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoGo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Josue\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -97,8 +97,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
-                "projectPath": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoEngine\\GeoEngine.csproj"
+              "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
+                "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj"
               }
             }
           }

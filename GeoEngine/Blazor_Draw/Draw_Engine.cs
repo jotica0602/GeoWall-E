@@ -26,6 +26,7 @@ public class DrawEngine
     {
         lexer = new Lexer(Text);
         List<Token> tokens = lexer.Tokenize();
+        stackColor = new Stack<string>();
 
         //if there are any errors at the end of the lexer stop the program and show them
         if (Error.diagnostics.Count > 0)

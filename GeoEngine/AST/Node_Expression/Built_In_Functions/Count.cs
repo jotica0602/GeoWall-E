@@ -33,19 +33,28 @@ public class Count : Expression
     public override void Evaluate()
     {
         Argument.Evaluate();
-        if (Argument.Value is not Sequence)
+        // if (Argument.Value is not Sequence)
+        // {
+        //     new Error
+        //     (
+        //         ErrorKind.RunTime,
+        //         ErrorCode.invalid,
+        //         "function parameter must be a sequence",
+        //         LineOfCode
+        //     );
+        //     Error.CheckErrors();
+        // }
+
+        if (Argument is InfiniteSequence)
         {
-            new Error
-            (
-                ErrorKind.RunTime,
-                ErrorCode.invalid,
-                "function parameter must be a sequence",
-                LineOfCode
-            );
-            Error.CheckErrors();
+            Value = null!; /* new Literal(NodeType.Undefined, LineOfCode)! */ 
+            Type = NodeType.Undefined;
         }
 
-        else if ((Sequence)Argument is InfiniteSequence)
-            Value = null!;
+        else if (Argument.Type is NodeType.FiniteSequence)
+        {
+            Value = ((Sequence)Argument).Elements.Count;
+            Type = NodeType.Number;
+        }
     }
 }

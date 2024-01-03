@@ -13,7 +13,7 @@ public abstract class Figure : Node
 
     public virtual void GetColor()
     {
-        if(DrawEngine.stackColor.Count > 0)
+        if (DrawEngine.stackColor.Count > 0)
         {
             Color = DrawEngine.stackColor.Peek();
         }
@@ -23,6 +23,6 @@ public abstract class Figure : Node
         }
     }
 
-    public override void Evaluate() {}
+    public override void Evaluate() { }
     public override bool CheckSemantic() => true;
 }

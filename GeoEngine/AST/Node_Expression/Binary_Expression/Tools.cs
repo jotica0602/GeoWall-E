@@ -9,7 +9,7 @@ public class Tools
         // System.Console.WriteLine(nodeValue.GetType());
         if
         (
-            (nodeValue == null) ||
+            (nodeValue is Node && ((Node)nodeValue).Type is NodeType.Undefined) ||
             (nodeValue is Sequence && ((Sequence)nodeValue).Type is NodeType.EmptySequence) ||
             (nodeValue is double && (double)nodeValue is 0) ||
             (nodeValue is string && (string)nodeValue == string.Empty)

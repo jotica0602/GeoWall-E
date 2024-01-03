@@ -9,7 +9,7 @@ public abstract class Sequence : Expression
         if (elements.Count is 0)
         {
             Type = NodeType.EmptySequence;
-            Value = null!;
+            Value = this;
         }
     }
 

@@ -1,4 +1,5 @@
 using System.Formats.Asn1;
+using System.Reflection.Metadata;
 
 namespace GeoEngine;
 public partial class ASTBuilder
@@ -124,11 +125,26 @@ public partial class ASTBuilder
             case TokenType.Point:
                 return BuildPoint(scope);
 
+            case TokenType.Line:
+                return BuildLine(scope);
+
+            case TokenType.Ray:
+                return BuildRay(scope);
+
+            case TokenType.Arc:
+                return BuildArc(scope);
+
+            case TokenType.Circle:
+                return BuildCircle(scope);
+            
+            case TokenType.Segment:
+                return BuildSegment(scope);
+
             case TokenType.Draw:
-                int line = currentLine;
-                MoveNext();
-                Node argument = BuildLevel1(scope);
-                return new Draw(argument, line);
+                return BuiltInFunction("draw", scope, currentLine);
+
+            case TokenType.Count:
+                return BuiltInFunction("count", scope, currentLine);
 
             case TokenType.Identifier:
                 return HandleIdentifier(scope);
@@ -164,7 +180,7 @@ public partial class ASTBuilder
                 return node;
 
             case TokenType.ColorKeyWord:
-                line = currentLine;
+                int line = currentLine;
                 MoveNext();
                 Expect(TokenType.Color);
                 node = new Color(previousToken.GetName(), line);
