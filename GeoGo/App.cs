@@ -9,7 +9,7 @@ class Interpreter
     public static void Auto()
     {
         string input =
-        @"(count({1...})) and 3;";
+        $"line l1 \"el segmento\"; draw l1;";
 
 
         #region Lexer

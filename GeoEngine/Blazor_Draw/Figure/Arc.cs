@@ -10,7 +10,7 @@ public class Arc : Figure
     public Point C { get; }
     public double Radius { get; }
 
-    //===>>> Constructor with label
+    //==> Constructor random with label
     public Arc(string label, Point center, Point b, Point c, double radius, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
@@ -18,16 +18,20 @@ public class Arc : Figure
         B = b;
         C = c;
         Radius = radius;
+        Type = NodeType.Arc;
+        Value = this;
         Color = "white";
     }
 
-    //===>>> Constructor with no label
+    //==> Constructor random with no label
     public Arc(Point center, Point b, Point c, double radius, int lineOfCode) : base(lineOfCode)
     {
         Center = center;
         B = b;
         C = c;
         Radius = radius;
+        Type = NodeType.Arc;
+        Value = this;
         Color = "white";
     }
     public override void Draw()

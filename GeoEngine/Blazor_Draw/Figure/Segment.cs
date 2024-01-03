@@ -10,25 +10,44 @@ public class Segment : Figure
     public Point P1 { get; }
     public Point P2 { get; }
 
-    //===>>> Constructor with label
-    public Segment(string label, Point p1, Point p2, int lineOfCode) : base(lineOfCode)
+    //==> Constructor with label
+    public Segment(string label, int lineOfCode) : base(lineOfCode)
     {
         Label = label;
+        Point p1 = new Point(lineOfCode);
+        Point p2 = new Point(lineOfCode);
         P1 = p1;
         P2 = p2;
+        Value = this;
+        Type = NodeType.Segment;
         Color = "white";
     }
-    
-    //===>>> Constructor with no label
+
+    //==> Constructor with no label
+    public Segment(int lineOfCode) : base(lineOfCode)
+    {
+        Point p1 = new Point(lineOfCode);
+        Point p2 = new Point(lineOfCode);
+        P1 = p1;
+        P2 = p2;
+        Value = this;
+        Type = NodeType.Segment;
+        Color = "white";
+    }
+
+    // ==> Constructor
     public Segment(Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
         P1 = p1;
         P2 = p2;
+        Value = this;
+        Type = NodeType.Segment;
         Color = "white";
     }
+
     public override void Draw()
     {
-        if(Label is not null)
+        if (Label is not null)
         {
             GetColor();
             DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledSegment", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);

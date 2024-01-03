@@ -6,10 +6,12 @@ public class CircleFunction : FigureFunction
     public Node Radius { get; set; }
     public Node Center { get; set; }
 
+
     public CircleFunction(Node radius, Node center, int lineOfCode) : base(lineOfCode)
     {
         Radius = radius;
         Center = center;
+        Type = NodeType.Circle;
     }
 
     public override bool CheckSemantic() => true;

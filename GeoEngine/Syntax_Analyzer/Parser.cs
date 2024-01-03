@@ -128,8 +128,14 @@ public partial class ASTBuilder
             case TokenType.Line:
                 return BuildLine(scope);
 
+            case TokenType.Ray:
+                return BuildRay(scope);
+
             case TokenType.Circle:
                 return BuildCircle(scope);
+            
+            case TokenType.Segment:
+                return BuildSegment(scope);
 
             case TokenType.Draw:
                 return BuiltInFunction("draw", scope, currentLine);
