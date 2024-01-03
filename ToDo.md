@@ -18,9 +18,11 @@ Implement:
 
 8. ~~Sequences.~~
 
-9. Geometrics: point, line, arc, circle, ray, segment.
+9. ~~Geometrics: point, line, arc, circle, ray, segment.~~
 
-10. Implement GetColor() abstract method in all figures.
+10. ~~Implement GetColor() abstract method in all figures.~~
 
-11. Test if "DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);" works 
-with no await.
+11. ~~Test if "DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);" works~~ 
+~~with no await.~~
+
+12. Fix color! first color is getting last color bug.
