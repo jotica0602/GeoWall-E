@@ -3,6 +3,7 @@ C:\Users\Alex\Desktop\GeoWall-E\GeoGo\bin\Debug\net8.0\GeoGo.deps.json
 C:\Users\Alex\Desktop\GeoWall-E\GeoGo\bin\Debug\net8.0\GeoGo.runtimeconfig.json
 C:\Users\Alex\Desktop\GeoWall-E\GeoGo\bin\Debug\net8.0\GeoGo.dll
 C:\Users\Alex\Desktop\GeoWall-E\GeoGo\bin\Debug\net8.0\GeoGo.pdb
+C:\Users\Alex\Desktop\GeoWall-E\GeoGo\bin\Debug\net8.0\Microsoft.JSInterop.dll
 C:\Users\Alex\Desktop\GeoWall-E\GeoGo\bin\Debug\net8.0\GeoEngine.dll
 C:\Users\Alex\Desktop\GeoWall-E\GeoGo\bin\Debug\net8.0\GeoEngine.pdb
 C:\Users\Alex\Desktop\GeoWall-E\GeoGo\obj\Debug\net8.0\GeoGo.csproj.AssemblyReference.cache

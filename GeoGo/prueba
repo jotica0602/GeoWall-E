@@ -1,8 +1,8 @@
-"pepe" + 2;
-fib(n) = if(n>1) then fib(n-1) + fib(n-2) else 1;
-fib(10);
-a = {1...10};
-b = a;
-{1} + b;
-a+undefined;
-3 and undefined;
+p1
+p2
+p3
+
+
+
+
+draw {p1,p2,p3}

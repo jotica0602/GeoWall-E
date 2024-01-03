@@ -25,7 +25,6 @@ public class Error
         if (Error.diagnostics.Count != 0)
         {
             Error.ShowErrors();
-            throw new Exception();
         }
     }
 

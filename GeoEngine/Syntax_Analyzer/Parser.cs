@@ -7,6 +7,7 @@ public partial class ASTBuilder
     int currentTokenIndex;
     int currentLine { get => currentToken.LineOfCode; }
     bool HandlingFunction = false;
+    bool HandlingSequence = false;
     Token currentToken;
     Token nextToken { get => currentTokenIndex + 1 < tokens.Count ? tokens[currentTokenIndex + 1] : throw new Exception("Token Index out of bounds"); }
     Token previousToken { get => currentTokenIndex - 1 >= 0 ? tokens[currentTokenIndex - 1] : throw new Exception("Token Index out of bounds"); }
@@ -119,6 +120,15 @@ public partial class ASTBuilder
                 Node undefined = new Literal(NodeType.Undefined, null!, currentLine);
                 MoveNext();
                 return undefined;
+
+            case TokenType.Point:
+                return BuildPoint(scope);
+
+            case TokenType.Draw:
+                int line = currentLine;
+                MoveNext();
+                Node argument = BuildLevel1(scope);
+                return new Draw(argument, line);
 
             case TokenType.Identifier:
                 return HandleIdentifier(scope);

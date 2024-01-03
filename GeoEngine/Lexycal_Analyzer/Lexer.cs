@@ -8,6 +8,7 @@ public partial class Lexer
     #region  Lexer Object
     public readonly string sourceCode;
     private int currentPosition;
+    bool Empty { get; set; }
 
     // actual line of code 
     private int currentLine;
@@ -28,9 +29,10 @@ public partial class Lexer
         Error.diagnostics.Clear();
 
         //check if its empty
-        if((sourceCode == string.Empty) || (sourceCode.Length < 1) || (sourceCode is null))
+        if ((sourceCode == string.Empty) || (sourceCode.Length < 1) || (sourceCode is null))
         {
             Error error = new Error(ErrorKind.Lexycal, ErrorCode.empty, "source code", 0);
+            Empty = true;
         }
     }
 
@@ -95,7 +97,9 @@ public partial class Lexer
                 MoveNext();
             }
         }
-        tokens.Add(new Keyword(TokenType.EndOfFile, tokens[tokens.Count - 1].LineOfCode));
+        if (!Empty)
+            tokens.Add(new Keyword(TokenType.EndOfFile, tokens[tokens.Count - 1].LineOfCode));
+            
         return tokens;
     }
 
@@ -116,7 +120,7 @@ public partial class Lexer
                 break;
             }
             number += sourceCode[currentPosition];
-            
+
 
             currentPosition++;
         }
