@@ -9,10 +9,11 @@ class Interpreter
     public static void Auto()
     {
         string input =
-        @"
-        point p1;
-        point p2;
-        draw {p1,p2};";
+        @"a=1;
+        b=2;
+        c=3;
+        d=4;
+        count({1...}) and 3;";
 
 
         #region Lexer

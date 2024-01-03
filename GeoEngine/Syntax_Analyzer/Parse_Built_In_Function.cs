@@ -17,6 +17,10 @@ public partial class ASTBuilder
                 argument = BuildLevel1(scope);
                 builtInFunction = new Draw(argument, idLine);
                 break;
+            case "count":
+                argument = BuildLevel1(scope);
+                builtInFunction = new Count(argument, idLine);
+                break;
         }
 
         // HandlingFunction = false;

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GeoEngine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddb150029c1371137ffc85d6315b3aa04fdca548")]
 [assembly: System.Reflection.AssemblyProductAttribute("GeoEngine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeoEngine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
