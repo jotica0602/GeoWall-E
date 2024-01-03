@@ -73,8 +73,8 @@ public class Arc : Figure
     public override string ToString()
     {
         if (Label is not null)
-            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y})";
+            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y}) Color: {Color}";
 
-        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y})";
+        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y}) Color: {Color}";
     }
 }
