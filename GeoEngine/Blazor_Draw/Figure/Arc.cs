@@ -43,4 +43,12 @@ public class Arc : Figure
             DrawEngine._jsRuntime.InvokeVoidAsync("drawArcBetweenPoints2", "graphCanvas", Center.X, Center.Y, B.X, B.Y, C.X, C.Y, Radius, Color, 3);
         }
     }
+
+    public override string ToString()
+    {
+        if(Label is not null)
+            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y})";
+
+        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y})";
+    }
 }

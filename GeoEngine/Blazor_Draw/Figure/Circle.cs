@@ -52,7 +52,11 @@ public class Circle : Figure
         }
     }
 
-    public override void Evaluate() {}
+   public override string ToString()
+    {
+        if (Label is not null)
+            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} ";
 
-    public override bool CheckSemantic() => true;
+        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius}";
+    }
 }

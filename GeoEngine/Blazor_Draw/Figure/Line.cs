@@ -36,4 +36,12 @@ public class Line : Figure
             DrawEngine._jsRuntime.InvokeVoidAsync("drawLineThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 3);
         }
     }
+
+    public override string ToString()
+    {
+        if (Label is not null)
+            return $"{Label}: (P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y}))";
+
+        else return $"(P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y}))";
+    }
 }

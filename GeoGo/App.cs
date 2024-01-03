@@ -1,5 +1,4 @@
 ﻿using GeoEngine;
-
 class Interpreter
 {
     static void Main()
