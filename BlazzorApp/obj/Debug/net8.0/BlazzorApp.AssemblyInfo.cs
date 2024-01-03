@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlazzorApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68ce4228bf5dc0a3e0a14551f15b4a03116f4141")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlazzorApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlazzorApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

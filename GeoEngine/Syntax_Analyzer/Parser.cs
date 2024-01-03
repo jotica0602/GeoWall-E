@@ -163,6 +163,19 @@ public partial class ASTBuilder
                 Node node = BuildLetNode(scope);
                 return node;
 
+            case TokenType.ColorKeyWord:
+                line = currentLine;
+                MoveNext();
+                Expect(TokenType.Color);
+                node = new Color(previousToken.GetName(), line);
+                return node;
+
+            case TokenType.Restore:
+                line = currentLine;
+                MoveNext();
+                node = new Restore(line);
+                return node;
+
             default:
                 new Error
                 (
