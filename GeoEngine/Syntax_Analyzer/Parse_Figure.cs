@@ -279,4 +279,58 @@ public partial class ASTBuilder
             return null!;
         }
     }
+
+    Node BuildArc(Scope scope)
+    {
+        int lineOfCode = currentLine;
+        bool hasLabel = false;
+        string label = string.Empty;
+        string arcName = string.Empty;
+        // bool isRandom = false;
+
+        if (nextToken.Type is TokenType.Identifier)
+        {
+            // isRandom = true;
+            MoveNext(2);
+            arcName = previousToken.GetName();
+            if (currentToken.Type is TokenType.String)
+            {
+                label = currentToken.GetName();
+                hasLabel = true;
+                MoveNext();
+            }
+        }
+
+        else if (nextToken.Type is TokenType.LeftParenthesis)
+        {
+            HandlingFunction = true;
+            MoveNext(2);
+            Node p1 = BuildLevel1(scope);
+            Expect(TokenType.Comma);
+            Node p2 = BuildLevel1(scope);
+            Expect(TokenType.Comma);
+            Node p3 = BuildLevel1(scope);
+            Expect(TokenType.Comma);
+            Node radius = BuildLevel1(scope);
+            Expect(TokenType.RightParenthesis);
+            HandlingFunction = false;
+            return new ArcFunction(p1,p2,p3,radius,lineOfCode);
+        }
+
+        if (!hasLabel)
+        {
+            Arc randomArc = new Arc(lineOfCode);
+            ConstantDeclaration arc = new ConstantDeclaration(arcName, randomArc, scope, lineOfCode);
+            scope.Constants.Add(arc);
+            return null!;
+        }
+        else
+        {
+            System.Console.WriteLine(label);
+            Arc randomArc = new Arc(label, lineOfCode);
+            ConstantDeclaration Arc = new ConstantDeclaration(arcName, randomArc, scope, lineOfCode);
+            scope.Constants.Add(Arc);
+            return null!;
+        }
+    }
 }

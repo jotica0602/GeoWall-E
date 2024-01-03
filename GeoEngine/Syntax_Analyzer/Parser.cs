@@ -131,6 +131,9 @@ public partial class ASTBuilder
             case TokenType.Ray:
                 return BuildRay(scope);
 
+            case TokenType.Arc:
+                return BuildArc(scope);
+
             case TokenType.Circle:
                 return BuildCircle(scope);
             
