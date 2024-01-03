@@ -33,8 +33,10 @@ public class FiniteSequence : Sequence
 
         for (int i = 0; i < Elements.Count; i++)
         {
-            if (Elements[i].Value is not null)
+            if (Elements[i].Value is null)
+            {
                 Elements[i].Evaluate();
+            }
         }
     }
 }

@@ -9,18 +9,17 @@ class Interpreter
 
     public static void Auto()
     {
-        string asd = "pepe";
         string input =
-        "{1,2,3,4,5,6,9...-1};";
+        @"
+        point p1;
+        point p2;
+        draw {p1,p2};";
 
 
         #region Lexer
         string path = "prueba";
         Lexer lexer = new Lexer(input);
-
         List<Token> tokens = lexer.Tokenize();
-
-        // System.Console.WriteLine(string.Join('\n', tokens));
         Error.CheckErrors();
         #endregion
 
@@ -29,8 +28,6 @@ class Interpreter
         ASTBuilder parser = new ASTBuilder(tokens);
         List<Node> nodes = parser.BuildNodes(scope);
         Error.CheckErrors();
-
-        // Environment.Exit(0);
         #endregion
 
         #region Semantic Analyzer

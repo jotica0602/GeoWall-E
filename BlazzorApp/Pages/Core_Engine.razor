@@ -39,7 +39,7 @@
         display: flex;
         height: 100vh;
         color: white;
-        background-color: #1e1e1e;
+        background-color: #333333;
     }
 
     .canvas-container {
@@ -182,7 +182,7 @@
 
         //clear logs
         DrawEngine.ClearLogs();
-        
+
         //clear canvas
         await JSRuntime.InvokeVoidAsync("clearCanvas", "graphCanvas");
 
@@ -204,6 +204,8 @@
             DrawEngine.UpdateErrors();
             compilationErrors = DrawEngine.ErrorMessage;
             consoleText += $"<span style=\"color: red;\">{compilationErrors}</span><br />";
+            Console.WriteLine(compilationErrors);
+
             return;
         }
     }

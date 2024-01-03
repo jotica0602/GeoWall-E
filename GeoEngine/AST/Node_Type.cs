@@ -7,6 +7,12 @@ public enum NodeType
     FiniteSequence,
     InfiniteSequence,
     EmptySequence,
+    Point,
+    Circle,
+    Ray,
+    Arc,
+    Segment,
+    Line,
     Undefined,
     LineBreak,
 }

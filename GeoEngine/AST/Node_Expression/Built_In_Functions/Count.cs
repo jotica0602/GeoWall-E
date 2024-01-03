@@ -44,7 +44,8 @@ public class Count : Expression
             );
             Error.CheckErrors();
         }
-        else
-            Value = ((Sequence)Argument).Elements.Count();
+
+        else if ((Sequence)Argument is InfiniteSequence)
+            Value = null!;
     }
 }

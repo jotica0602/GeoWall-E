@@ -33,7 +33,7 @@ public class Tools
         }
     }
 
-    public static bool IsAnOperableSequence(Node node) => node.Type is NodeType.FiniteSequence || node.Type is NodeType.InfiniteSequence || node.Type is NodeType.EmptySequence;
+    public static bool IsSequence(Node node) => node.Type is NodeType.FiniteSequence || node.Type is NodeType.InfiniteSequence || node.Type is NodeType.EmptySequence;
 
     public static Sequence SequenceConcatenation(Sequence LeftNode, Sequence RightNode, int lineOfCode)
     {
