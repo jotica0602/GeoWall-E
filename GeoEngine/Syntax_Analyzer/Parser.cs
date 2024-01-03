@@ -125,10 +125,10 @@ public partial class ASTBuilder
                 return BuildPoint(scope);
 
             case TokenType.Draw:
-                int line = currentLine;
-                MoveNext();
-                Node argument = BuildLevel1(scope);
-                return new Draw(argument, line);
+                return BuiltInFunction("draw", scope, currentLine);
+
+            case TokenType.Count:
+                return BuiltInFunction("count", scope, currentLine);
 
             case TokenType.Identifier:
                 return HandleIdentifier(scope);
