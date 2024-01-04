@@ -289,7 +289,6 @@ function drawArcBetweenPoints(canvasId, centerX, centerY, pointBX, pointBY, poin
     // Calcular los ángulos correspondientes a los puntos B y C con respecto al punto A (centro)
     var angleB = Math.atan2(pointBY - centerY, pointBX - centerX);
     var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
-
     
     // Asegurarse de que los ángulos estén en el rango correcto (de B a C en sentido horario)
     if (angleB > angleC) 

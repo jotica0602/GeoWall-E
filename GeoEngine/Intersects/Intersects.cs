@@ -1,6 +1,3 @@
-using System.Data.SqlTypes;
-using System.Windows.Markup;
-
 namespace GeoEngine;
 
 public static class Intersections
