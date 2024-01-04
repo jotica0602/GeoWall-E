@@ -83,8 +83,8 @@ public class Circle : Figure
     public override string ToString()
     {
         if (Label is not null)
-            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} ";
+            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} Color: {Color}";
 
-        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius}";
+        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} Color: {Color}";
     }
 }

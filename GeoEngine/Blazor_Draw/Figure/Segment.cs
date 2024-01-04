@@ -70,8 +70,8 @@ public class Segment : Figure
     public override string ToString()
     {
         if (Label is not null)
-            return $"{Label}: (P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y}))";
+            return $"{Label}: (P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y})) C:({this.Color})";
 
-        else return $"(P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y}))";
+        else return $"(P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y})) C:({this.Color})";
     }
 }

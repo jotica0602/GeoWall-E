@@ -82,8 +82,8 @@ public class Point : Figure
     public override string ToString()
     {
         if (Label is not null)
-            return $"{Label}: ({this.X};{this.Y})";
+            return $"{Label}: ({this.X};{this.Y}) Color: {Color}";
 
-        else return $"({this.X};{this.Y})";
+        else return $"({this.X};{this.Y}) Color: {Color}";
     }
 }
