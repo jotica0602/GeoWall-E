@@ -28,6 +28,8 @@ public partial class ASTBuilder
             MoveNext(2);
             GetArguments(ref arguments, scope);
             Expect(TokenType.RightParenthesis);
+            
+            HandlingFunction =false;
 
             // at this point all arguments have been gathered
             // being an equals token means it is a function declaration

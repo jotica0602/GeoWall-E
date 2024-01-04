@@ -279,7 +279,6 @@ function drawLabeledRay(canvasId, point1X, point1Y, point2X, point2Y, label, col
     ctx.fillText(label, start.x + 5, start.y - 5);
 }
 
-
 function drawArcBetweenPoints(canvasId, centerX, centerY, pointBX, pointBY, pointCX, pointCY, radius, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext("2d");
@@ -291,28 +290,11 @@ function drawArcBetweenPoints(canvasId, centerX, centerY, pointBX, pointBY, poin
     var angleB = Math.atan2(pointBY - centerY, pointBX - centerX);
     var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
 
-    // Dibujar el arco
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, angleB, angleC);
-    ctx.stroke();
-}
-
-function drawArcBetweenPoints2(canvasId, centerX, centerY, pointBX, pointBY, pointCX, pointCY, radius, color, lineWidth) {
-    var canvas = document.getElementById(canvasId);
-    var ctx = canvas.getContext("2d");
-
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineWidth;
-
-    // Calcular los ángulos correspondientes a los puntos B y C con respecto al punto A (centro)
-    var angleB = Math.atan2(pointBY - centerY, pointBX - centerX);
-    var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
-
+    
     // Asegurarse de que los ángulos estén en el rango correcto (de B a C en sentido horario)
-    if (angleB > angleC) {
-        var temp = angleB;
-        angleB = angleC;
-        angleC = temp;
+    if (angleB > angleC) 
+    {
+        angleC+=Math.PI*2;
     }
 
     // Dibujar el arco
@@ -333,10 +315,9 @@ function drawLabeledArc(canvasId, centerX, centerY, pointBX, pointBY, pointCX, p
     var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
 
     // Asegurarse de que los ángulos estén en el rango correcto (de B a C en sentido horario)
-    if (angleB > angleC) {
-        var temp = angleB;
-        angleB = angleC;
-        angleC = temp;
+    if (angleB > angleC) 
+    {
+        angleC+=Math.PI*2;
     }
 
     // Dibujar el arco

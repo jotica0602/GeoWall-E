@@ -9,16 +9,16 @@ public class Draw : Expression
         Argument = argument;
     }
 
-    public override bool CheckSemantic()
-    {
-        if (Argument is not FigureFunction && Argument is not Figure && Argument.Type is not NodeType.Temporal && Argument is not Sequence)
-        {
-            new Error(ErrorKind.Semantic, ErrorCode.invalid, $"argument type, it must be a figure", LineOfCode);
-            return false;
-        }
+    public override bool CheckSemantic() => true;
+    // {
+    //     if (Argument is not FigureFunction && Argument is not Figure && Argument.Type is not NodeType.Temporal && Argument is not Sequence)
+    //     {
+    //         new Error(ErrorKind.Semantic, ErrorCode.invalid, $"argument type, it must be a figure", LineOfCode);
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
 
     public override void Evaluate()
@@ -27,10 +27,10 @@ public class Draw : Expression
         if (Argument is not Sequence)
             ((Figure)Argument.Value).Draw();
 
-        if(Argument is Sequence)
-            foreach(var element in ((Sequence)Argument).Elements)
+        if (Argument is Sequence)
+            foreach (var element in ((Sequence)Argument).Elements)
                 ((Figure)element.Value).Draw();
-                
+
     }
 
 }

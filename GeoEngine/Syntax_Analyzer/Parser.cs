@@ -122,6 +122,12 @@ public partial class ASTBuilder
                 MoveNext();
                 return undefined;
 
+            case TokenType.Measure:
+                return BuiltInFunction("measure", scope, currentLine);
+
+            case TokenType.Intersect:
+                return BuiltInFunction("intersect", scope, currentLine);
+
             case TokenType.Point:
                 return BuildPoint(scope);
 
@@ -136,7 +142,7 @@ public partial class ASTBuilder
 
             case TokenType.Circle:
                 return BuildCircle(scope);
-            
+
             case TokenType.Segment:
                 return BuildSegment(scope);
 

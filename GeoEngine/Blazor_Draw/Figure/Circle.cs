@@ -7,7 +7,7 @@ public class Circle : Figure
     //Parameters
     public Point Center { get; }
     public double Radius { get; }
-    
+
 
     //===>>> Contructor with label
     public Circle(string label, int lineOfCode) : base(lineOfCode)
@@ -73,6 +73,13 @@ public class Circle : Figure
         }
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Circle) return false;
+        Circle c2 = (Circle)obj;
+        if (Equals(Center, c2.Center) && Equals(Radius, c2.Radius)) return true;
+        return false;
+    }
     public override string ToString()
     {
         if (Label is not null)

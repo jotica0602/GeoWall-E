@@ -161,7 +161,7 @@ public partial class ASTBuilder
             Node center = BuildLevel1(scope);
             Expect(TokenType.RightParenthesis);
             HandlingFunction = false;
-            return new CircleFunction(radius, center, lineOfCode);
+            return new CircleFunction(center, radius, lineOfCode);
         }
 
         if (!hasLabel)

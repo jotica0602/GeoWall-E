@@ -66,7 +66,13 @@ public class Line : Figure
             DrawEngine._jsRuntime.InvokeVoidAsync("drawLineThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 3);
         }
     }
-
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Line) return false;
+        Line l2 = (Line)obj;
+        if (Equals(P1, l2.P1) && Equals(P2, l2.P2)) return true;
+        return false;
+    }
     public override string ToString()
     {
         if (Label is not null)

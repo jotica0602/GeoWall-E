@@ -34,7 +34,7 @@ public class Ray : Figure
         Color = "white";
     }
 
-    
+
     // Constructor
     public Ray(Point p1, Point p2, int lineOfCode) : base(lineOfCode)
     {
@@ -44,11 +44,11 @@ public class Ray : Figure
         Type = NodeType.Ray;
         Color = "white";
     }
-    
+
 
     public override void Draw()
     {
-        if(Label is not null)
+        if (Label is not null)
         {
             GetColor();
             DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledRay", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);
@@ -58,6 +58,14 @@ public class Ray : Figure
             GetColor();
             DrawEngine._jsRuntime.InvokeVoidAsync("drawRayThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 3);
         }
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Ray) return false;
+        Ray r1 = (Ray)obj;
+        if (Equals(P1, r1.P1) && Equals(P2, r1.P2)) return true;
+        return false;
     }
 
     public override string ToString()

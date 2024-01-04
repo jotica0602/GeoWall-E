@@ -6,8 +6,11 @@ public class Arc : Figure
     public string Label = null!;
     //Parameters
     public Point Center { get; }
-    public Point B { get; }
-    public Point C { get; }
+    public Point StartPoint { get; }
+    public Point EndPoint { get; }
+    public double StartAngle { get; set; }
+    public double EndAngle { get; set; }
+
     public double Radius { get; }
 
     //==> Constructor random with label
@@ -22,8 +25,8 @@ public class Arc : Figure
         Point c = new Point(lineOfCode);
         double radius = random.Next(3, 190);
         Center = center;
-        B = b;
-        C = c;
+        StartPoint = b;
+        EndPoint = c;
         Radius = radius;
         Type = NodeType.Arc;
         Value = this;
@@ -40,8 +43,8 @@ public class Arc : Figure
         Point c = new Point(lineOfCode);
         double radius = random.Next(3, 190);
         Center = center;
-        B = b;
-        C = c;
+        StartPoint = b;
+        EndPoint = c;
         Radius = radius;
         Type = NodeType.Arc;
         Value = this;
@@ -51,30 +54,49 @@ public class Arc : Figure
     public Arc(Point center, Point b, Point c, double radius, int lineOfCode) : base(lineOfCode)
     {
         Center = center;
-        B = b;
-        C = c;
+        StartPoint = b;
+        EndPoint = c;
         Radius = radius;
     }
-    
-    public override void Draw()
+
+    public void GetAngles()
     {
+        StartAngle = Math.Atan2(StartPoint.Y - Center.Y, StartPoint.X - Center.X);
+        EndAngle = Math.Atan2(EndPoint.Y - Center.Y, EndPoint.X - Center.X);
+
+        if (EndAngle < StartAngle)
+        {
+            EndAngle += 360;
+        }
+    }
+    public async override void Draw()
+    {
+        GetAngles();
         if (Label is not null)
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledArc", "graphCanvas", Center.X, Center.Y, B.X, B.Y, C.X, C.Y, Radius, Label, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledArc", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, Label, Color, 3);
         }
         else
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawArcBetweenPoints2", "graphCanvas", Center.X, Center.Y, B.X, B.Y, C.X, C.Y, Radius, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, Color, 3);
+            GetColor();
         }
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Arc) return false;
+        Arc a2 = (Arc)obj;
+        if (Equals(Center, a2) && Equals(StartPoint, a2.StartPoint) && Equals(EndPoint, a2.EndPoint)) return true;
+        return false;
+    }
     public override string ToString()
     {
         if (Label is not null)
-            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y})";
+            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.StartPoint.X},{this.StartPoint.Y}) P2:({this.EndPoint.X},{this.EndPoint.Y})";
 
-        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y})";
+        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.StartPoint.X},{this.StartPoint.Y}) P2:({this.EndPoint.X},{this.EndPoint.Y})";
     }
 }
