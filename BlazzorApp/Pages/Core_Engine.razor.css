@@ -31,6 +31,7 @@
 }
 
 .code-input {
+    display: flex;
     flex: 3;
     /* Toma 3 partes del espacio disponible */
 }
@@ -110,4 +111,17 @@ textarea {
 
 .error-output span {
     color: red;
+}
+
+
+#lineNumbers {
+    background-color: #333;
+    color: #888;
+    /* Ajusta los colores según tus necesidades */
+    flex: 1;
+    overflow: hidden;
+}
+
+#codeInput {
+    flex: 28;
 }

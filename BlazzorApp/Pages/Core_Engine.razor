@@ -13,7 +13,8 @@
     </div>
     <div class="control-panel">
         <div class="code-input">
-            <textarea id="codeInput" @bind="codeText"></textarea>
+            <textarea id="lineNumbers" @ref="lineNumbersTextArea" readonly></textarea>
+            <textarea id="codeInput" @ref="codeTextArea" @bind="codeText" @oninput="UpdateLineNumbers"></textarea>
         </div>
         <div class="console-output">
             <div id="consoleOutput" class="error-output">
@@ -34,6 +35,8 @@
 
 
 @code {
+    private ElementReference lineNumbersTextArea;
+    private ElementReference codeTextArea;
     private string codeText;
     private string consoleText;
     private string filename = "";
@@ -98,6 +101,14 @@
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("resizeCanvas", "graphCanvas");
+            await JSRuntime.InvokeVoidAsync("syncScroll", lineNumbersTextArea, codeTextArea);
         }
+    }
+
+    private async Task UpdateLineNumbers(ChangeEventArgs e)
+    {
+        var codeLines = e.Value.ToString().Split('\n');
+        var lineNumbers = string.Join("\n", Enumerable.Range(1, codeLines.Length));
+        await JSRuntime.InvokeVoidAsync("updateTextAreaValue", lineNumbersTextArea, lineNumbers);
     }
 }
