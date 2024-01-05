@@ -1,0 +1,14 @@
+point p;
+point p1;
+point p2;
+point p3;
+point p4;
+point p5;
+point p6;
+point p7;
+point p8;
+point p9;
+point p10;
+point p11;
+point p12;
+draw {segment(p1,p2),segment(p2,p3), segment(p3,p4),segment(p4,p5),segment(p5,p6),segment(p6,p7),segment(p7,p8),segment(p8,p9),segment(p9,p10),segment(p10,p11),segment(p11,p12),segment(p12,p1),segment(p1,p1),segment(p2,p),segment(p3,p),segment(p4,p),segment(p4,p),segment(p5,p),segment(p6,p),segment(p7,p),segment(p8,p),segment(p9,p),segment(p10,p),segment(p11,p),segment(p12,p)};

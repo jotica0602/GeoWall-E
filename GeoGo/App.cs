@@ -10,10 +10,9 @@ class Interpreter
     {
 
         string input = @"
-        point p1;
-        point p2;
-        a1 = arc(p1,p2,p2,100);
-        draw a1;";
+        a = point(200,200);
+        b = point(200,400);
+        draw line(a,b);";
 
 
         #region Lexer
