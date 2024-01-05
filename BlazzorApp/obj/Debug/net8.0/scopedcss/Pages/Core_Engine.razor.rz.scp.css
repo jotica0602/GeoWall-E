@@ -1,0 +1,127 @@
+.main-container[b-jgb53nw4z6] {
+    display: flex;
+    height: 100vh;
+    color: white;
+    background-color: #333333;
+}
+
+.canvas-container[b-jgb53nw4z6] {
+    flex: 1;
+    padding: 10px;
+}
+
+#graphCanvas[b-jgb53nw4z6] {
+    width: 100%;
+    height: 100%;
+}
+
+.control-panel[b-jgb53nw4z6] {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.code-input[b-jgb53nw4z6],
+.console-output[b-jgb53nw4z6] {
+    flex: 1;
+    margin-bottom: 10px;
+
+    border-radius: 15px;
+}
+
+.code-input[b-jgb53nw4z6] {
+    display: flex;
+    flex: 3;
+    /* Toma 3 partes del espacio disponible */
+}
+
+.console-output[b-jgb53nw4z6] {
+    flex: 1;
+    /* Toma 1 parte del espacio disponible */
+}
+
+textarea[b-jgb53nw4z6] {
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 10px;
+    resize: none;
+    border-radius: 15px;
+}
+
+.buttons button[b-jgb53nw4z6] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    border-radius: 15px;
+}
+
+.buttons button:hover[b-jgb53nw4z6] {
+    background-color: #666;
+}
+
+.save-container[b-jgb53nw4z6] {
+    display: flex;
+    width: 100%;
+    /* Ajusta el ancho según tus necesidades */
+}
+
+.save-container input[b-jgb53nw4z6],
+.save-container button[b-jgb53nw4z6] {
+    flex: 1;
+    /* Ambos elementos ocuparán la misma cantidad de espacio */
+    padding: 10px;
+    /* Ajuste para comodidad visual y táctil */
+    font-size: 16px;
+    /* Ajuste para una apariencia uniforme */
+
+    border-radius: 15px;
+}
+
+.save-container input[b-jgb53nw4z6] {
+    height: 100%;
+    margin-right: 5px;
+    background-color: #333;
+    color: white;
+}
+
+.save-container button[b-jgb53nw4z6] {
+    cursor: pointer;
+}
+
+.error-output[b-jgb53nw4z6] {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 10px;
+    background-color: #222;
+    color: white;
+    border: 1px solid #555;
+
+    border-radius: 15px;
+}
+
+.error-output span[b-jgb53nw4z6] {
+    color: red;
+}
+
+
+#lineNumbers[b-jgb53nw4z6] {
+    background-color: #333;
+    color: #888;
+    /* Ajusta los colores según tus necesidades */
+    flex: 1;
+    overflow: hidden;
+}
+
+#codeInput[b-jgb53nw4z6] {
+    flex: 28;
+}

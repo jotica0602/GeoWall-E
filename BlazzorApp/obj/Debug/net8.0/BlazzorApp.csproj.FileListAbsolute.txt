@@ -65,3 +65,5 @@ C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\refint\BlazzorApp.dl
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\BlazzorApp.pdb
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\BlazzorApp.genruntimeconfig.cache
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\ref\BlazzorApp.dll
+C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\scopedcss\Pages\Core_Engine.razor.rz.scp.css
+C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\scopedcss\Shared\Footer.razor.rz.scp.css
