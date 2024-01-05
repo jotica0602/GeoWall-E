@@ -108,7 +108,6 @@ function drawLabeledCircle(canvasId, centerX, centerY, radius, label, color) {
     ctx.fillText(label, centerX, centerY);
 }
 
-// asdasdasd
 
 function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
     // Get the canvas element
@@ -120,9 +119,25 @@ function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, col
         // Set the line color and width
         ctx.strokeStyle = color;
         ctx.lineWidth = lineWidth;
+<<<<<<< HEAD
 
         // Calculate the slope of the line
         var slope = (point2Y - point1Y) / (point2X - point1X);
+=======
+        
+        // Calculate slope of the line
+        var slope = (point2X - point1X) !== 0 ? (point2Y - point1Y) / (point2X - point1X) : Infinity;
+
+        if (slope === Infinity || slope === -Infinity) {
+            // Handling infinite slope
+            var x = point1X; 
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        else{ 
+>>>>>>> development
 
         // Calculate the y-intercept of the line
         var yIntercept = point1Y - slope * point1X;
@@ -138,59 +153,14 @@ function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, col
         ctx.moveTo(startX, startY);
         ctx.lineTo(endX, endY);
         ctx.stroke();
+<<<<<<< HEAD
     } else {
         console.log('Canvas not supported');
+=======
+        }
+>>>>>>> development
     }
 }
-// this is line
-
-// function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
-//     var canvas = document.getElementById(canvasId);
-//     var ctx = canvas.getContext("2d");
-
-//     ctx.strokeStyle = color;
-//     ctx.lineWidth = lineWidth;
-    
-//     // Calcular la pendiente y la intersección y de la recta que pasa por los dos puntos dados
-//     var slope = (point2Y - point1Y) / (point2X - point1X);
-
-//     var interceptY = point1Y - slope * point1X;
-
-//     // Calcular las intersecciones con los bordes del canvas
-//     var intersectionTop = { x: -interceptY / slope, y: 0 };
-//     var intersectionBottom = { x: (canvas.height - interceptY) / slope, y: canvas.height };
-//     var intersectionLeft = { x: 0, y: interceptY };
-//     var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
-
-//     // Determinar los puntos de inicio y fin de la línea dentro del canvas
-//     var start, end;
-
-//     if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
-//         start = intersectionTop;
-//     } else if (isInsideCanvas(intersectionLeft, canvas.width, canvas.height)) {
-//         start = intersectionLeft;
-//     } else if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
-//         start = intersectionBottom;
-//     } else {
-//         start = intersectionRight;
-//     }
-
-//     if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
-//         end = intersectionBottom;
-//     } else if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
-//         end = intersectionRight;
-//     } else if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
-//         end = intersectionTop;
-//     } else {
-//         end = intersectionLeft;
-//     }
-
-//     // Dibujar la línea
-//     ctx.beginPath();
-//     ctx.moveTo(start.x, start.y);
-//     ctx.lineTo(end.x, end.y);
-//     ctx.stroke();
-// }
 
 function drawLabeledLine(canvasId, point1X, point1Y, point2X, point2Y, label, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
@@ -252,65 +222,22 @@ function drawRayThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, colo
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWidth;
 
-    // Calcular la pendiente y la intersección y de la semirrecta que pasa por los dos puntos dados
-    var slope = (point2Y - point1Y) / (point2X - point1X);
-    var interceptY = point1Y - slope * point1X;
+    // Calcular la dirección del rayo
+    var dx = point2X - point1X;
+    var dy = point2Y - point1Y;
 
-    // Calcular la intersección con el borde derecho del canvas
-    var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
-
-    // Determinar el punto de inicio y el punto final de la semirrecta dentro del canvas
-    var start = { x: point1X, y: point1Y };
-    var end;
-
-    if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
-        end = intersectionRight;
-    } else {
-        end = { x: canvas.width, y: slope * canvas.width + interceptY };
-    }
-
-    // Dibujar la semirrecta
+    // Dibujar el rayo
     ctx.beginPath();
-    ctx.moveTo(start.x, start.y);
-    ctx.lineTo(end.x, end.y);
+    ctx.moveTo(point1X, point1Y);
+
+    // Determinar el punto final del rayo
+    // Usar un multiplicador grande para asegurarse de que el rayo se extienda más allá del canvas
+    var multiplier = 1000;
+    var endX = point1X + dx * multiplier;
+    var endY = point1Y + dy * multiplier;
+
+    ctx.lineTo(endX, endY);
     ctx.stroke();
-}
-
-function drawLabeledRay(canvasId, point1X, point1Y, point2X, point2Y, label, color, lineWidth) {
-    var canvas = document.getElementById(canvasId);
-    var ctx = canvas.getContext("2d");
-
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineWidth;
-
-    // Calcular la pendiente y la intersección y de la semirrecta que pasa por los dos puntos dados
-    var slope = (point2Y - point1Y) / (point2X - point1X);
-    var interceptY = point1Y - slope * point1X;
-
-    // Calcular la intersección con el borde derecho del canvas
-    var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
-
-    // Determinar el punto de inicio y el punto final de la semirrecta dentro del canvas
-    var start = { x: point1X, y: point1Y };
-    var end;
-
-    if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
-        end = intersectionRight;
-    } else {
-        end = { x: canvas.width, y: slope * canvas.width + interceptY };
-    }
-
-    // Dibujar la semirrecta
-    ctx.beginPath();
-    ctx.moveTo(start.x, start.y);
-    ctx.lineTo(end.x, end.y);
-    ctx.stroke();
-
-    // Etiquetar el punto de inicio
-    ctx.fillStyle = "black";
-    ctx.font = "12px Arial";
-    ctx.textAlign = "start";
-    ctx.fillText(label, start.x + 5, start.y - 5);
 }
 
 function drawArcBetweenPoints(canvasId, centerX, centerY, pointBX, pointBY, pointCX, pointCY, radius, color, lineWidth) {

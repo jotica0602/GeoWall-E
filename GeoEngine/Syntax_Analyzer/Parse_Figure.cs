@@ -8,6 +8,23 @@ public partial class ASTBuilder
         // point p1(number,number) "label";
         // point(100,100);
         int pointLine = currentLine;
+        if (nextToken.Type is TokenType.Sequence)
+        {
+            MoveNext(2);
+            string idName = currentToken.GetName();
+            int idLine = currentToken.LineOfCode;
+            Random rnd = new Random();
+            int random = rnd.Next(1, 50);
+            List<Node> points = new List<Node>();
+            for (int i = 0; i < random; i++)
+            {
+                points.Add(new Point(idLine));
+            }
+            Sequence idSequence = new FiniteSequence(points, idLine);
+            ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
+            scope.Constants.Add(a);
+            return null!;
+        }
         if (nextToken.Type is TokenType.LeftParenthesis)
         {
             MoveNext(2);
@@ -90,6 +107,25 @@ public partial class ASTBuilder
         // bool isRandom = false;
         string label = string.Empty;
 
+        if (nextToken.Type is TokenType.Sequence)
+        {
+            MoveNext(2);
+            string idName = currentToken.GetName();
+            int idLine = currentToken.LineOfCode;
+            Random rnd = new Random();
+            int random = rnd.Next(1, 50);
+            List<Node> lines = new List<Node>();
+            for (int i = 0; i < random; i++)
+            {
+                lines.Add(new Line(idLine));
+            }
+            Sequence idSequence = new FiniteSequence(lines, idLine);
+            ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
+            scope.Constants.Add(a);
+            MoveNext();
+            return null!;
+        }
+
         if (nextToken.Type is TokenType.Identifier)
         {
             // isRandom = true;
@@ -138,6 +174,24 @@ public partial class ASTBuilder
         string circleName = string.Empty;
         // bool isRandom = false;
         string label = string.Empty;
+        if (nextToken.Type is TokenType.Sequence)
+        {
+            MoveNext(2);
+            string idName = currentToken.GetName();
+            int idLine = currentToken.LineOfCode;
+            Random rnd = new Random();
+            int random = rnd.Next(1, 50);
+            List<Node> circles = new List<Node>();
+            for (int i = 0; i < random; i++)
+            {
+                circles.Add(new Point(idLine));
+            }
+            Sequence idSequence = new FiniteSequence(circles, idLine);
+            ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
+            scope.Constants.Add(a);
+            MoveNext();
+            return null!;
+        }
 
         if (nextToken.Type is TokenType.Identifier)
         {
@@ -182,6 +236,24 @@ public partial class ASTBuilder
 
     Node BuildSegment(Scope scope)
     {
+        if (nextToken.Type is TokenType.Sequence)
+        {
+            MoveNext(2);
+            string idName = currentToken.GetName();
+            int idLine = currentToken.LineOfCode;
+            Random rnd = new Random();
+            int random = rnd.Next(1, 50);
+            List<Node> segments = new List<Node>();
+            for (int i = 0; i < random; i++)
+            {
+                segments.Add(new Point(idLine));
+            }
+            Sequence idSequence = new FiniteSequence(segments, idLine);
+            ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
+            scope.Constants.Add(a);
+            MoveNext();
+            return null!;
+        }
         int lineOfCode = currentLine;
         bool hasLabel = false;
         string label = string.Empty;
@@ -238,6 +310,25 @@ public partial class ASTBuilder
         string rayName = string.Empty;
         // bool isRandom = false;
 
+        if (nextToken.Type is TokenType.Sequence)
+        {
+            MoveNext(2);
+            string idName = currentToken.GetName();
+            int idLine = currentToken.LineOfCode;
+            Random rnd = new Random();
+            int random = rnd.Next(1, 50);
+            List<Node> rays = new List<Node>();
+            for (int i = 0; i < random; i++)
+            {
+                rays.Add(new Point(idLine));
+            }
+            Sequence idSequence = new FiniteSequence(rays, idLine);
+            ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
+            scope.Constants.Add(a);
+            MoveNext();
+            return null!;
+        }
+
         if (nextToken.Type is TokenType.Identifier)
         {
             // isRandom = true;
@@ -282,6 +373,25 @@ public partial class ASTBuilder
 
     Node BuildArc(Scope scope)
     {
+
+        if (nextToken.Type is TokenType.Sequence)
+        {
+            MoveNext(2);
+            string idName = currentToken.GetName();
+            int idLine = currentToken.LineOfCode;
+            Random rnd = new Random();
+            int random = rnd.Next(1, 50);
+            List<Node> arcs = new List<Node>();
+            for (int i = 0; i < random; i++)
+            {
+                arcs.Add(new Point(idLine));
+            }
+            Sequence idSequence = new FiniteSequence(arcs, idLine);
+            ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
+            scope.Constants.Add(a);
+            MoveNext();
+            return null!;
+        }
         int lineOfCode = currentLine;
         bool hasLabel = false;
         string label = string.Empty;
@@ -314,7 +424,7 @@ public partial class ASTBuilder
             Node radius = BuildLevel1(scope);
             Expect(TokenType.RightParenthesis);
             HandlingFunction = false;
-            return new ArcFunction(p1,p2,p3,radius,lineOfCode);
+            return new ArcFunction(p1, p2, p3, radius, lineOfCode);
         }
 
         if (!hasLabel)

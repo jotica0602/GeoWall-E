@@ -1,3 +1,8 @@
+using System.Numerics;
+using System.Security.Cryptography;
+using System.Numerics;
+using System.Diagnostics;
+
 namespace GeoEngine;
 
 public static class Intersections
@@ -243,11 +248,32 @@ public static class Intersections
         object LineCircleIntersect(Line line, Circle circle)
         {
             var distance = DistancePointLine(circle.Center, line);
-
+            List<Node> intersection = new List<Node>();
             if (distance > circle.Radius) return new FiniteSequence(new List<Node>(), lineOfCode);
+
+            double discriminant;
+
+            if (line.P1.X == line.P2.X)
+            {
+                double lineX = line.P1.X;   // in case of undefined slope
+                discriminant = Math.Pow(circle.Radius, 2) - Math.Pow(lineX - circle.Center.X, 2);
+                if (discriminant == 0)
+                {
+                    double y = circle.Center.Y + Math.Sqrt(discriminant);
+                    intersection.Add(new Point(line.P1.X, y, lineOfCode));
+                }
+                else if (discriminant > 0)
+                {
+                    double y1 = circle.Center.Y + Math.Sqrt(discriminant);
+                    double y2 = circle.Center.Y - Math.Sqrt(discriminant);
+                    intersection.Add(new Point(line.P1.X, y1, lineOfCode));
+                    intersection.Add(new Point(line.P1.X, y2, lineOfCode));
+                }
+
+                return new FiniteSequence(intersection, lineOfCode);
+            }
             else
             {
-
                 var (m, c) = LineEquation(line);
                 var center = circle.Center;
                 var radius = circle.Radius;
@@ -260,15 +286,15 @@ public static class Intersections
                 double B = 2 * (m * c - m * centerY - centerX);
                 double C = Math.Pow(centerY, 2) - Math.Pow(radius, 2) + Math.Pow(centerX, 2) - 2 * c * centerY + Math.Pow(c, 2);
 
-                double discriminant = Math.Pow(B, 2) - 4 * A * C;
+                discriminant = Math.Pow(B, 2) - 4 * A * C;
 
-                List<Node> nodes = new List<Node>();
+
                 if (distance == radius)
                 {
                     double x = (-B) / (2 * A);
                     double y = m * x + c;
-                    nodes.Add(new Point(x, y, lineOfCode));
-                    return new FiniteSequence(nodes, lineOfCode);
+                    intersection.Add(new Point(x, y, lineOfCode));
+                    return new FiniteSequence(intersection, lineOfCode);
                 }
 
                 double x1 = (-B + Math.Sqrt(discriminant)) / (2 * A);
@@ -277,21 +303,23 @@ public static class Intersections
                 double y1 = m * x1 + c;
                 double y2 = m * x2 + c;
 
-                nodes.Add(new Point(x1, y1, lineOfCode));
-                nodes.Add(new Point(x2, y2, lineOfCode));
-                return new FiniteSequence(nodes, lineOfCode);
+                intersection.Add(new Point(x1, y1, lineOfCode));
+                intersection.Add(new Point(x2, y2, lineOfCode));
+                return new FiniteSequence(intersection, lineOfCode);
             }
+
         }
 
 
         object LineArcIntersect(Line line1, Arc arc2)
         {
             Circle circle = new Circle(arc2.Center, arc2.Radius, lineOfCode);
-            Sequence intersect = (Sequence)LineCircleIntersect(line1, circle);
-            if (intersect.Elements.Any())
+            var intersect = LineCircleIntersect(line1, circle);
+            List<Node> nodes = new();
+            if (intersect is Sequence)
             {
-                List<Node> nodes = new();
-                foreach (Point p in intersect.Elements)
+                Sequence seq = (Sequence)intersect;
+                foreach (Point p in seq.Elements)
                     if (IsInArc(p, arc2)) nodes.Add(p);
 
                 return new FiniteSequence(nodes, lineOfCode);
@@ -329,17 +357,20 @@ public static class Intersections
         object SegmentArcIntersect(Segment segment1, Arc arc2)
         {
             Line line = new Line(segment1.P1, segment1.P2, lineOfCode);
-            Sequence intersection = (Sequence)LineArcIntersect(line, arc2);
+            var intersection = LineArcIntersect(line, arc2);
             List<Node> points = new List<Node>();
 
-            if (intersection.Elements.Any())
+            if (intersection is Sequence)
             {
-                foreach (Point p in intersection.Elements)
+                Sequence seq = (Sequence)intersection;
+                foreach (Point p in seq.Elements)
                     if (IsInSegment(p, segment1))
                         points.Add(p);
+
+                return new FiniteSequence(points, lineOfCode);
             }
 
-            return new FiniteSequence(points, lineOfCode);
+            return intersection;
         }
 
         object SegmentCircleIntersect(Segment segment1, Circle circle2)
@@ -361,12 +392,116 @@ public static class Intersections
         #endregion
 
         #region Ray Intersections
-        object RaysIntersect(Ray ray1, Ray ray2) => throw new NotImplementedException();
-        object RayPointIntersect(Point point1, Ray ray2) => throw new NotImplementedException();
-        object LineRayIntersect(Line line1, Ray ray2) => throw new NotImplementedException();
-        object SegmentRayIntersect(Ray ray2, Segment segment1) => throw new NotImplementedException();
-        object RayArcIntersect(Ray ray1, Arc arc2) => throw new NotImplementedException();
-        object RayCircleIntersect(Ray ray1, Circle circle2) => throw new Exception();
+        object RaysIntersect(Ray ray1, Ray ray2)
+        {
+            Line line1 = new Line(ray1.P1, ray1.P2, 0);
+            Line line2 = new Line(ray2.P1, ray2.P2, 0);
+
+            object possibleIntersections = LinesIntersect(line1, line2);
+            if (possibleIntersections is Sequence)
+            {
+                List<Node> intersection = new List<Node>();
+                Sequence seq = (Sequence)possibleIntersections;
+                foreach (Point element in seq.Elements)
+                {
+                    if (IsInRay(element, ray1) && IsInRay(element, ray2))
+                        intersection.Add(element);
+                }
+                return new FiniteSequence(intersection, lineOfCode);
+            }
+
+            return possibleIntersections;
+        }
+
+        object RayPointIntersect(Point point1, Ray ray2)
+        {
+            List<Node> intersect = new List<Node>();
+            if (IsInRay(point1, ray2))
+            {
+                intersect.Add(point1);
+            }
+
+            return new FiniteSequence(intersect, lineOfCode);
+
+        }
+
+        object LineRayIntersect(Line line1, Ray ray2)
+        {
+            Line line2 = new Line(ray2.P1, ray2.P2, lineOfCode);
+            object possibleIntersection = LinesIntersect(line1, line2);
+            List<Node> intersect = new List<Node>();
+            if (possibleIntersection is Sequence)
+            {
+                Sequence seq = (Sequence)possibleIntersection;
+                foreach (var element in seq.Elements)
+                {
+                    if (IsInRay((Point)element, ray2))
+                        intersect.Add(element);
+                }
+
+                return new FiniteSequence(intersect, lineOfCode);
+            }
+
+            return possibleIntersection;
+        }
+        object SegmentRayIntersect(Ray ray2, Segment segment1)
+        {
+            Line l1 = new Line(ray2.P1, ray2.P2, lineOfCode);
+            Line l2 = new Line(segment1.P1, segment1.P2, lineOfCode);
+            List<Node> intersect = new List<Node>();
+            object possibleIntersection = LinesIntersect(l1, l2);
+            if (possibleIntersection is Sequence)
+            {
+                Sequence seq = (Sequence)possibleIntersection;
+                foreach (var element in seq.Elements)
+                {
+                    if (IsInRay((Point)element, ray2) && IsInSegment((Point)element, segment1))
+                        intersect.Add(element);
+                }
+                return new FiniteSequence(intersect, lineOfCode);
+            }
+
+            return possibleIntersection;
+        }
+        object RayArcIntersect(Ray ray1, Arc arc2)
+        {
+            Line line = new Line(ray1.P1, ray1.P2, lineOfCode);
+            object possibleIntersection = LineArcIntersect(line, arc2);
+            List<Node> intersect = new List<Node>();
+            if (possibleIntersection is Sequence)
+            {
+                Sequence seq = (Sequence)possibleIntersection;
+                foreach (Point element in seq.Elements)
+                {
+                    if (IsInRay(element, ray1))
+                        intersect.Add(element);
+                }
+
+                return new FiniteSequence(intersect, lineOfCode);
+            }
+
+            return possibleIntersection;
+        }
+
+        object RayCircleIntersect(Ray ray1, Circle circle2)
+        {
+            Line line = new Line(ray1.P1, ray1.P2, lineOfCode);
+            object possibleIntersection = LineCircleIntersect(line, circle2);
+            List<Node> intersect = new List<Node>();
+            if (possibleIntersection is Sequence)
+            {
+                Sequence seq = (Sequence)possibleIntersection;
+                foreach (Point element in seq.Elements)
+                {
+                    if (IsInRay(element, ray1))
+                        intersect.Add(element);
+                }
+
+                return new FiniteSequence(intersect, lineOfCode);
+            }
+
+            return possibleIntersection;
+        }
 
         #endregion
 
@@ -486,7 +621,7 @@ public static class Intersections
     }
 
 
-    static bool IsInSegment(Point point, Segment segment)
+    public static bool IsInSegment(Point point, Segment segment)
     {
         double minX = Math.Min(segment.P1.X, segment.P2.X);
         double maxX = Math.Max(segment.P1.X, segment.P2.X);
@@ -512,18 +647,36 @@ public static class Intersections
 
     static bool IsInArc(Point point, Arc arc)
     {
-        double pointAngle = Math.Atan2(point.Y - arc.Center.Y, point.Y - arc.Center.X);
-        double startAngle = Math.Atan2(arc.StartPoint.Y - arc.Center.Y, arc.StartPoint.X - arc.Center.X);
-        double endAngle = Math.Atan2(arc.EndPoint.Y - arc.Center.Y, arc.EndPoint.X - arc.Center.X);
+        Vector2 centerToPoint = new Vector2((float)(point.X - arc.Center.X), (float)(point.Y - arc.Center.Y));
+        Vector2 initialRay = new Vector2((float)(arc.StartPoint.X - arc.Center.X), (float)(arc.StartPoint.Y - arc.Center.Y));
+        Vector2 finalRay = new Vector2((float)(arc.EndPoint.X - arc.Center.X), (float)(arc.EndPoint.Y - arc.Center.Y));
 
-        if (startAngle < endAngle)
+        float angleToPoint = (float)Math.Atan2(centerToPoint.Y, centerToPoint.X);
+        float angleToInitialRay = (float)Math.Atan2(initialRay.Y, initialRay.X);
+        float angleToFinalRay = (float)Math.Atan2(finalRay.Y, finalRay.X);
+
+        // Adjust angles to be between 0 and 2*PI
+        if (angleToInitialRay < 0)
         {
-            return startAngle <= pointAngle && pointAngle <= endAngle;
+            angleToInitialRay += 2 * (float)Math.PI;
         }
-        else
+        if (angleToFinalRay < 0)
         {
-            return startAngle <= pointAngle || pointAngle <= endAngle;
+            angleToFinalRay += 2 * (float)Math.PI;
         }
+        if (angleToPoint < 0)
+        {
+            angleToPoint += 2 * (float)Math.PI;
+        }
+
+        // Ensure angleToFinalRay is larger than angleToInitialRay
+        if (angleToFinalRay <= angleToInitialRay)
+        {
+            angleToFinalRay += 2 * (float)Math.PI;
+        }
+
+        // Verify if the point is between the initial and final rays
+        return angleToInitialRay <= angleToPoint && angleToPoint <= angleToFinalRay;
     }
 
     static double DistancePointLine(Point point, Line line)
@@ -537,5 +690,18 @@ public static class Intersections
 
         return Math.Abs((y2 - y1) * x0 - (x2 - x1) * y0 + x2 * y1 - y2 * x1) / Math.Sqrt(Math.Pow(y2 - y1, 2) + Math.Pow(x2 - x1, 2));
     }
+
+
+    public static double PointDistance(Point point1, Point point2)
+    {
+        return Math.Sqrt(Math.Pow(point1.X - point2.X, 2) + Math.Pow(point1.Y - point2.Y, 2));
+    }
+
+    public static bool IsInRay(Point point, Ray ray)
+    {
+        Segment segment = new Segment(ray.P1, ray.P2, 0);
+        return ((IsInSegment(point, segment) || PointDistance(point, ray.P2) <= PointDistance(point, ray.P1)));
+    }
+
     #endregion
 }

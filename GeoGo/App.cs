@@ -8,8 +8,8 @@ class Interpreter
 
     public static void Auto()
     {
-
         string input = @"
+<<<<<<< HEAD
 mediatrix(p1, p2) = 
     let
         l1 = line(p1, p2);
@@ -54,7 +54,19 @@ pu2 = point(0,0);
 m = measure(pu1,pu2);
 
 a = sierpinskyTriangle(point(450,300),m);";
+=======
+        point p1(250,283);
+        point p2(374,283)
+        ray r1(250,283);
+        ray r2(645,217);
+        print r1;
+        print r2;
+>>>>>>> development
 
+        draw {r1,r2};
+
+        color cyan;
+        draw intersect(r1,r2);";
 
         #region Lexer
         string path = "prueba";

@@ -8,9 +8,7 @@ public abstract class Figure : Node
     }
 
     public string Color { get; set; }
-
-    public abstract void Draw();
-
+    public abstract void Draw(string label = "");
     public virtual void GetColor()
     {
         if (DrawEngine.stackColor.Count > 0)
