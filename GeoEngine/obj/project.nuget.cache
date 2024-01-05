@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "nrzhDW7/6jY46P2Gtxp/MUuTLmmQoOZPMCoXUGvjolFr1PWeEZSX0AETSgeYwqC0f3D6/w4Qct1BQ6VzyW+htQ==",
+  "dgSpecHash": "B9iD7kWMLaiiSdAcGeITig9LFqB26tkqKeJK19RZ6glJYrS7ylx5nnejePk+fPRGJRe+oMX6mAtpb1fI1nUxfw==",
   "success": true,
-  "projectFilePath": "E:\\University\\Wall-E\\realwalle\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
+  "projectFilePath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Josue\\.nuget\\packages\\microsoft.jsinterop\\7.0.0\\microsoft.jsinterop.7.0.0.nupkg.sha512"
+    "C:\\Users\\Alex\\.nuget\\packages\\microsoft.jsinterop\\7.0.0\\microsoft.jsinterop.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

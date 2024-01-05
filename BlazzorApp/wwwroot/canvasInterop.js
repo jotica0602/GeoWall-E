@@ -203,6 +203,7 @@ function drawLabeledLine(canvasId, point1X, point1Y, point2X, point2Y, label, co
     ctx.textAlign = "center";
     ctx.fillText(label, midPointX, midPointY);
 }
+
 function drawRayThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext("2d");
@@ -210,55 +211,29 @@ function drawRayThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, colo
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWidth;
 
-    // Calcular la dirección del rayo
-    var dx = point2X - point1X;
-    var dy = point2Y - point1Y;
+    // Calcular la pendiente y la intersección y de la semirrecta que pasa por los dos puntos dados
+    var slope = (point2Y - point1Y) / (point2X - point1X);
+    var interceptY = point1Y - slope * point1X;
 
-    // Dibujar el rayo
+    // Calcular la intersección con el borde derecho del canvas
+    var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
+
+    // Determinar el punto de inicio y el punto final de la semirrecta dentro del canvas
+    var start = { x: point1X, y: point1Y };
+    var end;
+
+    if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
+        end = intersectionRight;
+    } else {
+        end = { x: canvas.width, y: slope * canvas.width + interceptY };
+    }
+
+    // Dibujar la semirrecta
     ctx.beginPath();
-    ctx.moveTo(point1X, point1Y);
-
-    // Determinar el punto final del rayo
-    // Usar un multiplicador grande para asegurarse de que el rayo se extienda más allá del canvas
-    var multiplier = 1000;
-    var endX = point1X + dx * multiplier;
-    var endY = point1Y + dy * multiplier;
-
-    ctx.lineTo(endX, endY);
+    ctx.moveTo(start.x, start.y);
+    ctx.lineTo(end.x, end.y);
     ctx.stroke();
 }
-
-
-// function drawRayThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
-//     var canvas = document.getElementById(canvasId);
-//     var ctx = canvas.getContext("2d");
-
-//     ctx.strokeStyle = color;
-//     ctx.lineWidth = lineWidth;
-
-//     // Calcular la pendiente y la intersección y de la semirrecta que pasa por los dos puntos dados
-//     var slope = (point2Y - point1Y) / (point2X - point1X);
-//     var interceptY = point1Y - slope * point1X;
-
-//     // Calcular la intersección con el borde derecho del canvas
-//     var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
-
-//     // Determinar el punto de inicio y el punto final de la semirrecta dentro del canvas
-//     var start = { x: point1X, y: point1Y };
-//     var end;
-
-//     if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
-//         end = intersectionRight;
-//     } else {
-//         end = { x: canvas.width, y: slope * canvas.width + interceptY };
-//     }
-
-//     // Dibujar la semirrecta
-//     ctx.beginPath();
-//     ctx.moveTo(start.x, start.y);
-//     ctx.lineTo(end.x, end.y);
-//     ctx.stroke();
-// }
 
 function drawLabeledRay(canvasId, point1X, point1Y, point2X, point2Y, label, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
