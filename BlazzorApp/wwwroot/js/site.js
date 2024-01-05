@@ -48,3 +48,8 @@ window.syncScroll = (element1, element2) => {
         element1.scrollLeft = element2.scrollLeft;
     };
 }
+
+window.simulateClick = (elementId) => {
+    var element = document.getElementById(elementId);
+    if (element) element.click();
+}

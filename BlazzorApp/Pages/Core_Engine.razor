@@ -27,6 +27,7 @@
                 <input type="text" @bind="filename" placeholder="Input file name." />
                 <button @onclick="SaveCode">Save</button>
             </div>
+            <InputFile id="fileInput" OnChange="LoadFile" style="display: none;" />
             <button @onclick="LoadCode">Load</button>
             <button @onclick="CompileCode">Compile</button>
         </div>
@@ -52,12 +53,21 @@
         await JSRuntime.InvokeVoidAsync("saveAsFile", filename + ".txt", codeText);
     }
 
-    private void LoadCode()
+    private async Task LoadCode()
     {
-        // Logic to load text from a file to codeText
+        await JSRuntime.InvokeVoidAsync("simulateClick", "fileInput");
     }
 
-
+    private async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            using var stream = file.OpenReadStream();
+            using var reader = new StreamReader(stream);
+            codeText = await reader.ReadToEndAsync();
+        }
+    }
     //canvas limits x:691 y:741
     private async Task CompileCode()
     {
