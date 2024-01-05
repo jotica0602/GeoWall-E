@@ -128,35 +128,13 @@ function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, col
     var intersectionLeft = { x: 0, y: interceptY };
     var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
 
-    // Determinar los puntos de inicio y fin de la línea dentro del canvas
-    var start, end;
-
-    if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
-        start = intersectionTop;
-    } else if (isInsideCanvas(intersectionLeft, canvas.width, canvas.height)) {
-        start = intersectionLeft;
-    } else if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
-        start = intersectionBottom;
-    } else {
-        start = intersectionRight;
-    }
-
-    if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
-        end = intersectionBottom;
-    } else if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
-        end = intersectionRight;
-    } else if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
-        end = intersectionTop;
-    } else {
-        end = intersectionLeft;
-    }
-
-    // Dibujar la línea
+    // Dibujar la línea entre las intersecciones
     ctx.beginPath();
-    ctx.moveTo(start.x, start.y);
-    ctx.lineTo(end.x, end.y);
+    ctx.moveTo(intersectionLeft.x, intersectionLeft.y);
+    ctx.lineTo(intersectionRight.x, intersectionRight.y);
     ctx.stroke();
 }
+
 
 function drawLabeledLine(canvasId, point1X, point1Y, point2X, point2Y, label, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
