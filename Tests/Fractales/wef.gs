@@ -58,6 +58,7 @@ drawRecursiveSnowFly(p,m) =
       s4 = getSpikes(p7,p6,p8,m);
       s5 = getSpikes(p9,p8,p10,m);
       s6 = getSpikes(p11,p10,p12,m);
+      draw{s1,s2,s3,s4,s5,s6};
       draw 
       {
         segment(p1,p2),segment(p2,p3),segment(p3,p4),segment(p4,p5),

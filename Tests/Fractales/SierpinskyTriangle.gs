@@ -1,7 +1,4 @@
 ﻿
-
-
-
 mediatrix(p1, p2) = 
     let
         l1 = line(p1, p2);
