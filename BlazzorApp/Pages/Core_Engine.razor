@@ -50,7 +50,7 @@
             return;
         }
 
-        await JSRuntime.InvokeVoidAsync("saveAsFile", filename + ".txt", codeText);
+        await JSRuntime.InvokeVoidAsync("saveAsFile", filename + ".gs", codeText);
     }
 
     private async Task LoadCode()
