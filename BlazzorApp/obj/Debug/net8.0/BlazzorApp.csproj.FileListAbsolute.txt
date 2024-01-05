@@ -32,6 +32,7 @@ E:\University\Wall-E\BlazzorApp\BlazzorApp\obj\Debug\net8.0\ref\BlazzorApp.dll
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.exe
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.dll
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\bin\Debug\net8.0\GeoEngine.dll
+<<<<<<< HEAD
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\bin\Debug\net8.0\appsettings.json
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.staticwebassets.runtime.json
@@ -67,3 +68,5 @@ C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\BlazzorApp.genruntim
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\ref\BlazzorApp.dll
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\scopedcss\Pages\Core_Engine.razor.rz.scp.css
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\scopedcss\Shared\Footer.razor.rz.scp.css
+=======
+>>>>>>> parent of 55de07c (fixed ray issue)

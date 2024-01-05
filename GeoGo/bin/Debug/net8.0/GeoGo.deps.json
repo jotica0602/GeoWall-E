@@ -6,15 +6,22 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "BlazzorApp/1.0.0": {
+      "GeoGo/1.0.0": {
         "dependencies": {
           "GeoEngine": "1.0.0"
         },
         "runtime": {
-          "BlazzorApp.dll": {}
+          "GeoGo.dll": {}
         }
       },
-      "Microsoft.JSInterop/7.0.0": {},
+      "Microsoft.JSInterop/7.0.0": {
+        "runtime": {
+          "lib/net7.0/Microsoft.JSInterop.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51819"
+          }
+        }
+      },
       "GeoEngine/1.0.0": {
         "dependencies": {
           "Microsoft.JSInterop": "7.0.0"
@@ -26,7 +33,7 @@
     }
   },
   "libraries": {
-    "BlazzorApp/1.0.0": {
+    "GeoGo/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
