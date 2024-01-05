@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("GeoEngine")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("BlazzorApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("GeoEngine")]
-[assembly: System.Reflection.AssemblyTitleAttribute("GeoEngine")]
+[assembly: System.Reflection.AssemblyProductAttribute("BlazzorApp")]
+[assembly: System.Reflection.AssemblyTitleAttribute("BlazzorApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.
