@@ -4,79 +4,71 @@
 @inherits LayoutComponentBase
 
 @layout MainLayout
-@* <div class="content">
-    <Navbar />
-    <!-- Resto del contenido de tu página de presentación -->
-</div> *@
 
-<div class="welcome-container">
-    <h1 class="welcome-title">Welcome to GeoWall-E Project</h1>
+<h1 class="page-title">Geo Wall-E</h1>
+
+<!-- Introduction -->
+<p class="intro">
+    Geometric Wall-E is a program, WallE will be able to represent geometric
+    concepts (such as points, lines, or circles), graph them, and verify rel
+    ationships (for example, that the medians in a triangle intersect at the
+    same point and that it is the center of the circumscribed circle). To achieve
+    this, WallE has a canvas (plane), a ruler, and a compass to draw lines and circles.
+</p>
+
+<!-- Image -->
+<div class="image-container">
+    <img src="images/1292006.jpg" alt="Introduction Image" class="rescaled-image" />
 </div>
 
-<div class="container-footer">
+<Footer />
 
-    <Footer />
-
-
-</div>
 <style>
-    .welcome-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    /* CSS */
 
-        border-radius: 15px;
-    }
-    .container-footer {
-        width: 100%;
-        padding: 40px;
-        background: #eae9e9;
-        margin-top: 40px;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
     }
 
-    .container-footer footer {
-        max-width: 65%;
-        margin: auto;
-    }
-
-    .container-footer footer .redes-footer {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .container-footer footer .redes-footer .github {
-        font-size: 20px;
-        margin: 20px;
-        background: #d3d2d2;
-        width: 140px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 30px;
-        color: #a2a2a2;
-    }
-
-    .container-footer footer hr {
-        margin-top: 20px;
-        border: none;
-        height: 1px;
-        background-color: rgb(186, 186, 186);
-    }
-
-    .container-footer h4 {
+    .page-title {
         text-align: center;
-        margin-top: 40px;
-        color: #8e8e8e;
+        color: #333;
+        font-size: 3em;
+        /* Make the title bigger */
+        font-family: 'Playfair Display', serif;
+        /* Change the font to 'Playfair Display' */
+        margin-top: 20px;
+        font-weight: bold;
     }
 
-    .container-footer h5 {
-        text-align: center;
-        margin-top: 7px;
-        color: #8e8e8e;
+    .intro {
+        text-align: justify;
+        color: #666;
+        font-size: 1.2em;
+        margin: 20px auto;
+        max-width: 800px;
+        line-height: 1.6em;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .rescaled-image {
+        width: 75%;
+        /* Rescale the image to 50% of its original width */
+        height: auto;
     }
 </style>
+
 @code {
 
 }
+
+
+@* <img src="images/1292006.jpg" alt="Introduction Image" class="introduction-image" /> *@

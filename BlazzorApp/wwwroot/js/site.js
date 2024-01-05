@@ -33,3 +33,23 @@ window.openPDF = function (pdfUrl) {
         alert("Por favor, habilite las ventanas emergentes para ver el PDF.");
     }
 }
+
+window.updateTextAreaValue = (element, value) => {
+    element.value = value;
+}
+
+window.syncScroll = (element1, element2) => {
+    element1.onscroll = () => {
+        element2.scrollTop = element1.scrollTop;
+        element2.scrollLeft = element1.scrollLeft;
+    };
+    element2.onscroll = () => {
+        element1.scrollTop = element2.scrollTop;
+        element1.scrollLeft = element2.scrollLeft;
+    };
+}
+
+window.simulateClick = (elementId) => {
+    var element = document.getElementById(elementId);
+    if (element) element.click();
+}
