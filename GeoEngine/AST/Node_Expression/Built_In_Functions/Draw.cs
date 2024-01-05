@@ -38,7 +38,6 @@ public class Draw : Expression
                     keepDrawing.Evaluate();
                 }
             }
-
     }
 
 }

@@ -306,7 +306,7 @@ public static class Intersections
 
         object SegmentsIntersect(Segment segment1, Segment segment2)
         {
-            Line line = new Line(segment1.P1, segment2.P2, lineOfCode);
+            Line line = new Line(segment1.P1, segment1.P2, lineOfCode);
             var intersection = LineSegmentIntersect(line, segment2);
 
             if (intersection is Sequence)
@@ -509,7 +509,6 @@ public static class Intersections
         }
         return false;
     }
-
 
     static bool IsInArc(Point point, Arc arc)
     {
