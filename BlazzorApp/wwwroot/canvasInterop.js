@@ -111,58 +111,35 @@ function drawLabeledCircle(canvasId, centerX, centerY, radius, label, color) {
 // asdasdasd
 
 function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
+    // Get the canvas element
     var canvas = document.getElementById(canvasId);
-    var ctx = canvas.getContext("2d");
+    if (canvas.getContext) {
+        // Get the 2d drawing context
+        var ctx = canvas.getContext('2d');
 
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineWidth;
-    
-    // Calcular la pendiente
-    var slope = (point2X - point1X) !== 0 ? (point2Y - point1Y) / (point2X - point1X) : Infinity;
+        // Set the line color and width
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
 
-    if (slope === Infinity || slope === -Infinity) {
-        // Manejar el caso de pendiente infinita (paralela al eje y)
-        var x = point1X; // La recta será paralela al eje y y pasará por el punto x
+        // Calculate the slope of the line
+        var slope = (point2Y - point1Y) / (point2X - point1X);
+
+        // Calculate the y-intercept of the line
+        var yIntercept = point1Y - slope * point1X;
+
+        // Calculate the start and end points of the line
+        var startX = 0;
+        var startY = yIntercept;
+        var endX = canvas.width;
+        var endY = slope * endX + yIntercept;
+
+        // Draw the line
         ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
         ctx.stroke();
     } else {
-        // Calcular la intersección y de la recta que pasa por los dos puntos dados
-        var interceptY = point1Y - slope * point1X;
-        var intersectionTop = { x: -interceptY / slope, y: 0 };
-        var intersectionBottom = { x: (canvas.height - interceptY) / slope, y: canvas.height };
-        var intersectionLeft = { x: 0, y: interceptY };
-        var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
-    
-        // Determinar los puntos de inicio y fin de la línea dentro del canvas
-        var start, end;
-    
-        if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
-            start = intersectionTop;
-        } else if (isInsideCanvas(intersectionLeft, canvas.width, canvas.height)) {
-            start = intersectionLeft;
-        } else if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
-            start = intersectionBottom;
-        } else {
-            start = intersectionRight;
-        }
-    
-        if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
-            end = intersectionBottom;
-        } else if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
-            end = intersectionRight;
-        } else if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
-            end = intersectionTop;
-        } else {
-            end = intersectionLeft;
-        }
-    
-        // Dibujar la línea
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y);
-        ctx.lineTo(end.x, end.y);
-        ctx.stroke();
+        console.log('Canvas not supported');
     }
 }
 // this is line
