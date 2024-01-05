@@ -10,3 +10,16 @@ E:\University\Wall-E\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.dll
 E:\University\Wall-E\GeoWall-E\GeoEngine\obj\Debug\net8.0\refint\GeoEngine.dll
 E:\University\Wall-E\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.pdb
 E:\University\Wall-E\GeoWall-E\GeoEngine\obj\Debug\net8.0\ref\GeoEngine.dll
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\bin\Debug\net8.0\GeoEngine.deps.json
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\bin\Debug\net8.0\GeoEngine.dll
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\bin\Debug\net8.0\GeoEngine.pdb
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.csproj.AssemblyReference.cache
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.AssemblyInfoInputs.cache
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.AssemblyInfo.cs
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.sourcelink.json
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.dll
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\refint\GeoEngine.dll
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.pdb
+C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\ref\GeoEngine.dll
