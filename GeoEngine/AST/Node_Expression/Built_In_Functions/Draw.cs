@@ -29,7 +29,15 @@ public class Draw : Expression
 
         if (Argument.Value is Sequence)
             foreach (var element in ((Sequence)Argument.Value).Elements)
-                ((Figure)element.Value).Draw();
+            {
+                if (element is Figure)
+                    ((Figure)element.Value).Draw();
+                else
+                {
+                    var keepDrawing = new Draw(element,LineOfCode);
+                    keepDrawing.Evaluate();
+                }
+            }
 
     }
 

@@ -12,7 +12,15 @@ class Interpreter
         string input = @"
         a = point(200,200);
         b = point(200,400);
-        draw line(a,b);";
+        c = point(300,300);
+        m = measure(a,b);
+        l = line(b,c);
+        c1 = circle(a,m);
+        c2 = circle(b,m);
+        i1 = intersect(c1,c2);
+        i2 = intersect(l,c1);
+        i3 = intersect(l,c2);
+        draw{i1,i2,i3};";
 
 
         #region Lexer
