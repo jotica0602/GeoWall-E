@@ -72,17 +72,3 @@ a,
 .blazor-error-boundary::after {
     content: "An error has occurred."
 }
-
-/* site.css */
-
-.footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #504e4e;
-}
-
-.footer a {
-    color: #687786;
-    text-decoration: none;
-}
