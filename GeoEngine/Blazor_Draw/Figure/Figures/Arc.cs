@@ -68,17 +68,10 @@ public class Arc : Figure
             GetColor();
             if (StartPoint.Equals(EndPoint))
             {
-<<<<<<< HEAD:GeoEngine/Blazor_Draw/Figure/Arc.cs
-                DrawEngine._jsRuntime.InvokeVoidAsync("drawCircleOutline", "graphCanvas", Center.X, Center.Y, Radius, Color, 3);
-                return;
-            }
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, Color, 3);
-=======
                 await DrawEngine._jsRuntime.InvokeVoidAsync("drawCircleOutline", "graphCanvas", Center.X, Center.Y, Radius, Color, 1);
                 return;
             }
             await DrawEngine._jsRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, Color, 1);
->>>>>>> development:GeoEngine/Blazor_Draw/Figure/Figures/Arc.cs
         }
     }
 

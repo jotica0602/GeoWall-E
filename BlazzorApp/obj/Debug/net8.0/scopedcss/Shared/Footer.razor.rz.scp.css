@@ -1,0 +1,31 @@
+.footer[b-jul7bhsgdl] {
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f6f6f6;
+    color: black;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer a[b-jul7bhsgdl] {
+    color: #333;
+}
+
+.footer a:hover[b-jul7bhsgdl] {
+    color: #535353;
+}
+
+.github-button[b-jul7bhsgdl] {
+    display: inline-block;
+    background-color: #f6f6f6;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.github-button:hover[b-jul7bhsgdl] {
+    background-color: #878787;
+}

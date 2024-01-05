@@ -23,17 +23,10 @@ public class Draw : Expression
             foreach (var element in ((Sequence)Argument.Value).Elements)
             {
                 if (element is Figure)
-<<<<<<< HEAD
-                    ((Figure)element.Value).Draw();
-                else
-                {
-                    var keepDrawing = new Draw(element,LineOfCode);
-=======
                     ((Figure)element.Value).Draw(Label);
                 else
                 {
                     var keepDrawing = new Draw(element, Label, LineOfCode);
->>>>>>> development
                     keepDrawing.Evaluate();
                 }
             }
