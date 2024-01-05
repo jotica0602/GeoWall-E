@@ -22,6 +22,7 @@ public partial class ASTBuilder
             }
             Sequence idSequence = new FiniteSequence(points, idLine);
             ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
+            MoveNext();
             scope.Constants.Add(a);
             return null!;
         }
@@ -184,7 +185,7 @@ public partial class ASTBuilder
             List<Node> circles = new List<Node>();
             for (int i = 0; i < random; i++)
             {
-                circles.Add(new Point(idLine));
+                circles.Add(new Circle(idLine));
             }
             Sequence idSequence = new FiniteSequence(circles, idLine);
             ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
@@ -246,7 +247,7 @@ public partial class ASTBuilder
             List<Node> segments = new List<Node>();
             for (int i = 0; i < random; i++)
             {
-                segments.Add(new Point(idLine));
+                segments.Add(new Segment(idLine));
             }
             Sequence idSequence = new FiniteSequence(segments, idLine);
             ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
@@ -320,7 +321,7 @@ public partial class ASTBuilder
             List<Node> rays = new List<Node>();
             for (int i = 0; i < random; i++)
             {
-                rays.Add(new Point(idLine));
+                rays.Add(new Ray(idLine));
             }
             Sequence idSequence = new FiniteSequence(rays, idLine);
             ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);
@@ -384,7 +385,7 @@ public partial class ASTBuilder
             List<Node> arcs = new List<Node>();
             for (int i = 0; i < random; i++)
             {
-                arcs.Add(new Point(idLine));
+                arcs.Add(new Arc(idLine));
             }
             Sequence idSequence = new FiniteSequence(arcs, idLine);
             ConstantDeclaration a = new ConstantDeclaration(idName, idSequence, scope, idLine);

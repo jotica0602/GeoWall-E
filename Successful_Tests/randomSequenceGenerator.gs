@@ -1,0 +1,18 @@
+point sequence ps;
+arc sequence as;
+circle sequence cs;
+line sequence ls;
+segment sequence ss;
+ray sequence rs;
+color red;
+draw ps;
+color blue;
+draw as;
+color magenta;
+draw cs;
+color green;
+draw ls;
+color cyan;
+draw ss;
+color yellow;
+draw rs;
