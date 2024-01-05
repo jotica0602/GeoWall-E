@@ -194,16 +194,16 @@
             @* Principal.Principal2(JSRuntime); *@
             DrawEngine.UpdateLogs();
             consoleLogs = DrawEngine.Logs;
-            consoleText += $"<span style=\"color: white;\">{consoleLogs}</span><br />";
+            consoleText += $"<span style=\"color: white;\">{consoleLogs}</span><br/>";
         }
         catch (Exception ex)
         {
             DrawEngine.UpdateLogs();
             consoleLogs = DrawEngine.Logs;
-            consoleText += $"<span style=\"color: white;\">{consoleLogs}</span><br />";
+            consoleText += $"<span style=\"color: white;\">{consoleLogs}</span><br/>";
             DrawEngine.UpdateErrors();
             compilationErrors = DrawEngine.ErrorMessage;
-            consoleText += $"<span style=\"color: red;\">{compilationErrors}</span><br />";
+            consoleText += $"<span style=\"color: red;\">{compilationErrors}</span><br/>";
             Console.WriteLine(compilationErrors);
 
             return;

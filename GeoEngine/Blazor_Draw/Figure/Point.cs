@@ -53,20 +53,20 @@ public class Point : Figure
         Value = this;
     }
 
-    public override /* async */ void Draw()
+    public async override /* async */ void Draw()
     {
         if (Label is not null)
         {
             GetColor();
             /* await */
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", X, Y, Label, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", X, Y, Label, Color, 3);
             //await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 100, 100, "Punto A", "red", 3);
         }
         else
         {
             GetColor();
             /* await */
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", X, Y, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", X, Y, Color, 3);
             //await JSRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", 100, 100, "red", 3);
         }
     }

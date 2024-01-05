@@ -30,7 +30,12 @@ public class LineFunction : FigureFunction
             new Error(ErrorKind.RunTime, ErrorCode.invalid, "function call second argument is not a point", LineOfCode);
         }
 
-        if (flag) throw new Exception();
+        if (flag)
+        {
+            Error.CheckErrors();
+            throw new Exception();
+        }
+        
         Value = new Line((Point)P1.Value, (Point)P2.Value, LineOfCode);
     }
 }

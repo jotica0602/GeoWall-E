@@ -60,17 +60,17 @@ public class Line : Figure
         Value = this;
     }
 
-    public override void Draw()
+    public async override void Draw()
     {
         if (Label is not null)
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 1);
         }
         else
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLineThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLineThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 1);
         }
     }
     public override bool Equals(object? obj)

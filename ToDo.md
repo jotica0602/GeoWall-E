@@ -29,4 +29,4 @@ Implement:
 
 13. Fix line bug
 
-14. Fix the arc bug
+14. ~~Fix the arc bug~~

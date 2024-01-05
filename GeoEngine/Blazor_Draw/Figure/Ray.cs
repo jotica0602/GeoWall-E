@@ -46,17 +46,17 @@ public class Ray : Figure
     }
 
 
-    public override void Draw()
+    public async override void Draw()
     {
         if (Label is not null)
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledRay", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledRay", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 1);
         }
         else
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawRayThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 3);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawRayThroughPoints", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Color, 1);
         }
     }
 
@@ -71,7 +71,7 @@ public class Ray : Figure
     public override string ToString()
     {
         if (Label is not null)
-            return $"{Label}: (P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y})) Color: {Color}";
+            return $"{Label}: (P1({this.P1.X};{this.P1.Y})):(P2({this.P2.X};{this.P2.Y})) Color: {Color}";
 
         else return $"(P1({this.P1.X};{this.P2.Y})):(P2({this.P2.X};{this.P2.Y})) Color: {Color}";
     }

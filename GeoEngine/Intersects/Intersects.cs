@@ -1,3 +1,7 @@
+using System.Numerics;
+using System.Security.Cryptography;
+using System.Numerics;
+
 namespace GeoEngine;
 
 public static class Intersections
@@ -243,8 +247,31 @@ public static class Intersections
         object LineCircleIntersect(Line line, Circle circle)
         {
             var distance = DistancePointLine(circle.Center, line);
-
+            List<Node> intersection = new List<Node>();
             if (distance > circle.Radius) return new FiniteSequence(new List<Node>(), lineOfCode);
+
+            double discriminant;
+
+            if (line.P1.X == line.P2.X)
+            {
+                double lineX = line.P1.X;   // in case of undefined slope
+                discriminant = Math.Pow(circle.Radius, 2) - Math.Pow(lineX - circle.Center.X, 2);
+                if (discriminant == 0)
+                {
+                    double y = circle.Center.Y + Math.Sqrt(discriminant);
+                    intersection.Add(new Point(line.P1.X, y, lineOfCode));
+                }
+                else if (discriminant > 0)
+                {
+                    double y1 = circle.Center.Y + Math.Sqrt(discriminant);
+                    double y2 = circle.Center.Y - Math.Sqrt(discriminant);
+                    intersection.Add(new Point(line.P1.X, y1, lineOfCode));
+                    intersection.Add(new Point(line.P1.X, y2, lineOfCode));
+                }
+
+                return new FiniteSequence(intersection,lineOfCode);
+
+            }
             else
             {
 
@@ -260,15 +287,15 @@ public static class Intersections
                 double B = 2 * (m * c - m * centerY - centerX);
                 double C = Math.Pow(centerY, 2) - Math.Pow(radius, 2) + Math.Pow(centerX, 2) - 2 * c * centerY + Math.Pow(c, 2);
 
-                double discriminant = Math.Pow(B, 2) - 4 * A * C;
+                discriminant = Math.Pow(B, 2) - 4 * A * C;
 
-                List<Node> nodes = new List<Node>();
+
                 if (distance == radius)
                 {
                     double x = (-B) / (2 * A);
                     double y = m * x + c;
-                    nodes.Add(new Point(x, y, lineOfCode));
-                    return new FiniteSequence(nodes, lineOfCode);
+                    intersection.Add(new Point(x, y, lineOfCode));
+                    return new FiniteSequence(intersection, lineOfCode);
                 }
 
                 double x1 = (-B + Math.Sqrt(discriminant)) / (2 * A);
@@ -277,10 +304,11 @@ public static class Intersections
                 double y1 = m * x1 + c;
                 double y2 = m * x2 + c;
 
-                nodes.Add(new Point(x1, y1, lineOfCode));
-                nodes.Add(new Point(x2, y2, lineOfCode));
-                return new FiniteSequence(nodes, lineOfCode);
+                intersection.Add(new Point(x1, y1, lineOfCode));
+                intersection.Add(new Point(x2, y2, lineOfCode));
+                return new FiniteSequence(intersection, lineOfCode);
             }
+
         }
 
 
@@ -512,18 +540,36 @@ public static class Intersections
 
     static bool IsInArc(Point point, Arc arc)
     {
-        double pointAngle = Math.Atan2(point.Y - arc.Center.Y, point.Y - arc.Center.X);
-        double startAngle = Math.Atan2(arc.StartPoint.Y - arc.Center.Y, arc.StartPoint.X - arc.Center.X);
-        double endAngle = Math.Atan2(arc.EndPoint.Y - arc.Center.Y, arc.EndPoint.X - arc.Center.X);
+        Vector2 centerToPoint = new Vector2((float)(point.X - arc.Center.X), (float)(point.Y - arc.Center.Y));
+        Vector2 initialRay = new Vector2((float)(arc.StartPoint.X - arc.Center.X), (float)(arc.StartPoint.Y - arc.Center.Y));
+        Vector2 finalRay = new Vector2((float)(arc.EndPoint.X - arc.Center.X), (float)(arc.EndPoint.Y - arc.Center.Y));
 
-        if (startAngle < endAngle)
+        float angleToPoint = (float)Math.Atan2(centerToPoint.Y, centerToPoint.X);
+        float angleToInitialRay = (float)Math.Atan2(initialRay.Y, initialRay.X);
+        float angleToFinalRay = (float)Math.Atan2(finalRay.Y, finalRay.X);
+
+        // Adjust angles to be between 0 and 2*PI
+        if (angleToInitialRay < 0)
         {
-            return startAngle <= pointAngle && pointAngle <= endAngle;
+            angleToInitialRay += 2 * (float)Math.PI;
         }
-        else
+        if (angleToFinalRay < 0)
         {
-            return startAngle <= pointAngle || pointAngle <= endAngle;
+            angleToFinalRay += 2 * (float)Math.PI;
         }
+        if (angleToPoint < 0)
+        {
+            angleToPoint += 2 * (float)Math.PI;
+        }
+
+        // Ensure angleToFinalRay is larger than angleToInitialRay
+        if (angleToFinalRay <= angleToInitialRay)
+        {
+            angleToFinalRay += 2 * (float)Math.PI;
+        }
+
+        // Verify if the point is between the initial and final rays
+        return angleToInitialRay <= angleToPoint && angleToPoint <= angleToFinalRay;
     }
 
     static double DistancePointLine(Point point, Line line)

@@ -37,7 +37,7 @@ sierpinskyTriangle(p,m) =
          pu2 = point(0,1);
          p1,p2,p3,_ = regularTriangle(p,m);
      in divideTriangle(p1,p2,p3,measure(pu1,pu2));
-
+    
 pu1 = point(300,0);
 pu2 = point(0,0);
 pu3 = point(450,300);

@@ -10,17 +10,7 @@ public class Draw : Expression
     }
 
     public override bool CheckSemantic() => true;
-    // {
-    //     if (Argument is not FigureFunction && Argument is not Figure && Argument.Type is not NodeType.Temporal && Argument is not Sequence)
-    //     {
-    //         new Error(ErrorKind.Semantic, ErrorCode.invalid, $"argument type, it must be a figure", LineOfCode);
-    //         return false;
-    //     }
-
-    //     return true;
-    // }
-
-
+   
     public override void Evaluate()
     {
         Argument.Evaluate();
