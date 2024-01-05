@@ -31,11 +31,11 @@ public partial class ASTBuilder
         {
             if (previousToken.LineOfCode != currentLine)
             {
-                new Error(ErrorKind.Syntax, ErrorCode.expected, $"\"{expected}\"", currentToken.LineOfCode - 1);
+                new Error(ErrorKind.Syntax, ErrorCode.expected, $"\"{expected}\", \"{currentToken}\" were found", currentToken.LineOfCode - 1);
             }
             else
             {
-                new Error(ErrorKind.Syntax, ErrorCode.expected, $"\"{expected}\"", currentToken.LineOfCode);
+                new Error(ErrorKind.Syntax, ErrorCode.expected, $"\"{expected}\", \"{currentToken}\" were found", currentToken.LineOfCode);
             }
         }
 

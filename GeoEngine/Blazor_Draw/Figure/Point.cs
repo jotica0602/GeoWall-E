@@ -71,6 +71,14 @@ public class Point : Figure
         }
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Point)
+            return false;
+        Point p2 = (Point)obj;
+        if (X == p2.X && Y == p2.Y) return true;
+        else return false;
+    }
     public override string ToString()
     {
         if (Label is not null)

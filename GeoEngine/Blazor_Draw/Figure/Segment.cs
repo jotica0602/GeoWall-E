@@ -59,6 +59,14 @@ public class Segment : Figure
         }
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Segment) return false;
+        Segment s2 = (Segment)obj;
+        if (Equals(P1, s2.P1) && Equals(P2, s2.P2)) return true;
+        return false;
+    }
+
     public override string ToString()
     {
         if (Label is not null)

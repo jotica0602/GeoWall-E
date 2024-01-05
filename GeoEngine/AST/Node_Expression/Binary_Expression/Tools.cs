@@ -10,6 +10,7 @@ public class Tools
         if
         (
             (nodeValue is Node && ((Node)nodeValue).Type is NodeType.Undefined) ||
+            (nodeValue is Undefined) ||
             (nodeValue is Sequence && ((Sequence)nodeValue).Type is NodeType.EmptySequence) ||
             (nodeValue is double && (double)nodeValue is 0) ||
             (nodeValue is string && (string)nodeValue == string.Empty)

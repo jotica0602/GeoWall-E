@@ -14,18 +14,18 @@ public class ConstantDeclaration : Statement
 
     public override bool CheckSemantic()
     {
-        for (var actualScope = Scope; actualScope is not null; actualScope = actualScope.Parent)
-            if (actualScope.Constants.Exists(x => x.Name == this.Name))
-            {
-                new Error
-                (
-                    ErrorKind.Semantic,
-                    ErrorCode.invalid,
-                    $"constant \"{Name}\" cannot be redefined.",
-                    LineOfCode
-                );
-                return false;
-            }
+        // for (var actualScope = Scope; actualScope is not null; actualScope = actualScope.Parent)
+        //     if (actualScope.Constants.Exists(x => x.Name == this.Name))
+        //     {
+        //         new Error
+        //         (
+        //             ErrorKind.Semantic,
+        //             ErrorCode.invalid,
+        //             $"constant \"{Name}\" cannot be redefined.",
+        //             LineOfCode
+        //         );
+        //         return false;
+        //     }
 
         return true;
     }

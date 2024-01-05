@@ -108,8 +108,7 @@ function drawLabeledCircle(canvasId, centerX, centerY, radius, label, color) {
     ctx.fillText(label, centerX, centerY);
 }
 
-
-// this is line
+// asdasdasd
 
 function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
@@ -117,24 +116,104 @@ function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, col
 
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWidth;
+    
+    // Calcular la pendiente
+    var slope = (point2X - point1X) !== 0 ? (point2Y - point1Y) / (point2X - point1X) : Infinity;
 
-    // Calcular la pendiente y la intersección y de la recta que pasa por los dos puntos dados
-    var slope = (point2Y - point1Y) / (point2X - point1X);
-    var interceptY = point1Y - slope * point1X;
-
-    // Calcular las intersecciones con los bordes del canvas
-    var intersectionTop = { x: -interceptY / slope, y: 0 };
-    var intersectionBottom = { x: (canvas.height - interceptY) / slope, y: canvas.height };
-    var intersectionLeft = { x: 0, y: interceptY };
-    var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
-
-    // Dibujar la línea entre las intersecciones
-    ctx.beginPath();
-    ctx.moveTo(intersectionLeft.x, intersectionLeft.y);
-    ctx.lineTo(intersectionRight.x, intersectionRight.y);
-    ctx.stroke();
+    if (slope === Infinity || slope === -Infinity) {
+        // Manejar el caso de pendiente infinita (paralela al eje y)
+        var x = point1X; // La recta será paralela al eje y y pasará por el punto x
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    } else {
+        // Calcular la intersección y de la recta que pasa por los dos puntos dados
+        var interceptY = point1Y - slope * point1X;
+        var intersectionTop = { x: -interceptY / slope, y: 0 };
+        var intersectionBottom = { x: (canvas.height - interceptY) / slope, y: canvas.height };
+        var intersectionLeft = { x: 0, y: interceptY };
+        var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
+    
+        // Determinar los puntos de inicio y fin de la línea dentro del canvas
+        var start, end;
+    
+        if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
+            start = intersectionTop;
+        } else if (isInsideCanvas(intersectionLeft, canvas.width, canvas.height)) {
+            start = intersectionLeft;
+        } else if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
+            start = intersectionBottom;
+        } else {
+            start = intersectionRight;
+        }
+    
+        if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
+            end = intersectionBottom;
+        } else if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
+            end = intersectionRight;
+        } else if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
+            end = intersectionTop;
+        } else {
+            end = intersectionLeft;
+        }
+    
+        // Dibujar la línea
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.stroke();
+    }
 }
+// this is line
 
+// function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
+//     var canvas = document.getElementById(canvasId);
+//     var ctx = canvas.getContext("2d");
+
+//     ctx.strokeStyle = color;
+//     ctx.lineWidth = lineWidth;
+    
+//     // Calcular la pendiente y la intersección y de la recta que pasa por los dos puntos dados
+//     var slope = (point2Y - point1Y) / (point2X - point1X);
+
+//     var interceptY = point1Y - slope * point1X;
+
+//     // Calcular las intersecciones con los bordes del canvas
+//     var intersectionTop = { x: -interceptY / slope, y: 0 };
+//     var intersectionBottom = { x: (canvas.height - interceptY) / slope, y: canvas.height };
+//     var intersectionLeft = { x: 0, y: interceptY };
+//     var intersectionRight = { x: canvas.width, y: slope * canvas.width + interceptY };
+
+//     // Determinar los puntos de inicio y fin de la línea dentro del canvas
+//     var start, end;
+
+//     if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
+//         start = intersectionTop;
+//     } else if (isInsideCanvas(intersectionLeft, canvas.width, canvas.height)) {
+//         start = intersectionLeft;
+//     } else if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
+//         start = intersectionBottom;
+//     } else {
+//         start = intersectionRight;
+//     }
+
+//     if (isInsideCanvas(intersectionBottom, canvas.width, canvas.height)) {
+//         end = intersectionBottom;
+//     } else if (isInsideCanvas(intersectionRight, canvas.width, canvas.height)) {
+//         end = intersectionRight;
+//     } else if (isInsideCanvas(intersectionTop, canvas.width, canvas.height)) {
+//         end = intersectionTop;
+//     } else {
+//         end = intersectionLeft;
+//     }
+
+//     // Dibujar la línea
+//     ctx.beginPath();
+//     ctx.moveTo(start.x, start.y);
+//     ctx.lineTo(end.x, end.y);
+//     ctx.stroke();
+// }
 
 function drawLabeledLine(canvasId, point1X, point1Y, point2X, point2Y, label, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
@@ -257,7 +336,6 @@ function drawLabeledRay(canvasId, point1X, point1Y, point2X, point2Y, label, col
     ctx.fillText(label, start.x + 5, start.y - 5);
 }
 
-
 function drawArcBetweenPoints(canvasId, centerX, centerY, pointBX, pointBY, pointCX, pointCY, radius, color, lineWidth) {
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext("2d");
@@ -268,29 +346,11 @@ function drawArcBetweenPoints(canvasId, centerX, centerY, pointBX, pointBY, poin
     // Calcular los ángulos correspondientes a los puntos B y C con respecto al punto A (centro)
     var angleB = Math.atan2(pointBY - centerY, pointBX - centerX);
     var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
-
-    // Dibujar el arco
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, angleB, angleC);
-    ctx.stroke();
-}
-
-function drawArcBetweenPoints2(canvasId, centerX, centerY, pointBX, pointBY, pointCX, pointCY, radius, color, lineWidth) {
-    var canvas = document.getElementById(canvasId);
-    var ctx = canvas.getContext("2d");
-
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineWidth;
-
-    // Calcular los ángulos correspondientes a los puntos B y C con respecto al punto A (centro)
-    var angleB = Math.atan2(pointBY - centerY, pointBX - centerX);
-    var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
-
+    
     // Asegurarse de que los ángulos estén en el rango correcto (de B a C en sentido horario)
-    if (angleB > angleC) {
-        var temp = angleB;
-        angleB = angleC;
-        angleC = temp;
+    if (angleB > angleC) 
+    {
+        angleC+=Math.PI*2;
     }
 
     // Dibujar el arco
@@ -311,10 +371,9 @@ function drawLabeledArc(canvasId, centerX, centerY, pointBX, pointBY, pointCX, p
     var angleC = Math.atan2(pointCY - centerY, pointCX - centerX);
 
     // Asegurarse de que los ángulos estén en el rango correcto (de B a C en sentido horario)
-    if (angleB > angleC) {
-        var temp = angleB;
-        angleB = angleC;
-        angleC = temp;
+    if (angleB > angleC) 
+    {
+        angleC+=Math.PI*2;
     }
 
     // Dibujar el arco

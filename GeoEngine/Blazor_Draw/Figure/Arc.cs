@@ -6,8 +6,8 @@ public class Arc : Figure
     public string Label = null!;
     //Parameters
     public Point Center { get; }
-    public Point B { get; }
-    public Point C { get; }
+    public Point StartPoint { get; }
+    public Point EndPoint { get; }
     public double Radius { get; }
 
     //==> Constructor random with label
@@ -22,8 +22,8 @@ public class Arc : Figure
         Point c = new Point(lineOfCode);
         double radius = random.Next(3, 190);
         Center = center;
-        B = b;
-        C = c;
+        StartPoint = b;
+        EndPoint = c;
         Radius = radius;
         Type = NodeType.Arc;
         Value = this;
@@ -40,8 +40,8 @@ public class Arc : Figure
         Point c = new Point(lineOfCode);
         double radius = random.Next(3, 190);
         Center = center;
-        B = b;
-        C = c;
+        StartPoint = b;
+        EndPoint = c;
         Radius = radius;
         Type = NodeType.Arc;
         Value = this;
@@ -51,30 +51,35 @@ public class Arc : Figure
     public Arc(Point center, Point b, Point c, double radius, int lineOfCode) : base(lineOfCode)
     {
         Center = center;
-        B = b;
-        C = c;
+        StartPoint = b;
+        EndPoint = c;
         Radius = radius;
     }
-    
+
     public override void Draw()
     {
         if (Label is not null)
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledArc", "graphCanvas", Center.X, Center.Y, B.X, B.Y, C.X, C.Y, Radius, Label, Color, 3);
+            DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledArc", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, Label, Color, 3);
         }
         else
         {
             GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawArcBetweenPoints2", "graphCanvas", Center.X, Center.Y, B.X, B.Y, C.X, C.Y, Radius, Color, 3);
+            // if (StartPoint.Equals(EndPoint))
+            // {
+                DrawEngine._jsRuntime.InvokeVoidAsync("drawCircleOutline", "graphCanvas", Center.X, Center.Y, Radius, Color, 3);
+            //     return;
+            // }
+            DrawEngine._jsRuntime.InvokeVoidAsync("drawArcBetweenPoints", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, Color, 3);
         }
     }
 
     public override string ToString()
     {
         if (Label is not null)
-            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y}) Color: {Color}";
+            return $"{Label}: C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.StartPoint.X},{this.StartPoint.Y}) P2:({this.EndPoint.X},{this.EndPoint.Y}) Color: {Color}";
 
-        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.B.X},{this.B.Y}) P2:({this.C.X},{this.C.Y}) Color: {Color}";
+        else return $" C:({this.Center.X};{this.Center.Y}) R:{Radius} P1:({this.StartPoint.X},{this.StartPoint.Y}) P2:({this.EndPoint.X},{this.EndPoint.Y}) Color: {Color}";
     }
 }

@@ -1,0 +1,16 @@
+line r "R";
+line p "P";
+circle c1;
+draw r;
+draw p;
+print r;
+print p;
+draw c1;
+i = intersect(p,r);
+i2 = intersect(r,c1);
+i3 = intersect(p,c1);
+print i;
+color red;
+draw i;
+draw i2;
+draw i3;

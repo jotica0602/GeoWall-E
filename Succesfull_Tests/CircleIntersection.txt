@@ -1,0 +1,12 @@
+a = point(200,200);
+b = point(200,400);
+m = measure(a,b);
+print m;
+c1 = circle(a,m);
+print c1;
+c2 = circle(b,m);
+draw c1;
+draw {c1,c2};
+i = intersect(c1,c2);
+color cyan;
+draw i;
