@@ -1,0 +1,113 @@
+.main-container {
+    display: flex;
+    height: 100vh;
+    color: white;
+    background-color: #333333;
+}
+
+.canvas-container {
+    flex: 1;
+    padding: 10px;
+}
+
+#graphCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+.control-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.code-input,
+.console-output {
+    flex: 1;
+    margin-bottom: 10px;
+
+    border-radius: 15px;
+}
+
+.code-input {
+    flex: 3;
+    /* Toma 3 partes del espacio disponible */
+}
+
+.console-output {
+    flex: 1;
+    /* Toma 1 parte del espacio disponible */
+}
+
+textarea {
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 10px;
+    resize: none;
+    border-radius: 15px;
+}
+
+.buttons button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    border-radius: 15px;
+}
+
+.buttons button:hover {
+    background-color: #666;
+}
+
+.save-container {
+    display: flex;
+    width: 100%;
+    /* Ajusta el ancho según tus necesidades */
+}
+
+.save-container input,
+.save-container button {
+    flex: 1;
+    /* Ambos elementos ocuparán la misma cantidad de espacio */
+    padding: 10px;
+    /* Ajuste para comodidad visual y táctil */
+    font-size: 16px;
+    /* Ajuste para una apariencia uniforme */
+
+    border-radius: 15px;
+}
+
+.save-container input {
+    height: 100%;
+    margin-right: 5px;
+    background-color: #333;
+    color: white;
+}
+
+.save-container button {
+    cursor: pointer;
+}
+
+.error-output {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 10px;
+    background-color: #222;
+    color: white;
+    border: 1px solid #555;
+
+    border-radius: 15px;
+}
+
+.error-output span {
+    color: red;
+}
