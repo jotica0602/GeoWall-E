@@ -1,0 +1,51 @@
+.main[b-i6bp6qhfh7] {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content[b-i6bp6qhfh7] {
+    flex: 1;
+    padding: 20px;
+}
+
+.navbar[b-i6bp6qhfh7] {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif; /* Change as needed */
+    border-radius: 15px; /* Gives the navbar rounded corners */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Adds a subtle shadow for a 3D effect */
+}
+
+.nav-button[b-i6bp6qhfh7] {
+    display: flex;
+    align-items: center;
+    margin-right: 15px; /* Adjust the margin between buttons */
+    padding: 10px; /* Adds some padding around the buttons */
+    border-radius: 5px; /* Gives the buttons rounded corners */
+    transition: background-color 0.3s ease; /* Adds a smooth transition effect when hovering over the buttons */
+}
+
+.nav-button a[b-i6bp6qhfh7] {
+    color: white;
+    text-decoration: none;
+    font-size: 18px; /* Change as needed */
+    font-weight: bold; /* Change as needed */
+}
+
+.nav-button:hover[b-i6bp6qhfh7] {
+    background-color: #555; /* Changes the button color when hovering */
+    text-decoration: none;
+}
+
+.navbar img[b-i6bp6qhfh7] {
+    height: 40px; /* Adjust the height as needed */
+    margin-right: 10px;
+}
+
+.bi[b-i6bp6qhfh7] {
+    font-size: 24px; /* Adjust as needed */
+}
