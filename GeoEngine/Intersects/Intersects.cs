@@ -271,11 +271,9 @@ public static class Intersections
                 }
 
                 return new FiniteSequence(intersection, lineOfCode);
-
             }
             else
             {
-
                 var (m, c) = LineEquation(line);
                 var center = circle.Center;
                 var radius = circle.Radius;
@@ -316,11 +314,12 @@ public static class Intersections
         object LineArcIntersect(Line line1, Arc arc2)
         {
             Circle circle = new Circle(arc2.Center, arc2.Radius, lineOfCode);
-            Sequence intersect = (Sequence)LineCircleIntersect(line1, circle);
-            if (intersect.Elements.Any())
+            var intersect = LineCircleIntersect(line1, circle);
+            List<Node> nodes = new();
+            if (intersect is Sequence)
             {
-                List<Node> nodes = new();
-                foreach (Point p in intersect.Elements)
+                Sequence seq = (Sequence)intersect;
+                foreach (Point p in seq.Elements)
                     if (IsInArc(p, arc2)) nodes.Add(p);
 
                 return new FiniteSequence(nodes, lineOfCode);
@@ -358,17 +357,20 @@ public static class Intersections
         object SegmentArcIntersect(Segment segment1, Arc arc2)
         {
             Line line = new Line(segment1.P1, segment1.P2, lineOfCode);
-            Sequence intersection = (Sequence)LineArcIntersect(line, arc2);
+            var intersection = LineArcIntersect(line, arc2);
             List<Node> points = new List<Node>();
 
-            if (intersection.Elements.Any())
+            if (intersection is Sequence)
             {
-                foreach (Point p in intersection.Elements)
+                Sequence seq = (Sequence)intersection;
+                foreach (Point p in seq.Elements)
                     if (IsInSegment(p, segment1))
                         points.Add(p);
+
+                return new FiniteSequence(points, lineOfCode);
             }
 
-            return new FiniteSequence(points, lineOfCode);
+            return intersection;
         }
 
         object SegmentCircleIntersect(Segment segment1, Circle circle2)
@@ -697,7 +699,7 @@ public static class Intersections
 
     public static bool IsInRay(Point point, Ray ray)
     {
-        Segment segment = new Segment(ray.P1, ray.P2,0);
+        Segment segment = new Segment(ray.P1, ray.P2, 0);
         return ((IsInSegment(point, segment) || PointDistance(point, ray.P2) <= PointDistance(point, ray.P1)));
     }
 
