@@ -11,3 +11,9 @@ C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.dll
 C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\refint\GeoEngine.dll
 C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.pdb
 C:\Users\Alex\Desktop\GeoWall-E\GeoEngine\obj\Debug\net8.0\ref\GeoEngine.dll
+E:\University\Wall-E\realwalle\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.csproj.AssemblyReference.cache
+E:\University\Wall-E\realwalle\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.GeneratedMSBuildEditorConfig.editorconfig
+E:\University\Wall-E\realwalle\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.AssemblyInfoInputs.cache
+E:\University\Wall-E\realwalle\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.AssemblyInfo.cs
+E:\University\Wall-E\realwalle\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.csproj.CoreCompileInputs.cache
+E:\University\Wall-E\realwalle\GeoWall-E\GeoEngine\obj\Debug\net8.0\GeoEngine.sourcelink.json
