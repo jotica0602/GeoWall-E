@@ -55,13 +55,13 @@ public class Arc : Figure
         EndPoint = c;
         Radius = radius;
     }
-
-    public async override void Draw()
+    
+    public async override void Draw(string label = "")
     {
-        if (Label is not null)
+        if (label is not "")
         {
             GetColor();
-            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledArc", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, Label, Color, 1);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledArc", "graphCanvas", Center.X, Center.Y, StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y, Radius, label, Color, 1);
         }
         else
         {

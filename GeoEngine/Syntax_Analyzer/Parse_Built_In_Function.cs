@@ -1,3 +1,5 @@
+using System.Reflection.Emit;
+
 namespace GeoEngine;
 public partial class ASTBuilder
 {
@@ -16,8 +18,15 @@ public partial class ASTBuilder
                 break;
 
             case "draw":
+                string label = "";
                 argument = BuildLevel1(scope);
-                builtInFunction = new Draw(argument, idLine);
+                if (currentToken.Type is TokenType.String)
+                {
+                    label = currentToken.GetName();
+                    System.Console.WriteLine($"label : {label}");
+                    MoveNext();
+                }
+                builtInFunction = new Draw(argument, label, idLine);
                 break;
 
             case "count":
@@ -53,7 +62,7 @@ public partial class ASTBuilder
                     );
                 Expect(TokenType.RightParenthesis);
                 HandlingFunction = false;
-                return new Intersect(arguments[0],arguments[1],idLine);
+                return new Intersect(arguments[0], arguments[1], idLine);
         }
 
         HandlingFunction = false;

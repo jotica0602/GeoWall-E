@@ -45,31 +45,17 @@ public class Circle : Figure
     }
 
 
-    public async override void Draw()
+    public async override void Draw(string label = "")
     {
-        if (Label is not null)
+        if (label is not "")
         {
             GetColor();
-            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledCircleOutline", "graphCanvas", Center.X, Center.Y, Radius, Label, Color, 1);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledCircleOutline", "graphCanvas", Center.X, Center.Y, Radius, label, Color, 1);
         }
         else
         {
             GetColor();
             await DrawEngine._jsRuntime.InvokeVoidAsync("drawCircleOutline", "graphCanvas", Center.X, Center.Y, Radius, Color, 1);
-        }
-    }
-
-    public void Fill()
-    {
-        if (Label is not null)
-        {
-            GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledCircle", "graphCanvas", Center.X, Center.Y, Radius, Label, Color, 3);
-        }
-        else
-        {
-            GetColor();
-            DrawEngine._jsRuntime.InvokeVoidAsync("drawCircle", "graphCanvas", Center.X, Center.Y, Radius, Color, 3);
         }
     }
 

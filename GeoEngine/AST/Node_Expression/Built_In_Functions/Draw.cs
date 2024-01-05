@@ -3,28 +3,30 @@ namespace GeoEngine;
 public class Draw : Expression
 {
     Node Argument { get; set; }
+    string Label { get; set; }
 
-    public Draw(Node argument, int lineOfCode) : base(lineOfCode)
+    public Draw(Node argument, string label, int lineOfCode) : base(lineOfCode)
     {
         Argument = argument;
+        Label = label;
     }
 
     public override bool CheckSemantic() => true;
-   
+
     public override void Evaluate()
     {
         Argument.Evaluate();
         if (Argument.Value is not Sequence)
-            ((Figure)Argument.Value).Draw();
+            ((Figure)Argument.Value).Draw(Label);
 
         if (Argument.Value is Sequence)
             foreach (var element in ((Sequence)Argument.Value).Elements)
             {
                 if (element is Figure)
-                    ((Figure)element.Value).Draw();
+                    ((Figure)element.Value).Draw(Label);
                 else
                 {
-                    var keepDrawing = new Draw(element,LineOfCode);
+                    var keepDrawing = new Draw(element, Label, LineOfCode);
                     keepDrawing.Evaluate();
                 }
             }

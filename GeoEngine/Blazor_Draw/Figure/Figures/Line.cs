@@ -60,12 +60,12 @@ public class Line : Figure
         Value = this;
     }
 
-    public async override void Draw()
+    public async override void Draw(string label = "")
     {
-        if (Label is not null)
+        if (label is not "")
         {
             GetColor();
-            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, Label, Color, 1);
+            await DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledLine", "graphCanvas", P1.X, P1.Y, P2.X, P2.Y, label, Color, 1);
         }
         else
         {

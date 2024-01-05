@@ -108,7 +108,6 @@ function drawLabeledCircle(canvasId, centerX, centerY, radius, label, color) {
     ctx.fillText(label, centerX, centerY);
 }
 
-// asdasdasd
 
 function drawLineThroughPoints(canvasId, point1X, point1Y, point2X, point2Y, color, lineWidth) {
     // Get the canvas element

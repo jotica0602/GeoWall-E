@@ -9,16 +9,17 @@ class Interpreter
     public static void Auto()
     {
         string input = @"
-        a = point(200,200);
-        b = point(200,400);
-        c = point (300,300);
-        l = line(a,b);
-        m = measure(a,b);
-        c1 = circle(a,m);
-        c2 = circle(b,m);
-        i1 = intersect(l,c1);
-        i2 = intersect(l,c2);
-        draw i1;";
+        point p1(250,283);
+        point p2(374,283)
+        ray r1(250,283);
+        ray r2(645,217);
+        print r1;
+        print r2;
+
+        draw {r1,r2};
+
+        color cyan;
+        draw intersect(r1,r2);";
 
         #region Lexer
         string path = "prueba";
