@@ -16,3 +16,16 @@
 .footer a:hover {
     color: #535353;
 }
+
+.github-button {
+    display: inline-block;
+    background-color: #f6f6f6;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.github-button:hover {
+    background-color: #878787;
+}

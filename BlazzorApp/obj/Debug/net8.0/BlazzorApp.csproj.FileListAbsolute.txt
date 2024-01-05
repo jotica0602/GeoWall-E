@@ -65,3 +65,5 @@ C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\refint\BlazzorApp.dl
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\BlazzorApp.pdb
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\BlazzorApp.genruntimeconfig.cache
 C:\Users\Alex\Desktop\GeoWall-E\BlazzorApp\obj\Debug\net8.0\ref\BlazzorApp.dll
+E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.exe
+E:\University\Wall-E\realwalle\GeoWall-E\BlazzorApp\bin\Debug\net8.0\BlazzorApp.dll
