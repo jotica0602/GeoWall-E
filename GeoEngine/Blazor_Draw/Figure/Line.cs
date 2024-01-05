@@ -23,8 +23,15 @@ public class Line : Figure
     //===>>> Constructor for random line with label
     public Line(string label, int lineOfCode) : base(lineOfCode)
     {
-        Point p1 = new Point(lineOfCode);
-        Point p2 = new Point(lineOfCode);
+        Random rnd = new Random();
+        int x = rnd.Next(0, 691);
+        int y = rnd.Next(0, 741);
+        Point p1 = new Point(x, y, lineOfCode);
+        x = rnd.Next(0, 691);
+        while (x == p1.X) x = rnd.Next(0, 691);
+        y = rnd.Next(0, 741);
+        while (y == p1.Y) y = rnd.Next(0, 741);
+        Point p2 = new Point(x, y, lineOfCode);
         Label = label;
         P1 = p1;
         P2 = p2;
