@@ -58,17 +58,12 @@ public class Point : Figure
         if (label is not "")
         {
             GetColor();
-            /* await */
             DrawEngine._jsRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", X, Y, label, Color, 3);
-            //await JSRuntime.InvokeVoidAsync("drawLabeledPoint", "graphCanvas", 100, 100, "Punto A", "red", 3);
         }
         else
         {
-            System.Console.WriteLine(Color);
             GetColor();
-            System.Console.WriteLine(Color);
             DrawEngine._jsRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", X, Y, Color, 3);
-            //await JSRuntime.InvokeVoidAsync("drawPoint", "graphCanvas", 100, 100, "red", 3);
         }
     }
 

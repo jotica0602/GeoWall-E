@@ -64,11 +64,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\BlazzorApp\\BlazzorApp.csproj",
+      "projectUniqueName": "C:\\Users\\Alex\\Documents\\Coding\\Projects\\GeoWall-E\\BlazzorApp\\BlazzorApp.csproj",
       "projectName": "BlazzorApp",
-      "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\BlazzorApp\\BlazzorApp.csproj",
+      "projectPath": "C:\\Users\\Alex\\Documents\\Coding\\Projects\\GeoWall-E\\BlazzorApp\\BlazzorApp.csproj",
       "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\BlazzorApp\\obj\\",
+      "outputPath": "C:\\Users\\Alex\\Documents\\Coding\\Projects\\GeoWall-E\\BlazzorApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -89,8 +89,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
-              "projectPath": "C:\\Users\\Alex\\Desktop\\GeoWall-E\\GeoEngine\\GeoEngine.csproj"
+            "C:\\Users\\Alex\\Documents\\Coding\\Projects\\GeoWall-E\\GeoEngine\\GeoEngine.csproj": {
+              "projectPath": "C:\\Users\\Alex\\Documents\\Coding\\Projects\\GeoWall-E\\GeoEngine\\GeoEngine.csproj"
             }
           }
         }

@@ -1,0 +1,18 @@
+a = point(200,200);
+b = point(200,400);
+c = point (300,200);
+l = line(b,c);
+m = measure(a,b);
+c1 = circle(a,m);
+c2 = circle(b,m);
+draw c1;
+draw {c1,c2,l};
+i1 = intersect(c1,c2);
+i2 = intersect(l,c1);
+i3 = intersect(l,c2);
+color cyan;
+draw i1;
+color red;
+draw i2;
+color yellow;
+draw i3;

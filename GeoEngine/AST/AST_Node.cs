@@ -13,5 +13,5 @@ public abstract class Node
     public abstract void Evaluate();
     public abstract bool CheckSemantic();
 
-    public override string ToString() => Value is null || this.Type is NodeType.Undefined ? "undefined" : Value.ToString()!;
+    
 }

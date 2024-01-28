@@ -10,6 +10,7 @@ public class Restore : Expression
     public override bool CheckSemantic() => true;
     public override void Evaluate()
     {
-        DrawEngine.stackColor.Pop();
+        if (DrawEngine.stackColor.Count() is not 0)
+            DrawEngine.stackColor.Pop();
     }
 }

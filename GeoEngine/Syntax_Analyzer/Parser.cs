@@ -118,7 +118,7 @@ public partial class ASTBuilder
                 return stringNode;
 
             case TokenType.Undefined:
-                Node undefined = new Literal(NodeType.Undefined, null!, currentLine);
+                Node undefined = new Undefined(currentLine);
                 MoveNext();
                 return undefined;
 

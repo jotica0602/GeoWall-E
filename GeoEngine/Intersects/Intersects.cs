@@ -27,7 +27,7 @@ public static class Intersections
                     case Circle circle2:
                         return CirclePointIntersect(point1, circle2);
                     default:
-                        return new Literal(NodeType.Undefined, lineOfCode);
+                        return new Undefined(lineOfCode);
                 }
             case Line line1:
                 switch (figure2)
@@ -45,7 +45,7 @@ public static class Intersections
                     case Circle circle2:
                         return LineCircleIntersect(line1, circle2);
                     default:
-                        return new Literal(NodeType.Undefined, lineOfCode);
+                        return new Undefined(lineOfCode);
                 }
             case Segment segment1:
                 switch (figure2)
@@ -63,7 +63,7 @@ public static class Intersections
                     case Circle circle2:
                         return SegmentCircleIntersect(segment1, circle2);
                     default:
-                        return new Literal(NodeType.Undefined, lineOfCode);
+                        return new Undefined(lineOfCode);
                 }
             case Ray ray1:
                 switch (figure2)
@@ -81,7 +81,7 @@ public static class Intersections
                     case Circle circle2:
                         return RayCircleIntersect(ray1, circle2);
                     default:
-                        return new Literal(NodeType.Undefined, lineOfCode);
+                        return new Undefined(lineOfCode);
                 }
             case Circle circle1:
                 switch (figure2)
@@ -99,7 +99,7 @@ public static class Intersections
                     case Circle circle2:
                         return CirclesIntersect(circle1, circle2);
                     default:
-                        return new Literal(NodeType.Undefined, lineOfCode);
+                        return new Undefined(lineOfCode);
                 }
             case Arc arc1:
                 switch (figure2)
@@ -117,10 +117,10 @@ public static class Intersections
                     case Circle circle2:
                         return ArcCircleIntersect(arc1, circle2);
                     default:
-                        return new Literal(NodeType.Undefined, lineOfCode);
+                        return new Undefined(lineOfCode);
                 }
         }
-        return new Literal(NodeType.Undefined, lineOfCode);
+        return new Undefined(lineOfCode);
 
 
         #region Point Intersections
@@ -196,7 +196,7 @@ public static class Intersections
             var (m2, n2) = LineEquation(line2);
             if (m1 == m2 && n1 == n2)
             {
-                return new Literal(NodeType.Undefined, lineOfCode);
+                return new Undefined(lineOfCode);
             }
             if (m1 == m2 & n1 != n2)
             {
@@ -692,10 +692,9 @@ public static class Intersections
     }
 
 
-    public static double PointDistance(Point point1, Point point2)
-    {
-        return Math.Sqrt(Math.Pow(point1.X - point2.X, 2) + Math.Pow(point1.Y - point2.Y, 2));
-    }
+    public static double PointDistance(Point point1, Point point2) =>
+     Math.Sqrt(Math.Pow(point1.X - point2.X, 2) + Math.Pow(point1.Y - point2.Y, 2));
+
 
     public static bool IsInRay(Point point, Ray ray)
     {

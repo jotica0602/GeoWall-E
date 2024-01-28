@@ -9,17 +9,15 @@ public class Tools
         // System.Console.WriteLine(nodeValue.GetType());
         if
         (
-            (nodeValue is Node && ((Node)nodeValue).Type is NodeType.Undefined) ||
             (nodeValue is Undefined) ||
             (nodeValue is Sequence && ((Sequence)nodeValue).Type is NodeType.EmptySequence) ||
-            (nodeValue is double && (double)nodeValue is 0) ||
-            (nodeValue is string && (string)nodeValue == string.Empty)
+            (nodeValue is double && (double)nodeValue is 0)
         )
 
         { return false; }
         else { return true; }
     }
-   
+
     public static void RunTimeNumberTypeChecker(Node LeftNode, string Operator, Node RightNode, int lineOfCode)
     {
         if (LeftNode.Type is not NodeType.Number || RightNode.Type is not NodeType.Number)
@@ -36,16 +34,22 @@ public class Tools
 
     public static bool IsSequence(Node node) => node.Type is NodeType.FiniteSequence || node.Type is NodeType.InfiniteSequence || node.Type is NodeType.EmptySequence;
 
-    public static Sequence SequenceConcatenation(Sequence LeftNode, Sequence RightNode, int lineOfCode)
+    public static Sequence SequenceConcatenation(Sequence LeftNode, Node RightNode, int lineOfCode)
     {
         if (LeftNode.Type is NodeType.FiniteSequence && RightNode.Type is NodeType.FiniteSequence)
         {
-            FiniteSequence result = new FiniteSequence(LeftNode.Elements.Concat(RightNode.Elements).ToList(), lineOfCode);
+            FiniteSequence result = new FiniteSequence(LeftNode.Elements.Concat(((Sequence)RightNode).Elements).ToList(), lineOfCode);
+            return result;
+        }
+        else if (LeftNode.Type is NodeType.FiniteSequence && RightNode.Value is Undefined)
+        {
+            LeftNode.Elements.Add(new Undefined(lineOfCode));
+            FiniteSequence result = new FiniteSequence(LeftNode.Elements, lineOfCode);
             return result;
         }
         else if (LeftNode.Type is NodeType.FiniteSequence && RightNode.Type is NodeType.InfiniteSequence)
         {
-            InfiniteSequence result = new InfiniteSequence(LeftNode.Elements.Concat(RightNode.Elements).ToList(), ((InfiniteSequence)RightNode).LowerBound, lineOfCode);
+            InfiniteSequence result = new InfiniteSequence(LeftNode.Elements.Concat(((Sequence)RightNode).Elements).ToList(), ((InfiniteSequence)RightNode).LowerBound, lineOfCode);
             System.Console.WriteLine(result.LowerBound);
             return result;
         }

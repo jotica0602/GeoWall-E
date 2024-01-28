@@ -10,8 +10,8 @@ public class Literal : Expression
             Type = NodeType.Number;
         else if (Value is string)
             Type = NodeType.String;
-        else
-            Type = NodeType.Undefined;
+        // else
+        //     Type = NodeType.Undefined;
     }
 
     public Literal(NodeType type, object value, int lineOfCode) : base(lineOfCode)

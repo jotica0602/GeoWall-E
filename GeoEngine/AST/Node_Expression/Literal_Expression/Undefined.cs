@@ -9,5 +9,7 @@ public class Undefined : Expression
 
     public override bool CheckSemantic() => true;
 
+    public override string ToString() => $"undefined";
+
     public override void Evaluate() { }
 }

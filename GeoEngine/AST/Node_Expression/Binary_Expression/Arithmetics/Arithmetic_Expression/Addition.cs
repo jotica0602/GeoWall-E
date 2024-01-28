@@ -22,13 +22,9 @@ public class Addition : ArithmeticExpression
         LeftNode.Evaluate();
         RightNode.Evaluate();
 
-        if (LeftNode.Type is NodeType.Undefined || RightNode.Type is NodeType.Undefined)
-        {
-            // System.Console.WriteLine("result is undefined");
-            Type = NodeType.Undefined;
-        }
 
-        else if (Tools.IsSequence(LeftNode) && Tools.IsSequence(RightNode))
+
+        if (Tools.IsSequence(LeftNode) && (Tools.IsSequence(RightNode) || RightNode is Undefined))
         {
             LeftNode = (Sequence)LeftNode.Value;
             RightNode = (Sequence)RightNode.Value;
@@ -36,6 +32,12 @@ public class Addition : ArithmeticExpression
             Value = Tools.SequenceConcatenation((Sequence)LeftNode, (Sequence)RightNode, LineOfCode);
             // System.Console.WriteLine(((Node)Value).Type);
             Type = ((Node)Value).Type;
+        }
+
+        else if (LeftNode.Value is Undefined || RightNode is Undefined)
+        {
+            Value = new Undefined(LineOfCode);
+            return;
         }
 
         else
